@@ -1,0 +1,12 @@
+{
+  "name": "articulate-release-staging",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Private release-boundary scaffold; no installable product release",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "test": "node --test test/release-boundary.test.mjs",
+    "check:release": "node scripts/check-release-boundary.mjs"
+  }
+}

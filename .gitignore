@@ -1,0 +1,66 @@
+# Dependencies, generated output, and local release-control work
+node_modules/
+artifacts/
+outputs/
+work/
+dist/
+build/
+coverage/
+.cache/
+tmp/
+temp/
+*.tgz
+*.tar
+*.zip
+
+# Profiles, user data, imported activity, and history
+profiles/
+profile/
+*profile*.json
+user-data/
+activity/
+history/
+imports/
+
+# Credentials and environment files (including examples)
+credentials/
+*credentials*
+secrets/
+.env
+.env.*
+*.env
+*.pem
+*.key
+*.p12
+*.pfx
+.aws/
+.ssh/
+.netrc
+.npmrc
+.pypirc
+tokens/
+token.json
+
+# Local agent and machine configuration
+.codex/
+.agents/
+.claude/
+.cursor/
+.articulate/
+.local/
+.mcp.json
+mcp.json
+*.local
+*.local.*
+.DS_Store
+
+# Databases, logs, and traces
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.sqlite3-*
+*.log
+logs/
+traces/

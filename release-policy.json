@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "phase": "bootstrap",
+  "expectedGitHubId": 1436838545,
+  "expectedRepository": "AshPlayer-1415/articulate",
+  "expectedOrigin": "https://github.com/AshPlayer-1415/articulate.git",
+  "stagingVisibility": "private",
+  "publicationAllowed": false,
+  "packagePublishAllowed": false,
+  "containerPublishAllowed": false,
+  "registryPublishAllowed": false,
+  "approvedSourceExports": [],
+  "approvedPrivateSourcePaths": [],
+  "userDataImportAllowed": false,
+  "internalDocumentImportAllowed": false,
+  "oldGitHistoryImportAllowed": false,
+  "automaticTelemetryAllowed": false,
+  "activityUploadAllowed": false,
+  "bootstrapAllowedFiles": [
+    "README.md",
+    ".gitignore",
+    "AGENTS.md",
+    "release-policy.json",
+    "package.json",
+    "scripts/check-release-boundary.mjs",
+    "test/release-boundary.test.mjs"
+  ],
+  "futureExportsRequire": {
+    "explicitLaterHumanInstruction": true,
+    "approvedSanitizedHandoff": true,
+    "exactReviewedPaths": true,
+    "sha256ContentHashes": true,
+    "globsOrDirectoryApprovalsAllowed": false
+  }
+}
