@@ -1,55 +1,57 @@
-# Release staging instructions
+# Private release staging instructions
 
-Work only from the sanitized release brief and explicitly approved sanitized
-handoffs. This is a fresh private staging repository, not a fork or continuation
-of private development. Access is not approval. Do not inspect other chats,
-private repositories, owner profiles, caches, credentials, or personal files.
-Do not contact people or message other chats.
+This repository is private staging. The authorized transition is exactly one
+direct child commit of bootstrap root `55d70fa505bb51a400c8bb977a2334b825ec9f6d`
+on `main`, containing the 130 approved source files listed in `release-policy.json`
+plus these four retained controls: `AGENTS.md`, `release-policy.json`,
+`scripts/check-release-boundary.mjs`, and `test/release-boundary.test.mjs`.
+The complete tree must contain exactly 134 regular files. The approved source
+bytes, including README.md, package.json and .gitignore, must remain unchanged.
 
-At bootstrap, only these exact paths may be committed:
+The approved public path, byte size and SHA-256 list is pinned independently in
+the guard. Policy edits are not human approval. This authorization covers this
+exact sanitized import only; it does not authorize future exports or publication.
+No private source paths, private provenance, user data, internal reports or
+documents, credentials, personal files, or old Git history may enter this repo.
+Do not clone, fetch, merge, mirror, copy wholesale, or add a remote for the separate
+development repository. Do not inspect other chats or the development checkout,
+contact people, or message other chats.
 
-- `README.md`
-- `.gitignore`
-- `AGENTS.md`
-- `release-policy.json`
-- `package.json`
-- `scripts/check-release-boundary.mjs`
-- `test/release-boundary.test.mjs`
+The only push destination is origin
+`https://github.com/AshPlayer-1415/articulate.git`, GitHub numeric repository ID
+`1436838545`, with private visibility. Verify origin, ID, visibility, staged tree,
+source hashes and bootstrap ancestry immediately before pushing. Stop if the
+checkout or remote changes unexpectedly. Keep the existing local pre-push hook
+active; do not remove, overwrite, or bypass it. Other branches, tags, deletions,
+new roots, merges, and later descendants are outside this transition.
 
-The list above has seven files; it is the complete bootstrap allowlist. Keep it
-identical to `release-policy.json` and the guard. Create one fresh root commit on
-`main`. Push only to origin `https://github.com/AshPlayer-1415/articulate.git`
-after verifying GitHub numeric repository ID `1436838545` and private visibility
-immediately before pushing. Refuse an unexpected identity, origin, or visibility.
+Publication, package publication, container publication, release creation and MCP
+registry publication remain prohibited. An explicit later human instruction is
+required for visibility changes, any publication, another destination, broad file
+discovery, additional source imports, or guard bypasses or relaxation. Future
+exports require a new approved sanitized handoff with exact reviewed paths and
+SHA-256 hashes. No globs or blanket directory approvals. No automatic telemetry
+or activity upload is authorized.
 
-Publication is disabled. There are no approved source exports or private source
-paths. Never clone, fetch, merge, mirror, copy wholesale, or add the separate
-development repository as a remote. Never import user data, internal documents,
-or old Git history.
+Validate with a fresh `npm ci --ignore-scripts --offline --no-audit --no-fund` when
+the existing cache permits; then `npm run check`, `npm test`, `npm run build`, and
+`node --test test/release-boundary.test.mjs`. Do not upgrade dependencies silently.
+Use disposable `ARTICULATE_DATA_DIR`, clear `ARTICULATE_EXTENSION_DATA_DIR`,
+`ARTICULATE_CLIENT_ID`, and `ARTICULATE_CLIENT_TOKEN_FILE`, and use only synthetic
+fixtures with loopback consent endpoints. No real profiles, activity imports or
+hosted model requests. Preserve first failures. A failed check never authorizes
+changing approved source bytes. Reverify all source hashes after checks. Keep
+logs, dependency/build output and review receipts outside committed source or
+ignored; do not add committed control or manifest files beyond the four above.
 
-An explicit later human instruction is required for visibility changes; package,
-container, release, or MCP registry publication; pushes to another repository;
-broad file discovery; external-source imports; and guard bypasses or changes that
-relax the boundary. Future exports require an approved sanitized handoff with
-exact reviewed paths and SHA-256 hashes. No globs or blanket directory approvals.
-Do not treat edits to policy files alone as human approval.
-
-Do not add automatic telemetry or activity upload. Keep dependencies, artifacts,
-profiles, credentials, environment files, local agent configuration, databases,
-logs, and local release-control records out of commits. An ignore rule is not a
-substitute for reviewing the staged file list and contents.
-
-Run the offline tests with `npm test`. Preserve failures and report real results.
-Never fake approval, identity checks, or test output. Install local hooks only
-without overwriting existing hooks or hook configuration. Inspect the staged
-filenames, origin, live repository ID, and private visibility immediately before
-the authorized push.
-
-Describe the intended product as a local MCP for explicitly reviewed collaboration
+Describe Articulate as a local MCP for explicitly reviewed collaboration
 preferences across coding agents. Historical inference is experimental. Do not
 claim factual improvement, deep behavioral understanding, enterprise compliance,
 learning gains, or marketplace approval.
 
-Guards are defense in depth and can be bypassed or changed locally. Workflow
-separation between chats is not an OS security guarantee. Stop after bootstrap;
-later release work requires the missing sanitized inputs and human instruction.
+Hooks are defense in depth: local scripts and Git configuration can be changed or
+bypassed, content under an approved path still requires review, and visibility
+can change after verification. Hooks do not enforce package or registry service
+permissions. Separate chats provide workflow separation, not OS security
+isolation. Stop after this exact private staging import and report actual checks,
+failures, commit and visibility. Later release work needs human instruction.

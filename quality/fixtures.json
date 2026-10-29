@@ -1,0 +1,449 @@
+{
+  "version": 1,
+  "description": "Synthetic, author-reviewed exact-span fixtures. These controls are not semantic entailment tests or proof of learning efficacy.",
+  "fixtures": [
+    {
+      "id": "biology-photosynthesis",
+      "task": "concept",
+      "question": "Explain photosynthesis to a beginner while preserving the material inputs, outputs, and energy source.",
+      "required": [
+        {
+          "id": "light",
+          "label": "Uses light energy",
+          "oneOf": [
+            "light energy"
+          ]
+        },
+        {
+          "id": "pigment",
+          "label": "Identifies chlorophyll",
+          "oneOf": [
+            "chlorophyll"
+          ]
+        },
+        {
+          "id": "carbon",
+          "label": "Identifies carbon dioxide",
+          "oneOf": [
+            "carbon dioxide"
+          ]
+        },
+        {
+          "id": "water",
+          "label": "Identifies water input",
+          "oneOf": [
+            "water"
+          ]
+        },
+        {
+          "id": "sugar",
+          "label": "Identifies sugars product",
+          "oneOf": [
+            "sugars"
+          ]
+        },
+        {
+          "id": "energy",
+          "label": "Describes stored chemical energy",
+          "oneOf": [
+            "chemical energy"
+          ]
+        },
+        {
+          "id": "oxygen",
+          "label": "Describes oxygen released",
+          "oneOf": [
+            "oxygen is released",
+            "releases oxygen"
+          ]
+        }
+      ],
+      "prohibited": [
+        {
+          "id": "reverse-oxygen",
+          "label": "Incorrect oxygen consumption",
+          "oneOf": [
+            "oxygen is consumed",
+            "consumes oxygen"
+          ]
+        },
+        {
+          "id": "no-light",
+          "label": "Incorrect absence of light",
+          "oneOf": [
+            "without light energy"
+          ]
+        }
+      ],
+      "formatSignals": [
+        {
+          "id": "big-picture",
+          "label": "Overview section",
+          "oneOf": [
+            "overview"
+          ]
+        },
+        {
+          "id": "structured",
+          "label": "Sequence marker",
+          "oneOf": [
+            "1.",
+            "step 1",
+            "→"
+          ]
+        }
+      ],
+      "examples": {
+        "baseline": "Photosynthesis uses light energy absorbed by chlorophyll and other pigments. Plants combine carbon dioxide and water to produce sugars. Those sugars store chemical energy. Oxygen is released.",
+        "adapted": "### Overview\nPhotosynthesis lets a plant store energy from light. Chlorophyll helps absorb light energy.\n\n### Sequence\n1. Start with carbon dioxide and water.\n2. Use absorbed light energy to make sugars.\n3. The sugars store chemical energy the plant can use.\n4. Oxygen is released.",
+        "regressions": [
+          {
+            "id": "omit-oxygen",
+            "text": "Plants absorb light energy using chlorophyll. Carbon dioxide and water form sugars that store chemical energy."
+          },
+          {
+            "id": "reverse-output",
+            "text": "Light energy captured by chlorophyll helps convert carbon dioxide and water into sugars containing chemical energy; oxygen is consumed instead of released."
+          }
+        ]
+      }
+    },
+    {
+      "id": "math-factorial",
+      "task": "mathematics",
+      "question": "Explain factorial(4) recursively without changing the base case, expression or value.",
+      "required": [
+        {
+          "id": "base",
+          "label": "Correct base case",
+          "oneOf": [
+            "factorial(1) = 1"
+          ]
+        },
+        {
+          "id": "expr",
+          "label": "Correct product",
+          "oneOf": [
+            "4 × 3 × 2 × 1"
+          ]
+        },
+        {
+          "id": "result",
+          "label": "Correct result",
+          "oneOf": [
+            "factorial(4) = 24"
+          ]
+        },
+        {
+          "id": "concept",
+          "label": "Explains base case",
+          "oneOf": [
+            "base case"
+          ]
+        }
+      ],
+      "prohibited": [
+        {
+          "id": "wrong-result",
+          "label": "Incorrect result",
+          "oneOf": [
+            "factorial(4) = 12",
+            "factorial(4) = 48"
+          ]
+        },
+        {
+          "id": "infinite",
+          "label": "Incorrect nontermination",
+          "oneOf": [
+            "recursion never stops"
+          ]
+        }
+      ],
+      "formatSignals": [
+        {
+          "id": "steps",
+          "label": "Ordered structure",
+          "oneOf": [
+            "1.",
+            "step 1"
+          ]
+        }
+      ],
+      "examples": {
+        "baseline": "For factorial, recursion calls the same calculation on smaller positive integers until its base case. factorial(1) = 1. Expanding gives 4 × 3 × 2 × 1, so factorial(4) = 24.",
+        "adapted": "### Worked steps\n1. Use the base case: factorial(1) = 1.\n2. Expand factorial(4) through smaller values.\n3. Multiply 4 × 3 × 2 × 1.\n4. Return factorial(4) = 24.",
+        "regressions": [
+          {
+            "id": "alter-value",
+            "text": "The base case is factorial(1) = 1. Multiply 4 × 3 × 2 × 1, so factorial(4) = 12."
+          },
+          {
+            "id": "omit-base",
+            "text": "For this example, multiply 4 × 3 × 2 × 1 and obtain factorial(4) = 24."
+          }
+        ]
+      }
+    },
+    {
+      "id": "debugging-undefined",
+      "task": "debugging",
+      "question": "Explain the cause and solution for a TypeError while preserving the exact diagnostic.",
+      "required": [
+        {
+          "id": "exact-error",
+          "label": "Preserves the exact error",
+          "oneOf": [
+            "TypeError: Cannot read properties of undefined (reading 'id')"
+          ]
+        },
+        {
+          "id": "root",
+          "label": "Explains why the value is undefined",
+          "oneOf": [
+            "profile is undefined",
+            "the profile is undefined"
+          ]
+        },
+        {
+          "id": "repair",
+          "label": "Shows optional chaining as one guarded access",
+          "oneOf": [
+            "profile?.id"
+          ]
+        }
+      ],
+      "prohibited": [
+        {
+          "id": "ignore",
+          "label": "Unsafe instruction to ignore the error",
+          "oneOf": [
+            "ignore the error"
+          ]
+        },
+        {
+          "id": "disable",
+          "label": "Invalid fix to disable type checking",
+          "oneOf": [
+            "disable type checking"
+          ]
+        }
+      ],
+      "formatSignals": [
+        {
+          "id": "fix-heading",
+          "label": "Visible fix structure",
+          "oneOf": [
+            "### fix",
+            "### steps",
+            "1."
+          ]
+        }
+      ],
+      "examples": {
+        "baseline": "TypeError: Cannot read properties of undefined (reading 'id') means profile is undefined when code tries to access its id property. If missing profiles are allowed, check first or use profile?.id. If not, fix the caller that failed to initialize the value.",
+        "adapted": "### Why it happens\nTypeError: Cannot read properties of undefined (reading 'id')\nHere the profile is undefined, so a direct property access fails.\n\n### Fix\n1. If absence is valid, use profile?.id.\n2. Otherwise inspect why the caller did not initialize the profile.",
+        "regressions": [
+          {
+            "id": "silence-diagnostic",
+            "text": "The profile is undefined. Use profile?.id to avoid the crash; no need to quote the original message."
+          },
+          {
+            "id": "unsafe-fix",
+            "text": "TypeError: Cannot read properties of undefined (reading 'id'). The profile is undefined; use profile?.id and disable type checking to get past this."
+          }
+        ]
+      }
+    },
+    {
+      "id": "research-uncertainty",
+      "task": "research",
+      "question": "Summarize a fictional observational study without overstating causal evidence or losing reported statistics.",
+      "required": [
+        {
+          "id": "fictional",
+          "label": "Marks scenario synthetic",
+          "oneOf": [
+            "synthetic"
+          ]
+        },
+        {
+          "id": "design",
+          "label": "Correct study design",
+          "oneOf": [
+            "observational"
+          ]
+        },
+        {
+          "id": "sample",
+          "label": "Preserves sample size",
+          "oneOf": [
+            "n = 120"
+          ]
+        },
+        {
+          "id": "p-value",
+          "label": "Preserves reported p value",
+          "oneOf": [
+            "p = 0.04"
+          ]
+        },
+        {
+          "id": "interval",
+          "label": "Preserves interval mention",
+          "oneOf": [
+            "95% confidence interval"
+          ]
+        },
+        {
+          "id": "association",
+          "label": "Distinguishes association",
+          "oneOf": [
+            "association"
+          ]
+        },
+        {
+          "id": "caveat",
+          "label": "Explicitly states noncausality",
+          "oneOf": [
+            "does not establish causation"
+          ]
+        }
+      ],
+      "prohibited": [
+        {
+          "id": "causal-overclaim",
+          "label": "Unwarranted causal conclusion",
+          "oneOf": [
+            "proves causation",
+            "causes better learning"
+          ]
+        },
+        {
+          "id": "wrong-design",
+          "label": "Wrong study design",
+          "oneOf": [
+            "randomized trial"
+          ]
+        },
+        {
+          "id": "certainty",
+          "label": "Unwarranted guarantee",
+          "oneOf": [
+            "guaranteed improvement"
+          ]
+        }
+      ],
+      "formatSignals": [
+        {
+          "id": "limitation",
+          "label": "Limitations section",
+          "oneOf": [
+            "### limitation",
+            "### caveat"
+          ]
+        }
+      ],
+      "examples": {
+        "baseline": "This synthetic observational study (n = 120) reports an association between explanation format and survey responses, p = 0.04, with a 95% confidence interval reported for the estimate. This association does not establish causation.",
+        "adapted": "### Reported result\nA synthetic observational analysis included n = 120. It reports an association between explanation format and survey responses, p = 0.04, and a 95% confidence interval.\n\n### Limitations\nThe association does not establish causation; unmeasured factors may explain the pattern.",
+        "regressions": [
+          {
+            "id": "drop-caveat",
+            "text": "A synthetic observational analysis (n = 120) reports an association, p = 0.04, and a 95% confidence interval. This is promising."
+          },
+          {
+            "id": "claim-causality",
+            "text": "This synthetic observational analysis (n = 120) reports an association, p = 0.04, a 95% confidence interval, and does not establish causation; nonetheless the format proves causation."
+          }
+        ]
+      }
+    },
+    {
+      "id": "privacy-local-profile",
+      "task": "concept",
+      "question": "Explain exactly what remains local and what a hosted model may see when Articulate personalization is invoked.",
+      "required": [
+        {
+          "id": "device",
+          "label": "States device-local storage",
+          "oneOf": [
+            "stored on the user's device",
+            "stored on your device"
+          ]
+        },
+        {
+          "id": "provider",
+          "label": "States hosted provider processing",
+          "oneOf": [
+            "AI provider may process"
+          ]
+        },
+        {
+          "id": "consent",
+          "label": "Requires opt-in",
+          "oneOf": [
+            "explicit consent",
+            "explicit permission"
+          ]
+        },
+        {
+          "id": "no-server",
+          "label": "States no proprietary backend",
+          "oneOf": [
+            "no Articulate-operated server"
+          ]
+        },
+        {
+          "id": "not-auto",
+          "label": "No automatic cross-chat activation promise",
+          "oneOf": [
+            "not automatic",
+            "not automatically"
+          ]
+        }
+      ],
+      "prohibited": [
+        {
+          "id": "stays-entirely",
+          "label": "Incorrect absolute local inference claim",
+          "oneOf": [
+            "nothing ever leaves your device",
+            "everything stays on your device"
+          ]
+        },
+        {
+          "id": "host-memory",
+          "label": "Incorrect automatic memory integration",
+          "oneOf": [
+            "automatically saved to ChatGPT memory",
+            "automatically writes Claude memory"
+          ]
+        }
+      ],
+      "formatSignals": [
+        {
+          "id": "boundary",
+          "label": "Distinct sharing section",
+          "oneOf": [
+            "### sharing",
+            "### ai provider"
+          ]
+        }
+      ],
+      "examples": {
+        "baseline": "The Articulate profile is stored on your device, with no Articulate-operated server. With explicit consent, an AI provider may process a limited presentation policy when you invoke it. Automatic use in unrelated conversations is not guaranteed; it is not automatic.",
+        "adapted": "### Local profile\nYour score summary is stored on your device. There is no Articulate-operated server.\n\n### Sharing boundary\nOnly after explicit permission, an AI provider may process the derived presentation policy. Cross-chat use is not automatic, and the provider may also process anything typed directly into its chat.",
+        "regressions": [
+          {
+            "id": "absolute-privacy",
+            "text": "Your scores are stored on your device, with no Articulate-operated server. With explicit consent an AI provider may process the adaptation. Cross-chat use is not automatic, but nothing ever leaves your device."
+          },
+          {
+            "id": "memory-claim",
+            "text": "Your scores are stored on your device with no Articulate-operated server. With explicit permission an AI provider may process a policy. Cross-chat use is not automatic, but the plugin is automatically saved to ChatGPT memory."
+          }
+        ]
+      }
+    }
+  ]
+}

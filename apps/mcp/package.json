@@ -1,0 +1,23 @@
+{
+  "name": "@articulate/mcp",
+  "version": "2.2.0-alpha.5",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "articulate-mcp": "./src/server.mjs"
+  },
+  "scripts": {
+    "start": "node --experimental-strip-types src/server.mjs",
+    "permissions": "node --experimental-strip-types src/permissions.mjs",
+    "test": "node --experimental-strip-types --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "@articulate/core": "0.1.0",
+    "@articulate/storage-local": "0.1.0",
+    "@modelcontextprotocol/server": "2.4.0",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "2.4.0"
+  }
+}

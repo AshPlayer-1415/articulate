@@ -1,0 +1,68 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/mcpb/main/schemas/mcpb-manifest-v0.4.schema.json",
+  "manifest_version": "0.4",
+  "name": "articulate-local",
+  "display_name": "Articulate",
+  "version": "2.2.0-alpha.5",
+  "description": "Local presentation-preference profile for Claude; same engine as Codex and Cursor packs.",
+  "long_description": "Local activity imports, reviewed working preferences and shared MCP memory. Collection is explicit and on-device. Register each client locally and approve its separate sharing grant; imported raw activity is never returned through MCP. No Articulate cloud or learning-efficacy claim.",
+  "author": {
+    "name": "Articulate Contributors"
+  },
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.mjs",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/server/index.mjs"
+      ],
+      "env": {
+        "ARTICULATE_CLIENT_ID": "${user_config.client_id}",
+        "ARTICULATE_CLIENT_TOKEN_FILE": "${user_config.client_token_file}",
+        "ARTICULATE_EXTENSION_DATA_DIR": "${user_config.data_dir}"
+      }
+    }
+  },
+  "tools_generated": true,
+  "keywords": [
+    "learning",
+    "assessment",
+    "personalization",
+    "privacy",
+    "local"
+  ],
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "runtimes": {
+      "node": ">=22.16.0"
+    }
+  },
+  "user_config": {
+    "client_id": {
+      "type": "string",
+      "title": "Registered client ID",
+      "description": "Client ID returned by the trusted local activity client add command. Leave blank for legacy preference mode before enrollment.",
+      "required": false,
+      "default": ""
+    },
+    "client_token_file": {
+      "type": "file",
+      "title": "Private client credential file",
+      "description": "Absolute token-file path returned by local enrollment; choose the file without copying its contents.",
+      "required": false,
+      "default": ""
+    },
+    "data_dir": {
+      "type": "directory",
+      "title": "Activity data directory",
+      "description": "Absolute Articulate data directory used during enrollment. Blank uses the existing default local profile.",
+      "required": false,
+      "default": ""
+    }
+  }
+}

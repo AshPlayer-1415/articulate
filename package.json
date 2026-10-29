@@ -1,12 +1,27 @@
 {
-  "name": "articulate-release-staging",
-  "version": "0.0.0",
+  "name": "@articulate/source",
+  "version": "2.2.0-alpha.5",
   "private": true,
-  "description": "Private release-boundary scaffold; no installable product release",
+  "license": "Apache-2.0",
   "type": "module",
-  "engines": { "node": ">=22" },
+  "packageManager": "npm@11.13.0",
+  "engines": {
+    "node": ">=22.16.0"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/cli",
+    "apps/mcp"
+  ],
   "scripts": {
-    "test": "node --test test/release-boundary.test.mjs",
-    "check:release": "node scripts/check-release-boundary.mjs"
+    "check": "tsc --noEmit -p tsconfig.json",
+    "test": "node --experimental-strip-types --test packages/core/test/*.test.mjs packages/storage-local/test/*.test.mjs apps/activity/test/*.test.mjs apps/mcp/test/*.test.mjs",
+    "build": "node scripts/build-local.mjs",
+    "mcp:start": "node --experimental-strip-types apps/mcp/src/server.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.9",
+    "fflate": "^0.8.2",
+    "typescript": "^5.8.3"
   }
 }

@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "disclaimer": "Synthetic pilot topics only. Not validated instruments. Preference ≠ comprehension. No efficacy claimed.",
+  "primaryEndpoint": "paired_adapted_minus_default_concept_rubric_0_to_3",
+  "secondaryEndpoints": [
+    "near_transfer_correct_binary",
+    "self_timed_seconds_to_adequate",
+    "clarification_turns",
+    "perceived_effort_1_to_5",
+    "delayed_retention_2_to_7_days"
+  ],
+  "pairs": [
+    {
+      "id": "pair-energy-storage",
+      "theme": "Energy conversion / storage (synthetic)",
+      "topics": [
+        {
+          "id": "topic-photosynthesis-mech",
+          "title": "Photosynthesis mechanism (synthetic)",
+          "qualityCaseId": "biology-photosynthesis",
+          "task": "concept",
+          "canonicalFacts": [
+            "Light energy is captured by chlorophyll.",
+            "Carbon dioxide and water are inputs.",
+            "Sugars store chemical energy.",
+            "Oxygen is released."
+          ],
+          "caveats": [
+            "This is a simplified teaching model, not a full biochemical pathway."
+          ],
+          "conceptPrompt": "In your own words, explain how photosynthesis converts inputs into stored energy. Include what goes in, what comes out, and the role of light.",
+          "transferPrompt": "A closed terrarium has plants but no new air from outside. Using only the photosynthesis facts above, what gas would you expect to increase if the plants keep photosynthesizing, and why?",
+          "transferRubric": {
+            "correctIfMentions": ["oxygen"],
+            "mustNotClaim": ["nitrogen increases from photosynthesis", "photosynthesis consumes oxygen as the only product"]
+          }
+        },
+        {
+          "id": "topic-battery-chem-energy",
+          "title": "Chemical energy in a simple battery model (synthetic)",
+          "qualityCaseId": null,
+          "task": "concept",
+          "canonicalFacts": [
+            "A battery stores chemical energy.",
+            "During discharge, chemical energy converts to electrical energy.",
+            "Voltage is the electrical potential difference between terminals.",
+            "Capacity describes how much charge the battery can deliver."
+          ],
+          "caveats": [
+            "This model ignores chemistry-specific side reactions and thermal losses."
+          ],
+          "conceptPrompt": "Explain how a battery provides usable energy. Cover what is stored, what is delivered, and what voltage vs capacity mean at a conceptual level.",
+          "transferPrompt": "Two batteries have the same voltage but one has twice the capacity. For the same device load, which lasts longer, and which fact justifies that?",
+          "transferRubric": {
+            "correctIfMentions": ["capacity", "lasts longer"],
+            "mustNotClaim": ["higher voltage always lasts longer", "capacity equals voltage"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "pair-control-flow",
+      "theme": "Control of computation (synthetic)",
+      "topics": [
+        {
+          "id": "topic-recursion-factorial",
+          "title": "Recursion via factorial (synthetic)",
+          "qualityCaseId": "math-factorial",
+          "task": "mathematics",
+          "canonicalFacts": [
+            "Recursion solves a task using smaller versions of the same task.",
+            "A base case stops the recursion.",
+            "factorial(n) = n × factorial(n-1) for n > 1.",
+            "factorial(1) = 1.",
+            "factorial(4) = 24."
+          ],
+          "caveats": [
+            "This illustrates recursion structure; it is not a claim about optimal algorithms."
+          ],
+          "conceptPrompt": "Explain recursion using factorial. Include the recursive relation, the base case, and compute factorial(4).",
+          "transferPrompt": "Using the same recursive idea, what is factorial(5)? Show the relation to factorial(4).",
+          "transferRubric": {
+            "correctIfMentions": ["120", "5 ×"],
+            "mustNotClaim": ["factorial(5) = 24", "factorial(5) = 60"]
+          }
+        },
+        {
+          "id": "topic-loop-accumulation",
+          "title": "Loop accumulation (synthetic)",
+          "qualityCaseId": null,
+          "task": "concept",
+          "canonicalFacts": [
+            "A loop repeats a body while a condition holds.",
+            "An accumulator variable stores a running result.",
+            "Each iteration updates the accumulator.",
+            "When the loop ends, the accumulator holds the final result."
+          ],
+          "caveats": [
+            "This is a conceptual model; language-specific loop syntax is omitted."
+          ],
+          "conceptPrompt": "Explain how a loop with an accumulator computes a running product of integers from 1 to n. State the role of the condition and the accumulator.",
+          "transferPrompt": "If the accumulator starts at 1 and multiplies by each integer from 1 to 4, what final value should it hold, and which fact justifies that?",
+          "transferRubric": {
+            "correctIfMentions": ["24"],
+            "mustNotClaim": ["final value is 10", "final value is 4"]
+          }
+        }
+      ]
+    }
+  ]
+}

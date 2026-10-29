@@ -1,0 +1,14 @@
+{
+  "name": "@articulate/storage-local",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js",
+    "./activity": "./src/activity.js",
+    "./activity-schema": "./src/activity-schema.js"
+  },
+  "dependencies": {
+    "@articulate/core": "0.1.0"
+  }
+}
