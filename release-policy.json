@@ -25,8 +25,8 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "size": 1227,
-      "sha256": "54bef6db554af73e4a620b9847fc7f4315803fe9c4417cf9030fa5479f30cf4b",
+      "size": 1454,
+      "sha256": "0112497fda54670dc9fe887f639e8a5931da5e4e4fa136fb09f6c64b78e80f02",
       "mode": "100644"
     },
     {
@@ -55,8 +55,8 @@
     },
     {
       "path": "README.md",
-      "size": 4188,
-      "sha256": "eb4ffd629db70edb5cbf41c383506be61b9f46ba352d37de942d70fe855d3b2f",
+      "size": 4268,
+      "sha256": "ab7d7ddb4475a1e9a51262588e10d46133d1071bc4d6d43b5476067665a857be",
       "mode": "100644"
     },
     {
@@ -68,7 +68,7 @@
     {
       "path": "adapters/claude/mcpb/manifest.json",
       "size": 2260,
-      "sha256": "0ae79d317aa6c931c43c150dd19ceaea142d35fb53ed194e136be3f39c09bed7",
+      "sha256": "6a9e4352059c5dc3eaa755833e675a784e86c3eb0759285204bd4e328c8cdbec",
       "mode": "100644"
     },
     {
@@ -103,8 +103,8 @@
     },
     {
       "path": "apps/activity/src/connections.mjs",
-      "size": 6782,
-      "sha256": "587eade07ec71c457c4a783367062d15a73f7684a0ca6635e54d40741d2a44ed",
+      "size": 6932,
+      "sha256": "a4d4f2305c54a55970cbd4a5015e02b785261d165a95ee10ad18f3811c532747",
       "mode": "100644"
     },
     {
@@ -145,8 +145,8 @@
     },
     {
       "path": "apps/activity/src/memory.mjs",
-      "size": 11905,
-      "sha256": "1c57b589a10d650c233486a18b92b423b53ebf29882cf0bd4cce8562ec464e3e",
+      "size": 11945,
+      "sha256": "fc655f9a766099cfa6633781ac4e906a736d4426730683e7f1217a3ae0a2cc20",
       "mode": "100644"
     },
     {
@@ -228,6 +228,12 @@
       "mode": "100644"
     },
     {
+      "path": "apps/activity/test/installation.test.mjs",
+      "size": 4525,
+      "sha256": "701bc6ea81b4bdcb4fd28ccdcc9cbea45f394fb01fdec96d24e128ecafe232c6",
+      "mode": "100644"
+    },
+    {
       "path": "apps/activity/test/pattern-evidence.test.mjs",
       "size": 3109,
       "sha256": "2f04ba368feea6166d76457ded79396de1c24b6d00c3ebbd2f03312e8d45809f",
@@ -272,7 +278,7 @@
     {
       "path": "apps/mcp/package.json",
       "size": 621,
-      "sha256": "4115b110fe231ccaa4588527d9db5b8b9811ee2b6c8ae0a6b25b99e7a2df6c21",
+      "sha256": "cf0da84a2a104c98dd58656d00ef3002c2bde53418c6f9cabb9a1eeaa09b32db",
       "mode": "100644"
     },
     {
@@ -385,14 +391,20 @@
     },
     {
       "path": "docs/PUBLIC-RELEASE-CHECKLIST.md",
-      "size": 2836,
-      "sha256": "5681572ca324b6de83192869fd935c703f3f30b03cf74439edf3057620c7a370",
+      "size": 2860,
+      "sha256": "17f309255aa97dad9dcd58597bbcd1261959f5bfd485b7640e09cba7f99a814a",
       "mode": "100644"
     },
     {
       "path": "docs/agents.md",
       "size": 2653,
-      "sha256": "aa6cecdfaf1f85ab413119177857d84b3f61b51ce4142b8c48b01e43e34f975c",
+      "sha256": "dbd17acab10c14168f2a58491479b525c1887bb39c48b2a568d31180ff9be2ec",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/compatibility-and-scope.md",
+      "size": 5446,
+      "sha256": "18165e0b8980569234f89d673bfa4dc93961b0784d414646438678b7878f41b3",
       "mode": "100644"
     },
     {
@@ -426,6 +438,12 @@
       "mode": "100644"
     },
     {
+      "path": "docs/releases/2.2.0-alpha.7.md",
+      "size": 999,
+      "sha256": "9dc38bbef9f262bee6a34ae4323257dcd9b138104adfaffdd4ad095691f596c7",
+      "mode": "100644"
+    },
+    {
       "path": "docs/setup.md",
       "size": 2222,
       "sha256": "eb2a39ee73dea196810de17e23738c0f968934a520a468cec157707daa0c6788",
@@ -433,8 +451,8 @@
     },
     {
       "path": "docs/testing.md",
-      "size": 1306,
-      "sha256": "abbb2116773779cafda3dc1fbb87ebadd1f51fa41985740939dbbc53464f4c54",
+      "size": 1680,
+      "sha256": "b095310ad6ac176ddc7a346cdae740ef37e60ac14ebd948effb53ce9afc0cbdd",
       "mode": "100644"
     },
     {
@@ -446,13 +464,13 @@
     {
       "path": "package-lock.json",
       "size": 22932,
-      "sha256": "6ad79f080ba101806732f54f33cb8dd2ce34853d7449ae1303385d65f14c8f5f",
+      "sha256": "0d3d01f2c1b8f31d93ab327df39b728e24ea729afbcebd42602905eb3980f3a2",
       "mode": "100644"
     },
     {
       "path": "package.json",
-      "size": 1066,
-      "sha256": "1e414e1100f1c63197adbda3c96fec5ce8da91d08cafa70dc170d0bfe784679a",
+      "size": 1223,
+      "sha256": "104114c85fe8e080355a81f5be777a55b7e63417c3e3716e9c2285172267897e",
       "mode": "100644"
     },
     {
@@ -721,8 +739,8 @@
     },
     {
       "path": "packages/storage-local/src/index.js",
-      "size": 5710,
-      "sha256": "dd38782fe60935dc950045930deffcf9e316bbaa70564a9e129a96db266e31ae",
+      "size": 5998,
+      "sha256": "956772c452222938b6adc5c9150ac678b2c5fb87e38ef9b7817ad941c37e902a",
       "mode": "100644"
     },
     {
@@ -759,6 +777,12 @@
       "path": "packages/storage-local/test/checkpoint.test.mjs",
       "size": 5437,
       "sha256": "c72ebfaece0c94ef26f7dbc58625089ef3b4cc229c2e17dd100175529459064d",
+      "mode": "100644"
+    },
+    {
+      "path": "packages/storage-local/test/corrupt-json.test.mjs",
+      "size": 979,
+      "sha256": "d817a2c15357e3d9a7c4226e5cece682dac4efe0a0473952f7a870019c7a1655",
       "mode": "100644"
     },
     {
@@ -806,7 +830,7 @@
     {
       "path": "release.json",
       "size": 78,
-      "sha256": "5429ce1ff889555288e168c055b87f462b274484a99c5ede398e265960e6dfba",
+      "sha256": "db26e9e7cff21c25fc5688907305bc7895f7b9ed6a5c6e745b97180fc93b1e29",
       "mode": "100644"
     },
     {
@@ -840,9 +864,21 @@
       "mode": "100644"
     },
     {
+      "path": "scripts/test-cursor-transport.mjs",
+      "size": 6285,
+      "sha256": "ec0c331b71ef38ce0129dff5d71d3d03dd39cafc53cf5a9f7b00f4a23088c958",
+      "mode": "100644"
+    },
+    {
       "path": "scripts/test-distribution.mjs",
       "size": 7073,
       "sha256": "a5279a8c6a01a1b86d59388d96fa70fb03a57d40b9e3882297632a6dc921d7d6",
+      "mode": "100644"
+    },
+    {
+      "path": "scripts/test-resilience.mjs",
+      "size": 11801,
+      "sha256": "45c2dbe33c0b23ee8f15a21426cc20af9073a5894a82901cf834e4d5750590ea",
       "mode": "100644"
     },
     {

@@ -1,6 +1,6 @@
 {
   "name": "@articulate/source",
-  "version": "2.2.0-alpha.6",
+  "version": "2.2.0-alpha.7",
   "private": true,
   "license": "Apache-2.0",
   "type": "module",
@@ -21,7 +21,9 @@
     "test:boundary": "node --test test/release-boundary.test.mjs",
     "test:distribution": "node --experimental-strip-types scripts/test-distribution.mjs",
     "prepare": "node scripts/build-local.mjs",
-    "release:manifest": "node scripts/refresh-release-policy.mjs"
+    "release:manifest": "node scripts/refresh-release-policy.mjs",
+    "test:resilience": "node --experimental-strip-types scripts/test-resilience.mjs",
+    "test:cursor-transport": "node scripts/test-cursor-transport.mjs"
   },
   "devDependencies": {
     "esbuild": "^0.25.9",

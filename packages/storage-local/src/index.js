@@ -27,7 +27,10 @@ export class LocalProfileStore {
     catch (e) { if (e.code === "ENOENT") return null; throw e; }
     if (!stat.isFile() || stat.isSymbolicLink()) throw new Error("Profile path must be a regular file");
     if (stat.size > MAX_PROFILE_BYTES) throw new Error("Profile is too large");
-    const profile = JSON.parse(await fs.readFile(this.file, "utf8"));
+    let profile;
+    const text = await fs.readFile(this.file, "utf8");
+    try { profile = JSON.parse(text); }
+    catch { throw new Error("Invalid local profile JSON; inspect or restore the file locally"); }
     if (!isArticulateProfile(profile)) throw new Error("Unsupported or invalid Articulate profile");
     return profile;
   }
@@ -83,7 +86,10 @@ export class LocalAssessmentSessionStore {
     // Allow host-personalized surfaces (still tiny vs profiles; no raw answers).
     if (!stat.isFile() || stat.isSymbolicLink() || stat.size > 96 * 1024)
       throw new Error("Unsafe or oversized assessment session file");
-    const data = JSON.parse(await fs.readFile(this.file, "utf8"));
+    let data;
+    const text = await fs.readFile(this.file, "utf8");
+    try { data = JSON.parse(text); }
+    catch { throw new Error("Invalid local assessment session JSON; inspect or restore the file locally"); }
     if (!isAssessmentSession(data)) throw new Error("Invalid or unsupported assessment session");
     return data;
   }

@@ -34,7 +34,7 @@ Verification prompt:
 > version, client name/sharing, revisions, coverage and applied preference IDs.
 > Do not import history, save preferences or edit files during the test.
 
-Expected version for this candidate: 2.2.0-alpha.6. Revisions should agree. A
+Expected version for this candidate: 2.2.0-alpha.7. Revisions should agree. A
 missing tool usually means an old server/extension is loaded, not that its result
 can be invented. Revoke one client via its local permission window and confirm
 its policy call is denied while another approved client still works.

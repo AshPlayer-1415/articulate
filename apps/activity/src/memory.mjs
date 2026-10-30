@@ -131,7 +131,7 @@ export class LocalMemory {
 
 export async function clientConfiguration(directory,{id,host,server}) {
   const tokenFile=path.join(directory,'client-credentials',digest(String(id)).slice(0,24)+'.key');
-  const env={ARTICULATE_DATA_DIR:directory,ARTICULATE_CLIENT_ID:id,ARTICULATE_CLIENT_TOKEN_FILE:tokenFile};
+  const env={ARTICULATE_DATA_DIR:directory,ARTICULATE_EXTENSION_DATA_DIR:directory,ARTICULATE_CLIENT_ID:id,ARTICULATE_CLIENT_TOKEN_FILE:tokenFile};
   const credentials=readClientCredentials(env);
   await withActivityStore(directory,s=>s.authenticate(credentials,{sharing:false}));
   if(!path.isAbsolute(server)||(await lstat(server)).isDirectory())throw new Error('Select the absolute server entrypoint');

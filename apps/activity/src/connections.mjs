@@ -43,7 +43,7 @@ export async function connectHosts(directory,{approved=false,ask,output=console.
     const target=paths[c.host];if(!target)continue;
     const incoming=await regularText(c.file),before=await regularText(target);let after;
     if(c.host==='codex')after=mergeCodex(before??'',incoming);
-    else {const current=before?JSON.parse(before):{};if(!current||typeof current!=='object'||Array.isArray(current)||current.mcpServers!==undefined&&(!current.mcpServers||typeof current.mcpServers!=='object'||Array.isArray(current.mcpServers)))throw new Error('Unsupported host configuration; no settings changed');const server=JSON.parse(incoming).mcpServers.articulate;after=JSON.stringify({...current,mcpServers:{...current.mcpServers,articulate:server}},null,2)+'\n';}
+    else {let current;try{current=before?JSON.parse(before):{};}catch{throw new Error('Invalid '+HOST_LABELS[c.host]+' host configuration JSON; no settings changed. Repair it locally before retrying.');}if(!current||typeof current!=='object'||Array.isArray(current)||current.mcpServers!==undefined&&(!current.mcpServers||typeof current.mcpServers!=='object'||Array.isArray(current.mcpServers)))throw new Error('Unsupported host configuration; no settings changed');const server=JSON.parse(incoming).mcpServers.articulate;after=JSON.stringify({...current,mcpServers:{...current.mcpServers,articulate:server}},null,2)+'\n';}
     plans.push({...c,target,before,after});
   }
   const desktop=plans.find(p=>p.host==='claude');

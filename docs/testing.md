@@ -20,3 +20,9 @@ Automated tests use temporary synthetic profiles, local loopback consent and no
 hosted model. Distribution tests pack/install the actual runtime tarball, invoke
 the native global command, prepare four local host configurations and check grants
 via MCP. These do not replace real Claude/Codex/Cursor application UI testing.
+
+The packaged resilience suite (`npm run test:resilience`, after building) uses
+several concurrent subprocesses and separate synthetic instances. See
+[compatibility and scope](compatibility-and-scope.md) for the acceptance matrix
+and explicit non-goals. The account-free Cursor transport test runs only on
+disposable native CI; do not run it against personal host settings.

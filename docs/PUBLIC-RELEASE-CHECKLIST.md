@@ -41,6 +41,7 @@ npm run check
 npm test
 npm run build
 npm run test:distribution
+npm run test:resilience
 npm pack ./dist/local --dry-run --ignore-scripts
 npm login
 npm publish ./dist/local --tag alpha --access public

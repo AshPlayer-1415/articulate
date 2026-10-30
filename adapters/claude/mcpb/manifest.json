@@ -3,7 +3,7 @@
   "manifest_version": "0.4",
   "name": "articulate-local",
   "display_name": "Articulate",
-  "version": "2.2.0-alpha.6",
+  "version": "2.2.0-alpha.7",
   "description": "Local presentation-preference profile for Claude; same engine as Codex and Cursor packs.",
   "long_description": "Local activity imports, reviewed working preferences and shared MCP memory. Collection is explicit and on-device. Register each client locally and approve its separate sharing grant; imported raw activity is never returned through MCP. No Articulate cloud or learning-efficacy claim.",
   "author": {

@@ -62,7 +62,8 @@ Reload the connection and open a new agent chat. Try:
 > Apply only reviewed preferences. Do not import history or save new preferences.
 
 See [agent connections](docs/agents.md), [testing](docs/testing.md),
-[privacy](docs/privacy.md) and [troubleshooting](docs/troubleshooting.md).
+[privacy](docs/privacy.md), [troubleshooting](docs/troubleshooting.md) and
+[compatibility/scope](docs/compatibility-and-scope.md).
 A green connection proves neither compliance by every model nor factual quality.
 
 ## npm distribution
@@ -88,6 +89,7 @@ npm test
 npm run test:boundary
 npm run build
 npm run test:distribution
+npm run test:resilience
 ```
 
 The CI matrix exercises macOS, Windows and Linux on three maintained Node lines.
