@@ -397,8 +397,8 @@
     },
     {
       "path": "docs/agents.md",
-      "size": 3116,
-      "sha256": "d1efb6a810d33e5b695f01d8c25dbb2fd94790da817f38c582d84642ddf492ea",
+      "size": 3399,
+      "sha256": "4bed875c929cca260c8f2a72ac5cfe0eb38e031b689c3f558324fa2f5c9a8f5d",
       "mode": "100644"
     },
     {
@@ -871,8 +871,8 @@
     },
     {
       "path": "scripts/test-cursor-transport.mjs",
-      "size": 6637,
-      "sha256": "c3ea088eb45df11bc1498246cff0efa4163b70cc6a54433b3edc57e4b09c2c54",
+      "size": 6709,
+      "sha256": "6e7e9dec07043d673027fcf0485c6439fd62dc3a7b3c54b9fe0de8c3058ea1a1",
       "mode": "100644"
     },
     {

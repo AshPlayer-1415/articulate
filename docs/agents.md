@@ -21,6 +21,11 @@ agent mcp enable articulate
 agent mcp list-tools articulate
 ```
 
+Run both commands from the same physical workspace path. In the tested Cursor
+CLI, macOS temporary-directory aliases could make an approval appear to be lost;
+using the canonical workspace path resolved it. This does not require granting
+more tools or changing profile permissions.
+
 Cursor's host approval lets it start the MCP server. Articulate's separate local
 sharing approval controls whether that client can retrieve your reviewed profile.
 The CLI's headless auto-approval flag does not substitute for the explicit enable

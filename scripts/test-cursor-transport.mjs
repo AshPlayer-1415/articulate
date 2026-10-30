@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
-import {mkdtemp,mkdir,writeFile,readFile,rm} from 'node:fs/promises';
+import {mkdtemp,mkdir,writeFile,readFile,rm,realpath} from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
 import {fileURLToPath} from 'node:url';
@@ -14,13 +14,13 @@ const archives={
  'win32-x64':['windows/x64/agent-cli-package.zip','864a8f6a22f8c5ebedef8e0ceba529eae9a59b3d7f6fccb75e43e0f5efc3c147']
 };
 const target=archives[process.platform+'-'+process.arch];if(!target)throw new Error('No pinned Cursor test archive for this platform.');
-const temp=await mkdtemp(path.join(os.tmpdir(),'articulate cursor native '));
+const temp=await realpath(await mkdtemp(path.join(os.tmpdir(),'articulate cursor native ')));
 const report={cursorVersion:version,platform:process.platform,arch:process.arch,passed:false,syntheticDataOnly:true,modelInvoked:false,guiTested:false,checks:[]};
 try{
  const response=await fetch('https://downloads.cursor.com/lab/'+version+'/'+target[0],{signal:AbortSignal.timeout(180000)});assert(response.ok,'Official Cursor archive unavailable');assert(Number(response.headers.get('content-length')??0)<300*1024*1024,'Unexpected archive size');const bytes=Buffer.from(await response.arrayBuffer());assert(bytes.length<300*1024*1024);assert.equal(createHash('sha256').update(bytes).digest('hex'),target[1],'Pinned Cursor archive changed');
  const archive=path.join(temp,process.platform==='win32'?'cursor.zip':'cursor.tar.gz');await writeFile(archive,bytes);const names=execFileSync('tar',['-tf',archive],{encoding:'utf8',maxBuffer:16*1024*1024,timeout:30000}).trim().split(/\r?\n/);assert(names.length&&names.every(p=>p.startsWith('dist-package/')&&!p.split(/[\\/]/).includes('..')));execFileSync('tar',['-xf',archive,'-C',temp],{timeout:180000,stdio:'pipe'});report.checks.push('official versioned archive matches the reviewed SHA-256 and extracts locally');
  const packageRoot=path.join(temp,'dist-package'),binary=path.join(packageRoot,process.platform==='win32'?'node.exe':'node'),entry=path.join(packageRoot,'index.js');
- const project=path.join(temp,'synthetic workspace ü'),config=path.join(temp,'config'),audit=path.join(temp,'audit.jsonl'),gate=path.join(temp,'gate.mjs');await mkdir(path.join(project,'.cursor'),{recursive:true});await mkdir(config);await writeFile(audit,'');
+ const rawProject=path.join(temp,'synthetic workspace ü'),config=path.join(temp,'config'),audit=path.join(temp,'audit.jsonl'),gate=path.join(temp,'gate.mjs');await mkdir(path.join(rawProject,'.cursor'),{recursive:true});const project=await realpath(rawProject);await mkdir(config);await writeFile(audit,'');
  const server=path.join(root,'dist/local/server/index.mjs'),allowed=['articulate_status','articulate_get_analysis','articulate_get_policy'];
  await writeFile(gate,`import {spawn} from 'node:child_process';import {createInterface} from 'node:readline';import {appendFileSync} from 'node:fs';const allowed=new Set(${JSON.stringify(allowed)}),pending=new Map(),child=spawn(process.execPath,[process.argv[2]],{stdio:['pipe','pipe','inherit']}),send=x=>process.stdout.write(JSON.stringify(x)+'\\n');createInterface({input:process.stdin}).on('line',line=>{const q=JSON.parse(line);appendFileSync(process.argv[3],JSON.stringify({method:q.method})+'\\n');if(!['initialize','notifications/initialized','notifications/cancelled','ping','tools/list'].includes(q.method)){if(q.id!==undefined)send({jsonrpc:'2.0',id:q.id,error:{code:-32601,message:'Synthetic discovery only'}});return;}if(q.id!==undefined)pending.set(q.id,q);child.stdin.write(line+'\\n');}).on('close',()=>child.stdin.end());createInterface({input:child.stdout}).on('line',line=>{const r=JSON.parse(line);if(pending.get(r.id)?.method==='tools/list'&&r.result?.tools)r.result.tools=r.result.tools.filter(t=>allowed.has(t.name));pending.delete(r.id);send(r);});child.on('exit',c=>process.exit(c??1));process.on('SIGTERM',()=>child.kill('SIGTERM'));`);
  await writeFile(path.join(config,'cli-config.json'),JSON.stringify({version:1,editor:{vimMode:false},permissions:{allow:[],deny:['Shell(*)','Read(**)','Write(**)','WebFetch(*)']}}));
