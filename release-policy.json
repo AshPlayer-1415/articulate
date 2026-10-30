@@ -55,8 +55,8 @@
     },
     {
       "path": "README.md",
-      "size": 4065,
-      "sha256": "04ad3295ede5d21374cce288a898d5ed26984eb16c83477f46dafc0c7793aff2",
+      "size": 4188,
+      "sha256": "eb4ffd629db70edb5cbf41c383506be61b9f46ba352d37de942d70fe855d3b2f",
       "mode": "100644"
     },
     {
@@ -427,8 +427,8 @@
     },
     {
       "path": "docs/setup.md",
-      "size": 2115,
-      "sha256": "72ac40a9c4f06b61a46fc6cbe9f7e1a01ba7bcc5776c4cd8ae97ed1569c207d5",
+      "size": 2222,
+      "sha256": "eb2a39ee73dea196810de17e23738c0f968934a520a468cec157707daa0c6788",
       "mode": "100644"
     },
     {
@@ -439,8 +439,8 @@
     },
     {
       "path": "docs/troubleshooting.md",
-      "size": 1412,
-      "sha256": "994d711e8fd883e93349966951974aa3d93de8b7e9369b070c5335d757517438",
+      "size": 1562,
+      "sha256": "7a48b571b32a10b04fbfdb7a4c9f1a43c47160bee851f55d7ac9cfa8c381cbf6",
       "mode": "100644"
     },
     {
@@ -841,8 +841,8 @@
     },
     {
       "path": "scripts/test-distribution.mjs",
-      "size": 6687,
-      "sha256": "5178c774d830e0aa2f6484febd2c85e91b79a55d27540f64463c99a33bdc38e1",
+      "size": 7029,
+      "sha256": "dcecc2dc0260b808d17f8f19034d652b829172b7bcd7d0814cf8476b260156c6",
       "mode": "100644"
     },
     {

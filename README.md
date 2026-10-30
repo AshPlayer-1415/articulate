@@ -25,7 +25,9 @@ npm install --global ./dist/local --ignore-scripts --no-audit --no-fund
 articulate
 ```
 
-The same `articulate` command is installed on Mac and Windows. Dependency download
+The same `articulate` command is installed on Mac and Windows. If PowerShell
+blocks a `.ps1` shim, use `npm.cmd` and `articulate.cmd` explicitly; no execution
+policy change is required. Dependency download
 needs network access. The built CLI has no runtime npm dependencies and needs no
 Docker, account or API key. Use a user-managed Node install if the global prefix
 is not writable; do not solve a permission error by blindly using sudo.

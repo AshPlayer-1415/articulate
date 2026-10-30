@@ -30,4 +30,5 @@
 
 The automated suite uses temporary synthetic stores. This proposed snapshot's
 clean-tree checks do not replace real application installation and user-led
-permission tests on another machine. Windows and Linux remain unverified here.
+permission tests on another machine. See the actual CI run for automated macOS, Windows and Linux results; real
+application UI installation and approval still require checks on each OS.

@@ -27,6 +27,7 @@ try{
   const shim=path.join(prefix,process.platform==='win32'?'articulate.cmd':'bin/articulate');
   const shimHelp=process.platform==='win32'?execFileSync(process.env.ComSpec??'cmd.exe',['/d','/s','/c',`""${shim}" help"`],{env,encoding:'utf8'}):execFileSync(shim,['help'],{env,encoding:'utf8'});
   assert.match(shimHelp,/activity connect/);checks.push('native global command shim works from a path containing spaces');
+  if(process.platform==='win32'){const psHelp=execFileSync('pwsh',['-NoProfile','-NonInteractive','-Command',"& '"+shim.replaceAll("'","''")+"' help; exit $LASTEXITCODE"],{env,encoding:'utf8',timeout:30000});assert.match(psHelp,/activity connect/);checks.push('PowerShell invokes the explicit .cmd shim without an execution-policy change');}
   const metadata=JSON.parse(await readFile(path.join(install,'package.json'),'utf8'));assert.equal(metadata.version,release.version);assert.equal(metadata.private,false);assert.equal(metadata.dependencies,undefined);
   const directory=path.join(temp,'profile');const author=new ArticulateLocalService(directory);
   await author.saveStyles({styles:[{name:'Synthetic brief',responseShape:'Lead with the answer and essential caveat.',isDefault:true}],localStorageConsent:true,userApproved:true});
