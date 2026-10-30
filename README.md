@@ -1,69 +1,98 @@
 # Articulate
 
-One reviewed set of collaboration preferences for your coding agents.
+One reviewed understanding of how you work, shared with your coding agents.
 
-This is a proposed source snapshot for a local alpha. It has not been published.
-Articulate finds supported local Codex, Claude Code and Cursor activity, proposes
-working preferences for your review, and lets approved MCP clients retrieve your
-reviewed profile. Claude Desktop can consume that profile; its historical chats
-are not an activity source. Collection and sharing require separate choices.
+Articulate is a local CLI and MCP server for reviewed collaboration preferences.
+It detects available Codex, Claude Code and Cursor activity for one repository or
+across projects. You review suggestions, then choose which clients may use them.
+Claude Desktop can consume the profile; its chat history is not an import source.
 
-History interpretation is experimental. Articulate does not establish personality,
-intelligence, learning rate or improved factual accuracy. Current task instructions
-take precedence over stored presentation preferences. Check the answer's facts.
+**Alpha:** historical inference is experimental. It does not measure intelligence,
+personality or learning rate, and does not establish improved factual accuracy.
+Current task instructions override stored presentation preferences.
 
-## Build locally
+## Install from this repository
 
-Use a maintained Node.js 22 release, at least 22.16.0, and npm 10 or later. This candidate
-has been exercised on macOS with Node 22.21.0 and npm 11.13.0. Other platforms need validation.
+Use an updated Node.js 22, 24 or 26 LTS and Git. Run these commands in Terminal
+(macOS/Linux) or PowerShell (Windows):
 
 ```sh
+git clone https://github.com/AshPlayer-1415/articulate.git
+cd articulate
 npm ci --ignore-scripts --no-audit --no-fund
+npm run build
+npm install --global ./dist/local --ignore-scripts --no-audit --no-fund
+articulate
+```
+
+The same `articulate` command is installed on Mac and Windows. Dependency download
+needs network access. The built CLI has no runtime npm dependencies and needs no
+Docker, account or API key. Use a user-managed Node install if the global prefix
+is not writable; do not solve a permission error by blindly using sudo.
+
+## One project or all your work
+
+```sh
+articulate project /absolute/path/to/repository
+articulate all
+```
+
+On Windows, for example: `articulate project "C:\work\my-project"`.
+Run one of these commands, read the scope, and review suggestions before approving
+them. No useful history is a valid result; choose your own preferences instead.
+Cloud-only/deleted records and unsupported stores may be absent. Quick extraction
+finds literal requests; richer local-model analysis is optional and experimental.
+
+## Connect Claude, Codex, Cursor—or all of them
+
+```sh
+articulate connect
+```
+
+Review the settings-change prompt, then select the clients you want to approve.
+Settings are backed up locally. Configuration preparation covers four hosts;
+sharing is a separate grant for each. Claude Desktop can require installing the
+prepared device-specific extension. Keep that package on your machine.
+Reload the connection and open a new agent chat. Try:
+
+> Use Articulate for this repository. Check articulate_status, then retrieve my
+> analysis and debugging policy for the repository's actual absolute projectPath.
+> Apply only reviewed preferences. Do not import history or save new preferences.
+
+See [agent connections](docs/agents.md), [testing](docs/testing.md),
+[privacy](docs/privacy.md) and [troubleshooting](docs/troubleshooting.md).
+A green connection proves neither compliance by every model nor factual quality.
+
+## npm distribution
+
+The package prepared for later publication is **articulate-local**, with the CLI
+name **articulate**. The npm name `articulate` belongs to an existing package;
+do not install it expecting this project. This repository/build does not publish
+anything automatically. Until the maintainer actually publishes this alpha, use
+the repository installation above. After publication the command will be:
+
+```sh
+npm install --global articulate-local@alpha
+```
+
+See the [maintainer launch checklist](docs/PUBLIC-RELEASE-CHECKLIST.md) for the
+actual visibility, CI, package inspection and npm publication steps.
+
+## Development and feedback
+
+```sh
 npm run check
 npm test
+npm run test:boundary
 npm run build
-node dist/local/bin/articulate.mjs help
+npm run test:distribution
 ```
 
-Dependency installation can contact the npm registry. None of these commands
-imports personal activity. The build writes code and third-party notices to
-`dist/local`; keep that directory in a stable location for MCP connections.
-Do not install the TypeScript source tree globally. The bundled local package
-avoids runtime TypeScript loading from `node_modules`.
+The CI matrix exercises macOS, Windows and Linux on three maintained Node lines.
+Read actual CI results; a configured workflow alone is not a passing test. Real
+agent UI installation/approval still needs users on each OS. File ordinary bugs
+with versions, expected/actual behavior and redacted synthetic reproduction.
+Never attach chats, credentials, profiles, activity databases or consent links.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
 
-## Start with one project or all projects
-
-```sh
-node dist/local/bin/articulate.mjs project /absolute/path/to/your/repository
-node dist/local/bin/articulate.mjs all
-```
-
-Choose one command. Follow the interactive choices, review the proposed wording
-and scope, then choose which agents may use it. A source can be missing, excluded
-or only partly processed; read the coverage summary. No reliable history is a
-valid result, and you can choose preferences yourself.
-
-```sh
-node dist/local/bin/articulate.mjs connect
-```
-
-Review configuration changes and each agent's local sharing page. Reload its MCP
-connection and start a new chat. See [setup and connection testing](docs/setup.md).
-Each client needs its own grant. A green connection does not prove that a model
-followed the preferences or preserved every fact.
-
-## Privacy and feedback
-
-There is no Articulate account or operated cloud service. Activity is stored
-locally. MCP exposes permitted summaries and reviewed preferences, not imported
-raw transcripts. The receiving AI provider may process MCP results. An explicitly
-configured remote analysis endpoint is a separate opt-in data transfer; local-only
-use requires no such endpoint. See [privacy](docs/privacy.md).
-
-For a bug report, start with the app/OS/Node versions, command, expected result and
-actual error. Share only excerpts you have inspected and redacted yourself. Never
-attach profiles, histories, credential files, device-bound bundles or consent URLs.
-See [contributing](CONTRIBUTING.md) and [security reporting](SECURITY.md).
-
-The proposed local client license is [Apache-2.0](LICENSE). This draft does not
-authorize publication. Package, registry and container publication remain disabled.
+Apache-2.0: [LICENSE](LICENSE). Bundles include third-party license/notice texts.

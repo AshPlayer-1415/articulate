@@ -14,7 +14,7 @@ export async function prepareDesktopExtension({configFile,configuration,folder,s
   try {
     if(path.basename(serverEntry)!=='index.mjs'||path.basename(path.dirname(serverEntry))!=='server')throw new Error('Source entry');
     const metadata=JSON.parse(await fileBytes(path.join(root,'package.json')));
-    if(metadata.name!=='@articulate/local'||metadata.version!==ARTICULATE_VERSION)throw new Error('Package mismatch');
+    if(!['@articulate/local','articulate-local'].includes(metadata.name)||metadata.version!==ARTICULATE_VERSION)throw new Error('Package mismatch');
     bytes=await fileBytes(serverEntry);notices=await fileBytes(path.join(root,'THIRD_PARTY_NOTICES.txt'));
   }catch{return {packageFile:null,needsInstall:null,reason:'source-checkout',message:'Use the packaged Articulate CLI to prepare the Claude Desktop extension. Manual MCP configuration was written.'};}
   const env=configuration.env;

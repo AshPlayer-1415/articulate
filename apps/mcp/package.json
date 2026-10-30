@@ -1,6 +1,6 @@
 {
   "name": "@articulate/mcp",
-  "version": "2.2.0-alpha.5",
+  "version": "2.2.0-alpha.6",
   "private": true,
   "type": "module",
   "bin": {

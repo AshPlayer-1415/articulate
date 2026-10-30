@@ -1,7 +1,7 @@
 Articulate
 Copyright 2026 Articulate contributors.
 
-The source snapshot is proposed under Apache License 2.0. Third-party dependencies
+Licensed under Apache License 2.0. Third-party dependencies
 retain their respective licenses. Bundled builds include THIRD_PARTY_NOTICES.txt
 with dependency license and notice texts. This notice does not assert ownership
-of third-party code or replace the pre-publication ownership review.
+of third-party code.
