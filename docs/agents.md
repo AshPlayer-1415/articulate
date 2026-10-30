@@ -13,6 +13,19 @@ returned over MCP. An AI provider may process permitted tool results.
 | Claude Desktop | Install/update the prepared local extension when prompted, then reload |
 | Cursor | Check the Articulate MCP entry, enable the tools and start a new agent chat |
 
+For Cursor CLI, explicitly approve the server in the selected workspace, then
+inspect its tools:
+
+```sh
+agent mcp enable articulate
+agent mcp list-tools articulate
+```
+
+Cursor's host approval lets it start the MCP server. Articulate's separate local
+sharing approval controls whether that client can retrieve your reviewed profile.
+The CLI's headless auto-approval flag does not substitute for the explicit enable
+step in the tested `mcp list-tools` subcommand.
+
 Only use applications actually available on your OS. A host listed in the CLI
 is not a claim that its vendor ships every desktop app on every OS.
 

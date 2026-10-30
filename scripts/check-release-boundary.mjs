@@ -5,7 +5,7 @@ import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 export const ORIGIN='https://github.com/AshPlayer-1415/articulate.git';
 export const BASE='cfb7da3cb1287acc243058ef93a4538622e225a8';
-export const SOURCE_LIST_SHA256='c3a7d6a1349ba872619d37cbf0952144c01ef74f85263013644c948f7d0587a2';
+export const SOURCE_LIST_SHA256='fd756a6358d6ea25e76aa4cc88ef04e165a1277908cb06b75af255014a3c5049';
 export const CONTROLS=['AGENTS.md','release-policy.json','scripts/check-release-boundary.mjs','test/release-boundary.test.mjs'];
 export const sha256=bytes=>createHash('sha256').update(bytes).digest('hex');
 export function safePath(p){return typeof p==='string'&&/^[A-Za-z0-9_./-]+$/.test(p)&&!p.startsWith('/')&&!p.split('/').some(c=>!c||['.','..','.git','node_modules','artifacts','.articulate','profiles','client-credentials'].includes(c.toLowerCase())||c.toLowerCase().startsWith('.env'))&&!/\.(?:sqlite(?:-.*)?|db|key|pem|log)$/i.test(p);}
