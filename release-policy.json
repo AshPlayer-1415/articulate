@@ -12,6 +12,12 @@
   "userDataImportAllowed": false,
   "files": [
     {
+      "path": ".gitattributes",
+      "size": 86,
+      "sha256": "1810200867997b0b915c2baa48871aca10a3c22362fd1f863db72bd7934f2df2",
+      "mode": "100644"
+    },
+    {
       "path": ".github/ISSUE_TEMPLATE/bug_report.md",
       "size": 485,
       "sha256": "6991d62b5cf68387f224581a017fe067b9c0c3caa5b21a8ac7c10a44b8639b64",
