@@ -841,8 +841,8 @@
     },
     {
       "path": "scripts/test-distribution.mjs",
-      "size": 7029,
-      "sha256": "dcecc2dc0260b808d17f8f19034d652b829172b7bcd7d0814cf8476b260156c6",
+      "size": 7073,
+      "sha256": "a5279a8c6a01a1b86d59388d96fa70fb03a57d40b9e3882297632a6dc921d7d6",
       "mode": "100644"
     },
     {
