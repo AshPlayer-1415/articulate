@@ -11,7 +11,7 @@ configuration is supported.
 | Risk | Executable check | What it does not establish |
 | --- | --- | --- |
 | OS/runtime differences | Native macOS arm64, Windows x64 and Ubuntu x64 CI; Node 22.23.4, 24.22.2 and 26.13.0 | Other architectures, Linux distributions, old OS releases or Node versions outside package engines |
-| Installation and paths | Exact seven-file npm pack/install; native command shim; Windows PowerShell; Unicode/space paths; unrelated working directory; missing build | Every shell, antivirus policy, enterprise endpoint agent or packaging system |
+| Installation and paths | One canonical seven-file tarball with source-commit/archive/payload hash verification on every OS; npm pack/install; native command shim; Windows PowerShell; Unicode/space paths; unrelated working directory; missing build | Every shell, antivirus policy, enterprise endpoint agent or packaging system |
 | Settings damage or credential-like error text | Preserve unrelated settings, repeat setup without replacing clients, refuse complex TOML/hard-linked files, malformed JSON preflight with canaries | A complete filesystem transaction, malicious OS administrators or arbitrary racing writers |
 | Multiple profiles and inherited environment | Explicitly bind both Articulate directory variables; same client IDs with different credentials; foreign-instance refusal | Shared credentials deliberately copied between machines or an OS sandbox |
 | Several agents running together | Four live packaged MCP processes, matching revisions, live note changes, immediate revocation, crash/reconnect | Unlimited concurrency or a performance SLA |

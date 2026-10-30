@@ -25,8 +25,8 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "size": 1454,
-      "sha256": "0112497fda54670dc9fe887f639e8a5931da5e4e4fa136fb09f6c64b78e80f02",
+      "size": 2485,
+      "sha256": "0d35590336efcc27386f3b992f2e5c7dc9138df248fc3dcda33c716112fe077b",
       "mode": "100644"
     },
     {
@@ -403,8 +403,8 @@
     },
     {
       "path": "docs/compatibility-and-scope.md",
-      "size": 5446,
-      "sha256": "18165e0b8980569234f89d673bfa4dc93961b0784d414646438678b7878f41b3",
+      "size": 5528,
+      "sha256": "03a607092702abe6448536067e9e53e588edfbda683c187066253614d27d1d8b",
       "mode": "100644"
     },
     {
@@ -469,8 +469,8 @@
     },
     {
       "path": "package.json",
-      "size": 1223,
-      "sha256": "104114c85fe8e080355a81f5be777a55b7e63417c3e3716e9c2285172267897e",
+      "size": 1439,
+      "sha256": "280856d5762727ad583d90184c1cdf6d59ccd7203b3393accf7c821a56a19e4d",
       "mode": "100644"
     },
     {
@@ -846,6 +846,12 @@
       "mode": "100644"
     },
     {
+      "path": "scripts/canonical-package.mjs",
+      "size": 4325,
+      "sha256": "700d446f5f517e7ab6b757a9c7c564a8dbc95647a866f52d41e296d4a13952ad",
+      "mode": "100644"
+    },
+    {
       "path": "scripts/lib/bundle-mcp-server.mjs",
       "size": 2167,
       "sha256": "5acd4735e9113553d164b028b8c49cd38fa36aa61728e5d281ba2459705eb337",
@@ -885,6 +891,12 @@
       "path": "scripts/test.mjs",
       "size": 488,
       "sha256": "b293ef74813b24cf233760d4ec41ff0ebb8d37599f1ad10f4615f7e86faa55ee",
+      "mode": "100644"
+    },
+    {
+      "path": "test/canonical-package.test.mjs",
+      "size": 1072,
+      "sha256": "25db1ee1ba357c94df0eb1c1719e2e48100cb669fc931712a943164fa7510cc1",
       "mode": "100644"
     },
     {

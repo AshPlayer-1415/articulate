@@ -7,7 +7,28 @@ on:
 permissions:
   contents: read
 jobs:
+  canonical:
+    name: Canonical seven-file package
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24.22.2'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm run test:canonical
+      - run: npm run build
+      - run: npm run package:canonical
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: canonical-cli
+          path: artifacts/canonical/
+          if-no-files-found: error
   verify:
+    needs: canonical
     name: ${{ matrix.os }} / Node ${{ matrix.node }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 20
@@ -30,6 +51,11 @@ jobs:
       - run: npm test
       - run: npm run test:boundary
       - run: npm run build
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: canonical-cli
+          path: artifacts/canonical
+      - run: npm run package:install-canonical
       - run: npm run test:distribution
       - run: npm run test:resilience
       - run: npm run test:cursor-transport
@@ -42,4 +68,5 @@ jobs:
             artifacts/distribution-report.json
             artifacts/resilience-report.json
             artifacts/cursor-transport-report.json
+            artifacts/canonical-install-report.json
           if-no-files-found: ignore

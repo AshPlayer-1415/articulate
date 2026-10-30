@@ -23,7 +23,10 @@
     "prepare": "node scripts/build-local.mjs",
     "release:manifest": "node scripts/refresh-release-policy.mjs",
     "test:resilience": "node --experimental-strip-types scripts/test-resilience.mjs",
-    "test:cursor-transport": "node scripts/test-cursor-transport.mjs"
+    "test:cursor-transport": "node scripts/test-cursor-transport.mjs",
+    "test:canonical": "node --test test/canonical-package.test.mjs",
+    "package:canonical": "node scripts/canonical-package.mjs seal",
+    "package:install-canonical": "node scripts/canonical-package.mjs install"
   },
   "devDependencies": {
     "esbuild": "^0.25.9",
