@@ -47,6 +47,8 @@ test('agent coverage groups mixed message and tool events by their actual source
     assert.deepEqual(report.agents,{codex:{imported:3,analyzed:3},'claude-code':{imported:2,analyzed:2},cursor:{imported:4,analyzed:4}});
     assert.equal(Object.values(report.agents).reduce((sum,c)=>sum+c.imported,0),report.importedEvents);
     assert.equal(report.pendingEvents,0);
+    assert.deepEqual(report.evidenceCoverage,{userEvents:4,retainedUserEvents:4,processedUserEvents:4});
+    assert.match(report.processingMeaning,/do not establish semantic understanding/);
   }finally{store.close();}
 }));
 

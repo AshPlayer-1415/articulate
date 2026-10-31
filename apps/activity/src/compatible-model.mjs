@@ -3,7 +3,7 @@
  */
 import http from 'node:http';
 import https from 'node:https';
-import {observationContext,validateObservationResponse} from './analysis.mjs';
+import {runObservationWindows} from './analysis.mjs';
 import {preferenceEvidence} from './rules.mjs';
 
 export function validateProvider(config,{allowRemoteAnalysis=false,env=process.env}={}) {
@@ -57,10 +57,11 @@ export function compatibleRequest(provider,context,format) {
 export async function compatibleObservations(events,config,options={}) {
   const provider=validateProvider(config,options),eligible=preferenceEvidence(events);
   if(!eligible.length)return {observations:[],truncatedContext:0,model:provider.model};
-  const {context,format,truncatedContext}=observationContext(eligible);
+  return runObservationWindows(eligible,{...options,engine:'compatible',model:provider.model,endpoint:provider.url.href},async(context,format)=>{
   const result=await completion(provider,compatibleRequest(provider,context,format));
   const choice=result.choices?.[0],message=choice?.message;
   if(result.error||result.choices?.length!==1||!message||message.role!=='assistant'||choice.finish_reason!=='stop'||message.refusal||message.tool_calls?.length||message.function_call)throw new Error('Provider refused, returned tools or did not finish; no action was taken');
   let parsed;try{parsed=JSON.parse(message.content);}catch{throw new Error('Provider did not return the observation contract');}
-  return {observations:validateObservationResponse(parsed,context).map(o=>({...o,origin:'compatible-model'})),truncatedContext,model:provider.model,processing:provider.local?'loopback endpoint; operator must verify where the server processes data':'explicit remote analysis'};
+  return parsed;
+  }).then(result=>({...result,observations:result.observations.map(o=>({...o,origin:'compatible-model'})),processing:provider.local?'loopback endpoint; operator must verify where the server processes data':'explicit remote analysis'}));
 }

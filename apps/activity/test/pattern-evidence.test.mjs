@@ -26,9 +26,9 @@ test('local inference refuses assistant evidence and suppresses unsupported trai
     res.setHeader('Content-Type','application/json');
     if(req.url==='/api/show')return res.end(JSON.stringify({model_info:{architecture:'synthetic'}}));
     const body=JSON.parse(Buffer.concat(chunks).toString());const input=JSON.parse(body.messages.at(-1).content);
-    assert.deepEqual(input.events.map(e=>e.id),['u']);
-    assert.deepEqual(body.format.properties.observations.items.properties.evidenceIds.items.enum,['u']);
-    res.end(JSON.stringify({message:{content:JSON.stringify({observations:[{rule:mode==='trait'?'Highly intelligent users prefer short explanations.':'Lead with a worked example.',projectId:'project-a',task:null,evidenceIds:[mode==='assistant'?'a':'u']}]})}}));
+    assert.deepEqual(input.events.map(e=>e.id),['e1']);
+    assert.deepEqual(body.format.properties.observations.items.properties.evidenceIds.items.enum,['e1']);
+    res.end(JSON.stringify({message:{content:JSON.stringify({observations:[{rule:mode==='trait'?'Highly intelligent users prefer short explanations.':'Lead with a worked example.',projectId:'p1',task:null,evidenceIds:[mode==='assistant'?'a':'e1']}]})}}));
   });
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
   try{

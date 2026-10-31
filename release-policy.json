@@ -86,7 +86,7 @@
     {
       "path": "adapters/claude/mcpb/manifest.json",
       "size": 2260,
-      "sha256": "6a9e4352059c5dc3eaa755833e675a784e86c3eb0759285204bd4e328c8cdbec",
+      "sha256": "43e8aa57d160bf896d43c9ea302d0b1c909e4dc528012132ea7fba980134e528",
       "mode": "100644"
     },
     {
@@ -97,8 +97,8 @@
     },
     {
       "path": "apps/activity/src/analysis.mjs",
-      "size": 11948,
-      "sha256": "8b7ee67ef26dbbdee589eed621b8c063d79c4c8d664c0933ed39d6e4743f07d7",
+      "size": 15342,
+      "sha256": "c1186328c1f34d54065e665602d94db93c2e772dcce9df0e7c7e6a87db4dc4ee",
       "mode": "100644"
     },
     {
@@ -109,8 +109,8 @@
     },
     {
       "path": "apps/activity/src/compatible-model.mjs",
-      "size": 6609,
-      "sha256": "6b72d246e167d94db2dedad006df2442ffdd6e0b564ad50d914db164d9c6e859",
+      "size": 6635,
+      "sha256": "ff46df0e246fb7ee9397455eddf0ea651b5f3ff610d433066fe2cf3c9f9423df",
       "mode": "100644"
     },
     {
@@ -199,8 +199,8 @@
     },
     {
       "path": "apps/activity/src/rules.mjs",
-      "size": 2002,
-      "sha256": "dde1a1162f77f45861cfafc28fbb2c31b44d3bdff85d9803da65c3061456df61",
+      "size": 2757,
+      "sha256": "9524af5a8c417d472925386177d2ecdc0b1ec5cff4b7790f47ee574927a0c9ce",
       "mode": "100644"
     },
     {
@@ -211,8 +211,8 @@
     },
     {
       "path": "apps/activity/src/shared-analysis.mjs",
-      "size": 8895,
-      "sha256": "e4fbaac2c67adcfccc8f39ca97f4198b51b170603bec572cbe78ebd6bff4093e",
+      "size": 9639,
+      "sha256": "2fd0dee6b8a519cf907f2acbf38bf91e0a4eb0c480bfc922728107696ea31218",
       "mode": "100644"
     },
     {
@@ -223,8 +223,14 @@
     },
     {
       "path": "apps/activity/test/compatible-model.test.mjs",
-      "size": 5124,
-      "sha256": "649766607359d6df92f9fb0db9a747a7bfc3c17d5c151dd73ea6e9a3d1c80ef5",
+      "size": 5112,
+      "sha256": "a1ffb932188ebef82923f613a1f8a95ec2eee989e776dfdc2266121e9616d49b",
+      "mode": "100644"
+    },
+    {
+      "path": "apps/activity/test/context-cache.test.mjs",
+      "size": 7688,
+      "sha256": "8436fdaaf3e8809e892539b1f49e00e1cd13e4c044397a28c11737ec5a248bd3",
       "mode": "100644"
     },
     {
@@ -253,8 +259,8 @@
     },
     {
       "path": "apps/activity/test/pattern-evidence.test.mjs",
-      "size": 3109,
-      "sha256": "2f04ba368feea6166d76457ded79396de1c24b6d00c3ebbd2f03312e8d45809f",
+      "size": 3105,
+      "sha256": "74e665b526cb8cd50f8705f2210ab4b85cd02e51c9adcc261ae079d7e4edf9ff",
       "mode": "100644"
     },
     {
@@ -271,8 +277,8 @@
     },
     {
       "path": "apps/activity/test/shared-analysis.test.mjs",
-      "size": 17842,
-      "sha256": "56878d75ccf0525ddfe4ee9850337b4d3344a90100f80e9bf157ce3ddaead66e",
+      "size": 18033,
+      "sha256": "012c8ca58981925b495b35eb6813e820609791c10dd3116780fae335a587669f",
       "mode": "100644"
     },
     {
@@ -296,7 +302,7 @@
     {
       "path": "apps/mcp/package.json",
       "size": 621,
-      "sha256": "cf0da84a2a104c98dd58656d00ef3002c2bde53418c6f9cabb9a1eeaa09b32db",
+      "sha256": "0353020058fcc91f2d1230ab3dbb485d8d974d4b34b6ff343fc6a87cb188212b",
       "mode": "100644"
     },
     {
@@ -426,6 +432,12 @@
       "mode": "100644"
     },
     {
+      "path": "docs/context-and-caching.md",
+      "size": 2894,
+      "sha256": "3127a62536f30327b72af4747f34d6c193796a29928e269814e394452083b92f",
+      "mode": "100644"
+    },
+    {
       "path": "docs/evaluation-protocol.md",
       "size": 868,
       "sha256": "13cab094671c090cf3992507b263e00b59df3bcbbe96e4950a6f3372143ea104",
@@ -462,6 +474,12 @@
       "mode": "100644"
     },
     {
+      "path": "docs/releases/2.2.0-alpha.8.md",
+      "size": 716,
+      "sha256": "4158ed8784e85e454561692597abdaebc45ca1584317a1644c73a04c39790f50",
+      "mode": "100644"
+    },
+    {
       "path": "docs/setup.md",
       "size": 2222,
       "sha256": "eb2a39ee73dea196810de17e23738c0f968934a520a468cec157707daa0c6788",
@@ -482,13 +500,13 @@
     {
       "path": "package-lock.json",
       "size": 22932,
-      "sha256": "0d3d01f2c1b8f31d93ab327df39b728e24ea729afbcebd42602905eb3980f3a2",
+      "sha256": "16eeb594f3f0dd48fef0709cb893bdbc51ce5671282a468afbbf130295697252",
       "mode": "100644"
     },
     {
       "path": "package.json",
       "size": 1439,
-      "sha256": "280856d5762727ad583d90184c1cdf6d59ccd7203b3393accf7c821a56a19e4d",
+      "sha256": "c3eb047ed22914c399e154f515ef9863387dfb88ee1f08ce310eadc2d8329e82",
       "mode": "100644"
     },
     {
@@ -854,7 +872,7 @@
     {
       "path": "release.json",
       "size": 78,
-      "sha256": "db26e9e7cff21c25fc5688907305bc7895f7b9ed6a5c6e745b97180fc93b1e29",
+      "sha256": "3ffa2c91a2666f870194d308c44838ffa10daad4d56551f48bb44c05335e96b1",
       "mode": "100644"
     },
     {
