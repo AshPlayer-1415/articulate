@@ -1,7 +1,9 @@
 # Public repository and npm checklist
 
-The repository is prepared while private. The owner makes it public and publishes
-npm separately; no workflow does either automatically.
+The owner authorized public npm publication on 2026-10-30 while keeping GitHub
+private. Only the exact reviewed tarball is authorized for manual publication;
+no workflow publishes or changes visibility. Friends do not need source-repo
+access. The full runtime README is served by npm and ships inside the package.
 
 ## Repository contents
 
@@ -17,7 +19,7 @@ npm separately; no workflow does either automatically.
 - [ ] Review all CI results for the final commit; a workflow file is not evidence of a pass.
 - [ ] Test actual agent UI install/reload on one Mac and one Windows machine.
 
-## Owner: before changing visibility
+## Optional later public-source release
 
 1. Review the full tracked tree, Git author metadata/history, license/attribution
    and final CI results. Keep the separate development repository private.
@@ -27,7 +29,7 @@ npm separately; no workflow does either automatically.
 4. Enable GitHub private vulnerability reporting and verify its reporting form;
    SECURITY.md alone does not enable it. Use private reports for sensitive issues.
 
-## Owner: publish the built npm package
+## Publish the reviewed public npm package with private GitHub
 
 `articulate` is already an unrelated npm package. The prepared name is
 `articulate-local`, found unregistered on 2026-10-29 but not reserved. Check again
@@ -44,11 +46,13 @@ npm run test:distribution
 npm run test:resilience
 npm pack ./dist/local --dry-run --ignore-scripts
 npm login
-npm publish ./dist/local --tag alpha --access public
+npm publish /absolute/path/to/reviewed/articulate-local-2.2.0-alpha.7.tgz --tag alpha --access public --registry=https://registry.npmjs.org/ --ignore-scripts
 ```
 
 The first publication is an alpha tag, not a stable `latest` release. Confirm the
-actual package name/version and seven-file pack list before publishing. Complete
+actual package name/version, alpha tag, seven-file pack list and policy-pinned
+SHA-256 before publishing. Use the successful CI canonical artifact from the
+reviewed source commit, not an unreviewed rebuild. Complete
 npm's account/2FA requirements yourself; never commit a token or put one in a
 workflow. The monorepo root remains `private:true`; publish only `dist/local`.
 Then test from a fresh directory with `npx --yes --package articulate-local@alpha

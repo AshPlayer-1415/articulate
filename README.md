@@ -68,7 +68,9 @@ A green connection proves neither compliance by every model nor factual quality.
 
 ## npm distribution
 
-The package prepared for later publication is **articulate-local**, with the CLI
+GitHub can remain private while the runtime is published publicly on npm.
+The self-contained npm README includes setup, connections, privacy and feedback
+without needing access to this repository. The package prepared for publication is **articulate-local**, with the CLI
 name **articulate**. The npm name `articulate` belongs to an existing package;
 do not install it expecting this project. This repository/build does not publish
 anything automatically. Until the maintainer actually publishes this alpha, use

@@ -1,13 +1,23 @@
 {
-  "schemaVersion": 3,
-  "phase": "owner-public-preparation",
+  "schemaVersion": 4,
+  "phase": "private-repository-npm-alpha",
   "expectedRepositoryId": 1436838545,
   "expectedOrigin": "https://github.com/AshPlayer-1415/articulate.git",
   "expectedBaseCommit": "cfb7da3cb1287acc243058ef93a4538622e225a8",
   "automaticVisibilityChangeAllowed": false,
-  "packagePublishAllowed": false,
-  "registryPublishAllowed": false,
-  "containerPublishAllowed": false,
+  "automaticPackagePublishAllowed": false,
+  "automaticRegistryPublishAllowed": false,
+  "automaticContainerPublishAllowed": false,
+  "manualNpmPublication": {
+    "name": "articulate-local",
+    "version": "2.2.0-alpha.7",
+    "registry": "https://registry.npmjs.org/",
+    "tag": "alpha",
+    "access": "public",
+    "artifactSha256": "1198facd84b3597c0e6455260be8e628b71103ae34e0e53edbed0cd6e444ccda",
+    "payloadFiles": 7,
+    "requiresSuccessfulCI": true
+  },
   "privateHistoryImportAllowed": false,
   "userDataImportAllowed": false,
   "files": [
@@ -55,8 +65,8 @@
     },
     {
       "path": "README.md",
-      "size": 4268,
-      "sha256": "ab7d7ddb4475a1e9a51262588e10d46133d1071bc4d6d43b5476067665a857be",
+      "size": 4459,
+      "sha256": "b9556d456ab0b74939acd2aa80fbe022698dfc1bcad6fc1fd5665c6360886fea",
       "mode": "100644"
     },
     {
@@ -391,8 +401,8 @@
     },
     {
       "path": "docs/PUBLIC-RELEASE-CHECKLIST.md",
-      "size": 2860,
-      "sha256": "17f309255aa97dad9dcd58597bbcd1261959f5bfd485b7640e09cba7f99a814a",
+      "size": 3303,
+      "sha256": "45365a3acb4c4a7ef3a7bbeee6d243920016c1b68675cfa27d36716e98c4fc86",
       "mode": "100644"
     },
     {
@@ -816,6 +826,12 @@
       "mode": "100644"
     },
     {
+      "path": "packaging/npm-README.md",
+      "size": 9294,
+      "sha256": "e03f4a1b4f5fc598b8d16b0798e16bf8fb21c8644912cdb31772cb28f4533aca",
+      "mode": "100644"
+    },
+    {
       "path": "quality/fixtures.json",
       "size": 14365,
       "sha256": "af06a878c966f7d9a14a6ae7dafdd7c984b84104295898d40a1297e818d8b73c",
@@ -841,8 +857,8 @@
     },
     {
       "path": "scripts/build-local.mjs",
-      "size": 2642,
-      "sha256": "7e027930ab42f8401adfe2fa344918e46b0377e8533fbd9307bee5c76c8e796e",
+      "size": 1613,
+      "sha256": "d332154b46389691b6078a41ebf1ac45f5fcaa65e50efdbdef4e170a6746dfe9",
       "mode": "100644"
     },
     {
@@ -865,8 +881,8 @@
     },
     {
       "path": "scripts/refresh-release-policy.mjs",
-      "size": 1652,
-      "sha256": "93dc22372adfa014eb529ef289f534e225e624d16662ebae7e947021fe104c4f",
+      "size": 1750,
+      "sha256": "bc7b28387301fe35a3c452670b7686292f3eaef69667ff5eb080b4bda94ad489",
       "mode": "100644"
     },
     {
