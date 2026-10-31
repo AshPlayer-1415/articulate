@@ -37,3 +37,8 @@ Keep repository identity, exact source manifest, no-private-data/history rules,
 root npm privacy and unattended-publication prohibitions. This does not authorize
 publishing alpha.8 to npm or registering it in a marketplace. Preserve staged npm
 status until the owner separately resumes that publication.
+
+After the authorized transition, destination verification requires this exact
+repository to remain public. A private/public toggle is not a generic permission
+to choose arbitrary destinations or move the development history. Retain exact
+file/hash verification and fail closed if identity or visibility differs.

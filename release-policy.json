@@ -1,6 +1,7 @@
 {
-  "schemaVersion": 4,
-  "phase": "private-repository-npm-alpha",
+  "schemaVersion": 5,
+  "phase": "public-beta-source",
+  "expectedVisibility": "public",
   "expectedRepositoryId": 1436838545,
   "expectedOrigin": "https://github.com/AshPlayer-1415/articulate.git",
   "expectedBaseCommit": "cfb7da3cb1287acc243058ef93a4538622e225a8",
@@ -456,6 +457,12 @@
       "mode": "100644"
     },
     {
+      "path": "docs/public-beta-scope.md",
+      "size": 2627,
+      "sha256": "5412e7d42390583c6db5fc5261bfcbda8cfa8c51f78c91af0575c777f2c641a6",
+      "mode": "100644"
+    },
+    {
       "path": "docs/releases/2.2.0-alpha.5.md",
       "size": 619,
       "sha256": "731190f68e3020edb69be7b7a999428c3f5b29c0bd51797850caba7a10fc4bfc",
@@ -907,8 +914,8 @@
     },
     {
       "path": "scripts/refresh-release-policy.mjs",
-      "size": 1750,
-      "sha256": "bc7b28387301fe35a3c452670b7686292f3eaef69667ff5eb080b4bda94ad489",
+      "size": 1768,
+      "sha256": "b1a9a9bf1a49c49a3dafd88c1b938ab3d2c6476c7190a69dbabebece42c74bc0",
       "mode": "100644"
     },
     {
