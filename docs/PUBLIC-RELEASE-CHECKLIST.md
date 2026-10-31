@@ -49,7 +49,11 @@ npm login
 npm publish /absolute/path/to/reviewed/articulate-local-2.2.0-alpha.7.tgz --tag alpha --access public --registry=https://registry.npmjs.org/ --ignore-scripts
 ```
 
-The first publication is an alpha tag, not a stable `latest` release. Confirm the
+The first published version is the prerelease 2.2.0-alpha.7. npm automatically
+added both alpha/latest during processing; removing latest returned HTTP 400.
+Both currently reference the alpha. Use @alpha explicitly and do not claim a
+stable release. The published artifact passed an unauthenticated fresh-cache
+global install, npx launch, README check and read-only MCP smoke. Confirm the
 actual package name/version, alpha tag, seven-file pack list and policy-pinned
 SHA-256 before publishing. Prefer the successful CI canonical artifact from the reviewed source commit.
 For this first publication, runtime files exactly match successful run
@@ -64,3 +68,15 @@ Then test from a fresh directory with `npx --yes --package articulate-local@alph
 articulate help`, and update the README's publication status with the exact version.
 
 This does not register the MCP in a directory or claim vendor marketplace approval.
+
+## Actual first publication
+
+Published 2026-10-30 (publisher local date), account ash-player3.1415, exact
+reviewed artifact SHA-256
+1198facd84b3597c0e6455260be8e628b71103ae34e0e53edbed0cd6e444ccda.
+Registry integrity matches the submitted bytes. The initial placeholder was not
+reported as the release; version/tag/owner and fresh registry installation were
+verified after processing. Seven public-runtime smoke checks passed. GitHub
+visibility was checked and remained private. No credentials or codes were shared.
+A published name/version cannot be reused; future changes require a new version,
+review and explicit publication scope. Do not retry this publication.

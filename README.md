@@ -68,20 +68,29 @@ A green connection proves neither compliance by every model nor factual quality.
 
 ## npm distribution
 
-GitHub can remain private while the runtime is published publicly on npm.
-The self-contained npm README includes setup, connections, privacy and feedback
-without needing access to this repository. The package prepared for publication is **articulate-local**, with the CLI
-name **articulate**. The npm name `articulate` belongs to an existing package;
-do not install it expecting this project. This repository/build does not publish
-anything automatically. Until the maintainer actually publishes this alpha, use
-the repository installation above. After publication the command will be:
+**Published:** [articulate-local 2.2.0-alpha.7](https://www.npmjs.com/package/articulate-local).
+GitHub remains private; installing the public runtime does not need repository
+access or an npm account. The npm page/package README is self-contained.
 
 ```sh
 npm install --global articulate-local@alpha
+articulate
 ```
 
-See the [maintainer launch checklist](docs/PUBLIC-RELEASE-CHECKLIST.md) for the
-actual visibility, CI, package inspection and npm publication steps.
+Then run `articulate connect` to install host settings and approve selected
+clients. Use a supported, patched Node LTS release. The package named `articulate`
+is unrelated; our package is `articulate-local` and its command is `articulate`.
+
+The registry currently has both `alpha` and `latest` pointing to this prerelease:
+npm added `latest` during first-package processing and returned HTTP 400 when its
+removal was attempted. This is an alpha, not a stable-quality claim; use `@alpha`
+explicitly in tester instructions. Current runtime files match the passing native
+sandbox build; the publication adds only standalone README/npm-link changes.
+Fresh package checks passed locally. GitHub's new workflow could not start because
+of an account billing/spending restriction; it is not claimed as new passing CI.
+
+See the [maintainer checklist](docs/PUBLIC-RELEASE-CHECKLIST.md) for exact scope and
+evidence. No workflow publishes packages or changes repository visibility.
 
 ## Development and feedback
 
