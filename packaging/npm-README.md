@@ -1,5 +1,11 @@
 # Articulate
 
+> **Testing beta — not ready for general public or production use.**
+> This repository is public so volunteers can inspect and test the work in progress.
+> Expect bugs and incomplete coverage. Historical inference is experimental;
+> review every proposed preference and keep backups. Public source availability
+> does not mean a stable release or verified support for every agent/platform.
+
 One reviewed understanding of how you work, shared with your coding agents.
 
 Articulate is a local CLI and MCP server for collaboration preferences you review.
@@ -9,8 +15,8 @@ profile. Claude Desktop can consume it; its chat history is not an import source
 Historical inference is experimental. This alpha does not measure intelligence,
 personality or learning rate, and does not establish improved factual accuracy.
 
-The GitHub source repository is private. You do **not** need GitHub access or an
-Articulate account to use this public npm package. Its included JavaScript code
+The GitHub source repository is public for beta testing. You do **not** need a
+GitHub or Articulate account to use this npm package. Its included JavaScript code
 and documentation are public. No Articulate telemetry or automatic cloud upload
 is included. Your connected AI provider can process permitted tool results.
 

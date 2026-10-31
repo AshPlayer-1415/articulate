@@ -26,3 +26,14 @@ publication policy. No unattended workflow publication is authorized. Preserve
 source-root npm privacy, all file/hash guards and repository identity/visibility.
 Complete npm authentication/2FA in the owner's terminal; never request credentials
 or one-time codes in chat or commit them. No visibility change is authorized.
+
+On 2026-10-31 the owner explicitly authorized making this exact clean repository
+public for beta testing and standard public GitHub Actions after auditing its full
+history and exposed Actions surfaces. This supersedes earlier private-visibility
+requirements for this repository only; the development repository stays private.
+README must prominently say testing beta, not ready for general public/production.
+The visibility change is a deliberate maintainer operation, never a workflow.
+Keep repository identity, exact source manifest, no-private-data/history rules,
+root npm privacy and unattended-publication prohibitions. This does not authorize
+publishing alpha.8 to npm or registering it in a marketplace. Preserve staged npm
+status until the owner separately resumes that publication.

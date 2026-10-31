@@ -1,5 +1,11 @@
 # Articulate
 
+> **Testing beta — not ready for general public or production use.**
+> This repository is public so volunteers can inspect and test the work in progress.
+> Expect bugs and incomplete coverage. Historical inference is experimental;
+> review every proposed preference and keep backups. Public source availability
+> does not mean a stable release or verified support for every agent/platform.
+
 One reviewed understanding of how you work, shared with your coding agents.
 
 Articulate is a local CLI and MCP server for reviewed collaboration preferences.
@@ -13,7 +19,7 @@ Current task instructions override stored presentation preferences.
 
 ## Install from this repository
 
-Use an updated Node.js 22, 24 or 26 LTS and Git. Run these commands in Terminal
+Use a supported, patched Node.js 22, 24 or 26 release and Git. Run these commands in Terminal
 (macOS/Linux) or PowerShell (Windows):
 
 ```sh
@@ -69,8 +75,10 @@ A green connection proves neither compliance by every model nor factual quality.
 ## npm distribution
 
 **Published:** [articulate-local 2.2.0-alpha.7](https://www.npmjs.com/package/articulate-local).
-GitHub remains private; installing the public runtime does not need repository
-access or an npm account. The npm page/package README is self-contained.
+The source is public for beta testing. Installing the npm runtime does not need
+GitHub access or an npm account. The npm README is self-contained. Source candidate
+alpha.8 contains changes not yet published to npm; installing @alpha currently
+installs alpha.7.
 
 ```sh
 npm install --global articulate-local@alpha
@@ -81,13 +89,10 @@ Then run `articulate connect` to install host settings and approve selected
 clients. Use a supported, patched Node LTS release. The package named `articulate`
 is unrelated; our package is `articulate-local` and its command is `articulate`.
 
-The registry currently has both `alpha` and `latest` pointing to this prerelease:
-npm added `latest` during first-package processing and returned HTTP 400 when its
-removal was attempted. This is an alpha, not a stable-quality claim; use `@alpha`
-explicitly in tester instructions. Current runtime files match the passing native
-sandbox build; the publication adds only standalone README/npm-link changes.
-Fresh package checks passed locally. GitHub's new workflow could not start because
-of an account billing/spending restriction; it is not claimed as new passing CI.
+Use `@alpha` explicitly: no stable release is available, even if npm displays a
+`latest` tag for this prerelease. Read the CI results for the exact source commit
+before treating a candidate as verified. Testing a source checkout and installing
+the current npm package may exercise different versions.
 
 See the [maintainer checklist](docs/PUBLIC-RELEASE-CHECKLIST.md) for exact scope and
 evidence. No workflow publishes packages or changes repository visibility.

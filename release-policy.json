@@ -73,8 +73,8 @@
     },
     {
       "path": "README.md",
-      "size": 4955,
-      "sha256": "a019ff8f1c726d5178e21c26862338dbad3958543d451e8866a5cc2a26a5333f",
+      "size": 5203,
+      "sha256": "8de47901a2c0a046d1958302c408d6c82ddde48e4fb730010a01a5cd98319a65",
       "mode": "100644"
     },
     {
@@ -415,8 +415,8 @@
     },
     {
       "path": "docs/PUBLIC-RELEASE-CHECKLIST.md",
-      "size": 4718,
-      "sha256": "bec5e0e7dd4b6b6c2628e317d2e235e4e4db1db8497a857ed82534aac403fe5f",
+      "size": 3107,
+      "sha256": "e39fb52e41533a8fda159c6d17e1cec7a30069c14f860768e2e00cb6315163a9",
       "mode": "100644"
     },
     {
@@ -853,8 +853,8 @@
     },
     {
       "path": "packaging/npm-README.md",
-      "size": 9294,
-      "sha256": "e03f4a1b4f5fc598b8d16b0798e16bf8fb21c8644912cdb31772cb28f4533aca",
+      "size": 9688,
+      "sha256": "188df73f7de1ba3a1f6e96082f613a3674c7cb24d276d276b90f629f7720bbe8",
       "mode": "100644"
     },
     {
