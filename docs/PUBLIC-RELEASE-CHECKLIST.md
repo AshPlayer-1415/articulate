@@ -51,8 +51,13 @@ npm publish /absolute/path/to/reviewed/articulate-local-2.2.0-alpha.7.tgz --tag 
 
 The first publication is an alpha tag, not a stable `latest` release. Confirm the
 actual package name/version, alpha tag, seven-file pack list and policy-pinned
-SHA-256 before publishing. Use the successful CI canonical artifact from the
-reviewed source commit, not an unreviewed rebuild. Complete
+SHA-256 before publishing. Prefer the successful CI canonical artifact from the reviewed source commit.
+For this first publication, runtime files exactly match successful run
+41144672833; only the self-contained README and npm homepage/issue links changed.
+The new tarball was inspected and passed local install/MCP tests. A fresh run
+41175863862 could not start because GitHub reported an account payment/spending
+restriction; it is not recorded as a passing new CI run. The exact current
+artifact SHA and original runtime evidence are pinned in release-policy.json. Complete
 npm's account/2FA requirements yourself; never commit a token or put one in a
 workflow. The monorepo root remains `private:true`; publish only `dist/local`.
 Then test from a fresh directory with `npx --yes --package articulate-local@alpha
