@@ -52,3 +52,10 @@ native runtime CI and a new pinned seven-file manual npm policy before publishin
 The earlier held alpha.8 stays unpublished. No private histories/personal fixtures,
 live-profile migration, additional registry or unattended publication is included.
 Npm authentication/2FA stays in the owner's terminal/browser.
+
+On 2026-11-01 the owner explicitly chose “Keep the verified beta staged” after
+all native verification passed. Do not publish 2.3.0-beta.1, retry browser approval,
+move npm tags or replace the live installation until the owner explicitly resumes
+publication. This hold supersedes the earlier milestone/manual-publication scope.
+Keep the exact verified artifact and CI record. Source remains available for
+testing; npm alpha/latest remain 2.2.0-alpha.7.

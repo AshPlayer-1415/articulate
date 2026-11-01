@@ -37,8 +37,8 @@ No workflow changes visibility or publishes npm/container/registry artifacts.
 ## npm status
 
 The published package remains `articulate-local@2.2.0-alpha.7`, installed explicitly
-with `npm install --global articulate-local@alpha`. Its exact historical manual
-publication scope is preserved in release-policy.json. Source 2.3.0-beta.1 is the next prepared candidate;
+with `npm install --global articulate-local@alpha`. Its historical scope remains in Git history; the current release-policy.json
+pins the verified next candidate and its explicit owner publication hold. Source 2.3.0-beta.1 is the next prepared candidate;
 it is not published merely because the repository is public. Do not republish
 alpha.7 or reuse its older runtime CI for changed code. Prepare a new exact
 artifact policy and obtain the owner's go-ahead before a later npm publication.
@@ -53,3 +53,6 @@ visibility does not register an MCP directory or claim vendor marketplace approv
 The profile milestone requires a fresh 9-job OS/Node matrix including the new
 installed-package suite. Review exact source and package hashes before approval;
 old alpha verification never substitutes for this changed runtime.
+
+On 2026-11-01 the owner explicitly kept 2.3.0-beta.1 staged after native checks
+passed. Do not retry publication or authentication until the owner resumes it.
