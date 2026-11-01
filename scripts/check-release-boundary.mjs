@@ -5,8 +5,8 @@ import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 export const ORIGIN='https://github.com/AshPlayer-1415/articulate.git';
 export const BASE='cfb7da3cb1287acc243058ef93a4538622e225a8';
-export const SOURCE_LIST_SHA256='d835ca4955e8d85c231e718d7d64c0f19ed6724e2aaf5b3d1ef22b49c467ddea';
-export const MANUAL_NPM_PUBLICATION={name:'articulate-local',version:'2.2.0-alpha.7',publisher:'ash-player3.1415',registry:'https://registry.npmjs.org/',tag:'alpha',access:'public',artifactSha256:'1198facd84b3597c0e6455260be8e628b71103ae34e0e53edbed0cd6e444ccda',payloadFiles:7,requiresSuccessfulCI:true,successfulRuntimeCiRun:41144672833,verifiedRuntimeArchiveSha256:'4bf259571648664bfe19bd11c574178043e6f607698a539e2157edac8aae6a46',runtimeServerSha256:'79a58b77500158a8f06be41b9b3439e3688551674af72212e0a121199ab0b690',nonRuntimeDelta:['README.md','package.json']};
+export const SOURCE_LIST_SHA256='956428d2a54e7803b9d896f7c215037141f125c5aee928016622baa5d888b375';
+export const MANUAL_NPM_PUBLICATION={"name":"articulate-local","version":"2.3.0-beta.1","publisher":"ash-player3.1415","registry":"https://registry.npmjs.org/","tag":"beta","access":"public","artifactSha256":"7c7a97037f2cb27e85c0496e7167140c22786a94d532e2ec50cd14c33496a2e1","payloadFiles":7,"requiresSuccessfulCI":true,"successfulRuntimeCiRun":41286674147,"verifiedRuntimeArchiveSha256":"7c7a97037f2cb27e85c0496e7167140c22786a94d532e2ec50cd14c33496a2e1","runtimeServerSha256":"01388f7d2d87910a44ea5a142683343abc3aab9fbe72fc9bbf566eadb88c2738","runtimeSourceCommit":"ce58c84998394d3745f154836237cb8dac06488a","nonRuntimeDelta":[]};
 export const CONTROLS=['AGENTS.md','release-policy.json','scripts/check-release-boundary.mjs','test/release-boundary.test.mjs'];
 export const sha256=bytes=>createHash('sha256').update(bytes).digest('hex');
 export function safePath(p){return typeof p==='string'&&/^[A-Za-z0-9_./-]+$/.test(p)&&!p.startsWith('/')&&!p.split('/').some(c=>!c||['.','..','.git','node_modules','artifacts','.articulate','profiles','client-credentials'].includes(c.toLowerCase())||c.toLowerCase().startsWith('.env'))&&!/\.(?:sqlite(?:-.*)?|db|key|pem|log)$/i.test(p);}

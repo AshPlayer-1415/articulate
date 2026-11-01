@@ -23,10 +23,13 @@ All new test stores are synthetic. No owner histories or credentials are fixture
   of backups, external runtime copies or provider data. Generation checks prevent
   already-open current-version writers from restoring erased application records.
 
-Installed MCP SDK is 2.4.0. An official GitHub releases-page fetch failed; a search
-snippet is not treated as a complete release-note review or proof of newest SDK
-status. A versioned Node API-document fetch also failed earlier; runtime behavior
-is verified directly. No claim of universal MCP-host conformance is made.
+Installed MCP SDK is 2.4.0. The official GitHub releases-page fetch failed, then
+GitHub's official releases API succeeded. The [2.4.0 release notes](https://github.com/modelcontextprotocol/typescript-sdk/releases/tag/v2.4.0)
+(published 2026-10-23) were read on 2026-11-01. The experimental Skills attachment
+is unnecessary for the stable tool-based resolver; no SDK upgrade or new header
+annotation/output-schema contract is introduced. An earlier versioned Node API
+fetch failed; affected behavior is exercised directly. These retrieval failures
+remain recorded separately from the recovered documentation review.
 
 ## Engineering gates
 
@@ -57,3 +60,19 @@ Local final source suite: 246/246 on macOS arm64 for Node 22.23.4, 24.22.2 and
 14, profiles/shortcuts 11. Real Cursor CLI (Auto) completed six synthetic MCP
 calls, refused ungranted Personal, resolved SR4@1, preserved exact JSON and left
 the fixture unchanged. This is one observed model run, not an efficacy study.
+
+## Native candidate verification
+
+[Run 41286674147](https://github.com/AshPlayer-1415/articulate/actions/runs/41286674147)
+passed its canonical builder and all nine native OS/Node jobs for source commit
+ce58c84998394d3745f154836237cb8dac06488a. Each runtime job ran 246 source tests,
+5 boundary tests, installed distribution/resilience/profile checks, and verified
+the same canonical archive and server hashes. Actual pinned Cursor CLI discovery
+passed on Node24 for all three OSes, without hosted-model calls in CI.
+
+Canonical seven-file tarball SHA-256:
+`7c7a97037f2cb27e85c0496e7167140c22786a94d532e2ec50cd14c33496a2e1`.
+Server SHA-256:
+`01388f7d2d87910a44ea5a142683343abc3aab9fbe72fc9bbf566eadb88c2738`.
+The independently built macOS archive matched the Ubuntu canonical archive.
+Windows runner is Windows Server 2025 x64, not a Windows desktop GUI test.

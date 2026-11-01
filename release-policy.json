@@ -11,21 +11,19 @@
   "automaticContainerPublishAllowed": false,
   "manualNpmPublication": {
     "name": "articulate-local",
-    "version": "2.2.0-alpha.7",
+    "version": "2.3.0-beta.1",
     "publisher": "ash-player3.1415",
     "registry": "https://registry.npmjs.org/",
-    "tag": "alpha",
+    "tag": "beta",
     "access": "public",
-    "artifactSha256": "1198facd84b3597c0e6455260be8e628b71103ae34e0e53edbed0cd6e444ccda",
+    "artifactSha256": "7c7a97037f2cb27e85c0496e7167140c22786a94d532e2ec50cd14c33496a2e1",
     "payloadFiles": 7,
     "requiresSuccessfulCI": true,
-    "successfulRuntimeCiRun": 41144672833,
-    "verifiedRuntimeArchiveSha256": "4bf259571648664bfe19bd11c574178043e6f607698a539e2157edac8aae6a46",
-    "runtimeServerSha256": "79a58b77500158a8f06be41b9b3439e3688551674af72212e0a121199ab0b690",
-    "nonRuntimeDelta": [
-      "README.md",
-      "package.json"
-    ]
+    "successfulRuntimeCiRun": 41286674147,
+    "verifiedRuntimeArchiveSha256": "7c7a97037f2cb27e85c0496e7167140c22786a94d532e2ec50cd14c33496a2e1",
+    "runtimeServerSha256": "01388f7d2d87910a44ea5a142683343abc3aab9fbe72fc9bbf566eadb88c2738",
+    "runtimeSourceCommit": "ce58c84998394d3745f154836237cb8dac06488a",
+    "nonRuntimeDelta": []
   },
   "privateHistoryImportAllowed": false,
   "userDataImportAllowed": false,
@@ -524,14 +522,14 @@
     },
     {
       "path": "docs/releases/2.3.0-beta.1.md",
-      "size": 2132,
-      "sha256": "6033c46b7677d9111d889a4f6344fc04fc2e12d6b324dbcbab096afcea7765ba",
+      "size": 2213,
+      "sha256": "d7e1c7ac74da3ba377c640d58fa9a85868aed75d97a1ebcb8804a34d57cb91e0",
       "mode": "100644"
     },
     {
       "path": "docs/research/2026-11-01-work-modes.md",
-      "size": 3754,
-      "sha256": "e8eb51210108e83f8c61415b1c40b43ed2d153966a4c5b62c806bc1b69537b0b",
+      "size": 4909,
+      "sha256": "b9b3459bec722821c4d593aee1eabada82381c47dd3f042d73dc0fe0ff3add78",
       "mode": "100644"
     },
     {
