@@ -42,3 +42,13 @@ After the authorized transition, destination verification requires this exact
 repository to remain public. A private/public toggle is not a generic permission
 to choose arbitrary destinations or move the development history. Retain exact
 file/hash verification and fail closed if identity or visibility differs.
+
+On 2026-10-31/2026-11-01 the owner resumed the four-point profiles/shortcuts
+milestone: build scoped profiles and versioned procedures, verify isolation/cache/
+deletion and agent behavior, then verify native Windows/macOS/Linux before a new
+beta release. Reviewed clean-source updates for this milestone are authorized.
+This candidate is 2.3.0-beta.1; it must have a fresh exact manifest, successful
+native runtime CI and a new pinned seven-file manual npm policy before publishing.
+The earlier held alpha.8 stays unpublished. No private histories/personal fixtures,
+live-profile migration, additional registry or unattended publication is included.
+Npm authentication/2FA stays in the owner's terminal/browser.

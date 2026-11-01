@@ -12,7 +12,7 @@ Articulate is a local CLI and MCP server for collaboration preferences you revie
 It can bring available Codex, Claude Code and Cursor activity together for one
 project or across projects, then let separately approved agents use the reviewed
 profile. Claude Desktop can consume it; its chat history is not an import source.
-Historical inference is experimental. This alpha does not measure intelligence,
+Historical inference is experimental. This testing beta does not measure intelligence,
 personality or learning rate, and does not establish improved factual accuracy.
 
 The GitHub source repository is public for beta testing. You do **not** need a
@@ -29,19 +29,19 @@ on one of these lines. Docker and an API key are not required for basic setup.
 In Terminal (Mac/Linux) or PowerShell/Command Prompt (Windows):
 
 ```sh
-npm install --global articulate-local@alpha
+npm install --global articulate-local@{{VERSION}}
 articulate
 ```
 
 This installs the command `articulate`. The npm package named `articulate` is an
 unrelated product; use **articulate-local**. On PowerShell, if a `.ps1` launcher is
 blocked, use `npm.cmd` and `articulate.cmd` explicitly. Do not change system-wide
-execution policy to install this alpha.
+execution policy to install this beta.
 
 For a one-time launch without a global install:
 
 ```sh
-npx --yes --package articulate-local@alpha articulate
+npx --yes --package articulate-local@{{VERSION}} articulate
 ```
 
 Keep installations stable after connecting agents. With a temporary npx install,
@@ -145,7 +145,7 @@ folder; restore anything needed before erasing that folder.
 
 ## Update, troubleshoot and give feedback
 
-Update with `npm install --global articulate-local@alpha`, rerun
+Update with `npm install --global articulate-local@{{VERSION}}`, rerun
 `articulate connect`, finish any Desktop extension update, reload each host and
 start a new chat. Generated paths bind the installed Node/package location.
 
@@ -155,7 +155,7 @@ start a new chat. Generated paths bind the installed Node/package location.
 - **Old private alpha installed as `@articulate/local`:** if that is your own legacy
   installation, remove only that old global package with
   `npm uninstall --global @articulate/local --ignore-scripts`, then install
-  `articulate-local@alpha`. Keep your local Articulate data and regenerate
+  `articulate-local@{{VERSION}}`. Keep your local Articulate data and regenerate
   connections. Do not uninstall an unrelated package merely because names collide.
 - **Sharing disabled:** open that client's local permission page, review it, and
   choose whether to approve. Repeated approval cannot fix an old server build.
@@ -182,3 +182,62 @@ separate checks. Passing tests are not security certification or proof of learni
 or accuracy improvements.
 
 Apache-2.0. See LICENSE, NOTICE and THIRD_PARTY_NOTICES.txt in the installed package.
+
+## Profiles and versioned shortcuts
+
+This version adds `articulate modes`: an interactive menu to create Work, Personal
+or project/task profiles, assign already imported activity, review suggestions,
+choose agent access and manage reusable procedures. No new scan runs just because
+you create a profile. General preferences are separate and are never silently
+blended into a named profile.
+
+Before creating the first profile, update every connected server/extension and
+reload MCP. Creating it upgrades the managed SQLite schema to 2; older binaries
+refuse this storage. Back up first if you need rollback.
+
+Run `articulate connect` after creation and approve the profiles each client may
+use in its local browser page. General has a separate checkbox. Then ask:
+
+> List my permitted Articulate profiles. Use Work for this repository. Get its
+> analysis and debugging policy with modeRef Work and the actual projectPath.
+> Follow my current request and keep essential caveats. Save nothing.
+
+Use modeRef on each request when the host cannot provide a reliable session ID.
+An explicit chat selection is client/session/project specific. A revoked, unknown
+or deleted profile fails instead of falling back to General. MCP does not promise
+a native profile dropdown in every host.
+
+In the menu, choose Saved shortcuts. Give a reviewed procedure a key such as SR4,
+a title, steps, required inputs and completion checks. Keys are case-insensitive
+within a profile; aliases may include #56 or **1. Ask the agent:
+
+> Use Work and resolve SR4@1 for this project, with route /billing. Show me the
+> procedure before taking action.
+
+The resolver executes nothing and adds no agent permissions. Missing inputs,
+mismatched project-version labels or changed reviewed documentation withhold
+steps. Input values stay separate from instructions. Quoted/history keys are not
+new user requests. Old revisions stay pinned when a procedure is edited.
+
+The interactive `articulate modes` is the recommended setup interface. Full source
+guide: https://github.com/AshPlayer-1415/articulate/blob/main/docs/work-modes.md
+
+`articulate privacy` shows the managed data folder, normally ~/.articulate. New
+profiles, revisions, procedures, proposals, grants and caches live in activity.sqlite
+there; storage is not encrypted by Articulate. Context caches recheck grants and
+use bounded UTF-8 byte budgets, not model token guarantees. Incomplete analysis
+can reuse completed windows within its profile; it does not borrow another
+profile's results or automatically approve suggestions.
+
+Use Delete one profile in the menu to erase its managed content. To erase all
+Articulate data, stop analyses, close agents, restore any needed settings backups,
+then use Data & privacy or:
+
+```sh
+articulate erase --confirmation "DELETE LOCAL ARTICULATE DATA" --approve
+```
+
+Host configuration entries, original agent histories, independent exports, OS
+backups and provider/runtime copies remain. Remove MCP entries in each app
+separately. Windows may retain an empty DB file while an agent holds it open;
+close agents and rerun erasure. Logical deletion is not guaranteed forensic wiping.

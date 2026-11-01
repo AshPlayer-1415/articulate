@@ -48,6 +48,7 @@ button:hover{border-color:#9fe7d5}
 const escapeHtml=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function promptHtml(enabled,context={mode:'legacy'}) {
   const client=context.mode==='registered'?`<p><strong>Registered client:</strong> ${escapeHtml(context.name)}.<br><strong>Imported-memory projects:</strong> ${escapeHtml(context.projects.includes('*')?'All projects':context.projects.join(', '))}.</p><p>Existing response styles and manual pattern notes are global preferences. Project limits apply to imported activity memory. This decision applies only to this client. Raw imported activity is never returned through MCP.</p>`:'';
+  const modes=context.modeChoices?.length?`<fieldset><legend>Profiles this client may use</legend><p>Only checked profiles are shared. Profiles remain separate from the existing general profile.</p>${context.modeChoices.map(m=>`<label><input type="checkbox" name="mode" value="${escapeHtml(m.id)}" ${m.approved?'checked':''}><span>${escapeHtml(m.name)} · revision ${m.revision}</span></label>`).join('')}</fieldset>`:'';
   return page(`
 <h1>Allow AI profile access?</h1>
 <p><strong>Current status:</strong> ${enabled ? "Sharing enabled" : "Sharing disabled"}.</p>
@@ -59,6 +60,8 @@ ${client}
 <form method="POST" action=""><input type="hidden" name="action" value="enable">
 <label><input type="checkbox" name="agree" value="yes" required>
 <span>I understand that an AI provider may process the permitted profile summary and explanation policy.</span></label>
+${modes}
+${context.modeStorageInitialized?`<label><input type="checkbox" name="legacy" value="yes" ${context.sharing&&context.legacySharing?'checked':''}><span>Also share the existing general profile (named styles and legacy memory).</span></label>`:''}
 <p><button class="primary" type="submit">${context.mode==='registered'?'Enable sharing for '+escapeHtml(context.name):'Enable AI profile sharing on this device'}</button></p></form>
 <form method="POST" action=""><input type="hidden" name="action" value="disable">
 <button type="submit">Disable / revoke sharing</button></form>
@@ -194,7 +197,7 @@ export async function createConsentWindow(service, { ttlMs = DEFAULT_TTL_MS } = 
           const current = await service.profileStore.load();
           if (!current || current.profileId !== profile.profileId)
             throw new Error("Local profile changed; open a new permission window");
-          await service.applyLocalSharingDecision({enabled:action==='enable',profileId:profile.profileId,context});
+          await service.applyLocalSharingDecision({enabled:action==='enable',profileId:profile.profileId,context,selectedModes:form.getAll('mode'),legacyEnabled:context.modeStorageInitialized?form.get('legacy')==='yes':true});
         });
       }
       closed = true;

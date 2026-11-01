@@ -1,6 +1,6 @@
 {
   "name": "@articulate/source",
-  "version": "2.2.0-alpha.8",
+  "version": "2.3.0-beta.1",
   "private": true,
   "license": "Apache-2.0",
   "type": "module",
@@ -26,7 +26,8 @@
     "test:cursor-transport": "node scripts/test-cursor-transport.mjs",
     "test:canonical": "node --test test/canonical-package.test.mjs",
     "package:canonical": "node scripts/canonical-package.mjs seal",
-    "package:install-canonical": "node scripts/canonical-package.mjs install"
+    "package:install-canonical": "node scripts/canonical-package.mjs install",
+    "test:work-modes": "node --experimental-strip-types scripts/test-work-modes-distribution.mjs"
   },
   "devDependencies": {
     "esbuild": "^0.25.9",

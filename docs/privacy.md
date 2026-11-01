@@ -25,3 +25,15 @@ guidance, not permission to scan or approve anything automatically. Erasure affe
 Articulate's local data; it does not erase original host histories, backups or
 data already sent to an AI provider. Device-bound extension files and connection
 files can contain sensitive local paths. Keep them on your device.
+
+Named profiles have separate client grants and never inherit General automatically.
+See [profiles and shortcuts](work-modes.md) for scope, versioning and cache rules.
+Run `articulate privacy` to view the actual managed storage location and use the
+interactive erasure flow. New profile/shortcut data lives in activity.sqlite in
+that folder; Articulate does not encrypt it.
+
+Close agents and stop analyses before whole-store erasure. It also removes local
+credentials and settings backups; restore any backups you need first. Remove MCP
+entries in each host separately. The erasure result reports if a Windows process
+kept an empty database file open. External exports/provider/runtime copies and OS
+backups remain. This is logical deletion, not guaranteed forensic wiping.

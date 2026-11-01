@@ -8,7 +8,7 @@ import {digest} from '@articulate/storage-local/activity-schema';
 import {discoverSources,validateSourcePath,importSource,SUPPORTED_FORMATS} from './adapters.mjs';
 import {analyzeActivity} from './analysis.mjs';
 import {enrollClient,reviewLocalMemory,clientConfiguration} from './memory.mjs';
-import {createTerminal} from './terminal.mjs';
+import {createTerminal,confirmChoices} from './terminal.mjs';
 
 const HELP=`Articulate local activity and memory (explicit local commands)
 
@@ -19,6 +19,10 @@ const HELP=`Articulate local activity and memory (explicit local commands)
   activity insights [--examples] [--path ABSOLUTE_NEW_FILE]  Local wording/count report from retained approved activity
   activity job --input EXPORT.json --policy SCOPE.json --path NEW_REPORT.json [--container]  Bounded offline processing; proposals only
   activity connect                          Install prepared host configurations after confirmation
+  activity modes                            Profiles, independent sharing and versioned shortcuts
+  activity mode list                        Advanced profile commands: articulate modes
+  activity workflow list --mode NAME        List a profile's saved procedures
+  activity privacy                          Storage information and local erasure choices
   activity status
   activity discover                         Metadata only; does not read transcript contents
   activity source add --kind codex|claude-code|cursor --path ABSOLUTE_PATH --project PROJECT_ID [--project-path ABSOLUTE_PROJECT] [--since ISO_DATE] [--retain-content] [--retention-days 30] --approve
@@ -59,6 +63,7 @@ function argumentsOf(values) {
 function approved(options){if(options.approve!==true)throw new Error('This local change requires --approve after reviewing the selected data or action');}
 function integer(value,fallback) {if(value===undefined)return fallback;if(!/^\d+$/.test(value))throw new Error('Expected an integer');return Number(value);}
 export async function runActivityCli(argv=process.argv.slice(2),{serverEntry=null,output=console.log,progress=console.error,welcomeShown=false}={}) {
+  if(['modes','mode','workflow'].includes(argv[0])){const {runModesCli}=await import('./modes-cli.mjs');return runModesCli(argv,{serverEntry,output,progress,welcomeShown});}
   const {positional,options:o}=argumentsOf(argv);
   let [command,action]=positional;
   const directory=resolveDataDirectory();
@@ -68,12 +73,17 @@ export async function runActivityCli(argv=process.argv.slice(2),{serverEntry=nul
     if(!terminal.interactive){terminal.close();return show(HELP);}
     try {
       terminal.welcome();
-      command=await terminal.ask('Where would you like to begin?',{initial:1,choices:[{value:'project',label:'One project',hint:'Current folder: '+process.cwd()+'. Run from your project folder to use this option.'},{value:'all',label:'My work across projects',hint:'Find and combine supported coding-agent histories on this device.'},{value:'connect',label:'Connect my agents',hint:'Install connections and choose which agents can use your reviewed profile.'},{value:'report',label:'View my saved profile summary'},{value:'insights',label:'Explore my activity patterns',hint:'Counts and wording patterns from activity you already approved. No new scan.'},{value:'quit',label:'Exit'}]});
+      command=await terminal.ask('Where would you like to begin?',{initial:1,choices:[{value:'project',label:'One project',hint:'Current folder: '+process.cwd()+'. Run from your project folder to use this option.'},{value:'all',label:'My work across projects',hint:'Find and combine supported coding-agent histories on this device.'},{value:'connect',label:'Connect my agents',hint:'Install connections and choose which agents can use your reviewed profile.'},{value:'modes',label:'Profiles & shortcuts',hint:'Create work/project profiles, choose their sharing and save versioned procedures.'},{value:'report',label:'View my saved profile summary'},{value:'insights',label:'Explore my activity patterns',hint:'Counts and wording patterns from activity you already approved. No new scan.'},{value:'privacy',label:'Data & privacy',hint:'See your local storage location or erase Articulate data.'},{value:'quit',label:'Exit'}]});
     }finally{terminal.close();}
     if(command==='quit')return {status:'cancelled'};
     return runActivityCli([command],{serverEntry,output,progress,welcomeShown:true});
   }
   if(!command||command==='help'||o.help)return show(HELP);
+  if(command==='privacy') {
+    const terminal=createTerminal();
+    if(!terminal.interactive){terminal.close();return show({directory,eraseCommand:'articulate erase --confirmation "DELETE LOCAL ARTICULATE DATA" --approve',scope:'Managed Articulate data only; original histories, external exports/provider copies and host configuration entries remain.'});}
+    try{if(!welcomeShown)terminal.welcome();terminal.section('Data & privacy','Stored on this device');terminal.note(directory);terminal.note('Profiles, imported text, shortcuts, versions, caches and sharing grants live here. Selected text normally expires after 30 days; reviewed preferences remain until removed.');const action=await terminal.ask('What would you like to do?',{initial:0,choices:[{value:'back',label:'Keep my data and exit'},{value:'modes',label:'Manage or delete one profile'},{value:'erase',label:'Erase all managed Articulate data'}]});if(action==='modes'){const {runModesMenu}=await import('./modes-cli.mjs');return runModesMenu({directory,ui:terminal,welcomeShown:true});}if(action!=='erase')return {status:'unchanged'};terminal.note('Close agents and stop running analyses first. This erases profiles, shortcuts, versions, imported data, caches, credentials and settings backups. Restore any backups you need first. Original agent histories, external exports and provider copies remain; remove the MCP entry in each app separately.');if(await terminal.ask('Erase all managed Articulate data?',confirmChoices('Yes, erase my Articulate data','No, keep it'))!=='yes')return {status:'unchanged'};return runActivityCli(['erase','--confirmation','DELETE LOCAL ARTICULATE DATA','--approve'],{serverEntry,output,progress,welcomeShown:true});}finally{terminal.close();}
+  }
   if(command==='job') {
     if(positional.length!==1)throw new Error('Use job with --input, --policy and --path');
     const {runProcessingCli}=await import('./processing-cli.mjs');return show(await runProcessingCli(o));
@@ -118,8 +128,7 @@ export async function runActivityCli(argv=process.argv.slice(2),{serverEntry=nul
   }
   if(command==='erase') {
     approved(o);if(o.confirmation!=='DELETE LOCAL ARTICULATE DATA')throw new Error('Erasure requires the exact local-data deletion confirmation');
-    await withLocalProfileLock(directory,async()=>{for(const name of ['profile.json','assessment-session.json','.assessment-checkpoint.json','activity.sqlite','activity.sqlite-journal','activity.sqlite-wal','activity.sqlite-shm','client-credentials','connections','analysis.json','analysis.md','config-backups'])await rm(path.join(directory,name),{force:true,recursive:['client-credentials','connections','analysis.json','analysis.md','config-backups'].includes(name)});});
-    return show({deleted:true,note:'Articulate profile, activity, credentials and caches erased. Original source applications and separately exported files are not deleted.'});
+    const {eraseManagedData}=await import('../../../packages/storage-local/src/erase.js');return show(await withLocalProfileLock(directory,()=>eraseManagedData(directory)));
   }
   if(command==='status')return show(await withActivityStore(directory,s=>({...s.summary(),formats:SUPPORTED_FORMATS,privacy:'Local data and analysis. Hosted coding agents separately process permitted policy results.'})));
   if(command==='discover')return show(await discoverSources());

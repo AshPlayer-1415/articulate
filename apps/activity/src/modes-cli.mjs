@@ -1,0 +1,104 @@
+import {writeFile} from 'node:fs/promises';
+import path from 'node:path';
+import {withActivityStore} from '../../../packages/storage-local/src/activity.js';
+import {withRecoveredLocalProfileLock,resolveDataDirectory} from '@articulate/storage-local';
+import {WorkModes} from '../../../packages/storage-local/src/work-modes.js';
+import {TASKS} from '../../../packages/storage-local/src/activity-schema.js';
+import {LocalModes} from './work-modes.mjs';
+import {analyzeMode,modeAnalysis} from './mode-analysis.mjs';
+import {createTerminal,confirmChoices} from './terminal.mjs';
+import {readBoundedJson} from './processing-cli.mjs';
+import {projectIdentity} from './project-discovery.mjs';
+
+export const MODES_HELP=`Profiles and versioned shortcuts (local data; procedures do not execute actions)
+
+  articulate modes                          Interactive profiles & shortcuts menu
+  articulate mode list
+  articulate mode show --mode NAME
+  articulate mode create --input ABSOLUTE_JSON [--project DIRECTORY] [--use-activity] --approve
+  articulate mode edit --mode NAME --input ABSOLUTE_PATCH --revision NUMBER --approve
+  articulate mode delete --mode NAME --revision NUMBER --approve
+  articulate mode analyze --mode NAME [--engine explicit|ollama|compatible] [--model NAME] [--endpoint URL] [--task TASK] [--limit 40] [--batches 1000]
+  articulate mode review --mode NAME --id NOTE_ID --decision approve|reject --revision NUMBER --approve
+  articulate mode grant|revoke --mode NAME --client CLIENT_ID --approve
+  articulate mode default --mode NAME --client CLIENT_ID --project DIRECTORY [--pin NUMBER] --approve
+  articulate mode export --mode NAME --path ABSOLUTE_NEW_FILE --approve
+  articulate workflow list --mode NAME
+  articulate workflow save --mode NAME --input ABSOLUTE_JSON [--id WORKFLOW_ID --revision NUMBER] --approve
+  articulate workflow delete --mode NAME --id WORKFLOW_ID --revision NUMBER --approve
+  articulate workflow resolve --mode NAME --key SR4@2 --project DIRECTORY [--params ABSOLUTE_JSON] [--project-version LABEL]
+
+The first profile creation upgrades the local store. Reload/update every agent to
+this build first; older builds fail closed. New modes need independent local
+client grants. Sources are explicit assignments, not new discovery. Workflows are
+reviewed instructions, not permission to run commands. mode export is a separately
+saved file; deleting a profile does not remove that independent export.
+`;
+function parse(argv){const args=[],o={};const bool=new Set(['approve','use-activity','allow-remote-analysis']);const allowed=new Set([...bool,'mode','input','project','revision','pin','id','decision','client','path','engine','model','endpoint','task','limit','batches','key','params','project-version','provider-config']);for(let i=0;i<argv.length;i++){const v=argv[i];if(!v.startsWith('--'))args.push(v);else{const name=v.slice(2);if(!allowed.has(name)||name in o)throw new Error('Unknown or duplicate profile option');if(bool.has(name))o[name]=true;else{const value=argv[++i];if(!value||value.startsWith('--'))throw new Error('Missing profile option value');o[name]=value;}}}return {args,o};}
+const integer=(value,fallback)=>value===undefined?fallback:/^[1-9]\d*$/.test(value)?Number(value):(()=>{throw new Error('Choose a positive integer');})();
+const approval=o=>{if(!o.approve)throw new Error('Review the change and pass --approve');};
+const scoped=(directory,run,{create=false,write=false}={})=>write?withRecoveredLocalProfileLock(directory,()=>withActivityStore(directory,s=>run(s,new WorkModes(s)),{create})):withActivityStore(directory,s=>run(s,new WorkModes(s)),{create});
+function registerProject(store,project){const catalog=JSON.parse(store.setting('project_catalog')??'[]');if(!catalog.some(p=>p.id===project.id))store.transaction(()=>store.set('project_catalog',JSON.stringify([...catalog,{id:project.id,name:project.name,path:project.path,paths:[project.path]}])));}
+async function chooseMode(ui,directory){const all=await scoped(directory,(s,m)=>m.all());if(!all.length){ui.note('Create a profile first.');return null;}const id=await ui.ask('Choose a profile',{choices:all.map(m=>({value:m.id,label:m.name+(m.archived?' (archived)':''),hint:'Revision '+m.revision+' · '+m.projects.length+' projects'}))});return all.find(m=>m.id===id);}
+async function lines(ui,prompt){const result=[];while(result.length<16){const line=(await ui.ask(prompt+' (Enter to finish)')).trim();if(!line)break;result.push(line);}return result;}
+async function createInteractive(ui,directory){
+ ui.section('1 / 3','Name your profile');ui.note('Profiles keep work, personal, project and task preferences separate.');const name=(await ui.ask('Profile name, for example Work or Atlas:')).trim();if(!name)return;
+ const current=await projectIdentity(process.cwd()),catalog=await scoped(directory,s=>JSON.parse(s.setting('project_catalog')??'[]'));
+ const options=[...new Map([...catalog,current].map(p=>[p.id,p])).values()];const picked=await ui.ask('Which projects belong to this profile?',{multiple:true,choices:[...options.map(p=>({value:p.id,label:p.name,hint:p.path})),{value:'new-folder',label:'Choose another project folder'}]});const projects=options.filter(p=>picked.includes(p.id));if(picked.includes('new-folder'))projects.push(await projectIdentity(path.resolve((await ui.ask('Project folder:')).trim())));if(!projects.length){ui.note('No projects selected.');return;}
+ const focus=await ui.ask('Task focus',{choices:[{value:'all',label:'All supported tasks'},...TASKS.map(value=>({value,label:value}))]});const tasks=focus==='all'?[...TASKS]:[focus];
+ ui.section('2 / 3','Choose what this profile can use');const activity=await scoped(directory,s=>s.sources().filter(src=>projects.some(p=>p.id===src.projectId)&&!src.paused));let sources=[];if(activity.length&&await ui.ask('Use already imported activity from these projects?',confirmChoices('Yes, include this approved activity','No, start with manual preferences'))==='yes')sources=activity.map(src=>({id:src.id,task:focus==='all'?null:focus}));
+ ui.note('This selects existing activity; it does not discover new files. A task focus is your assignment, not a claim about every old message.');const rules=await lines(ui,'Preference, for example “Lead with a failing test”');
+ ui.section('3 / 3','Review and save');ui.note(`${name} · ${projects.length} projects · ${sources.length} assigned sources · ${rules.length} preferences`);ui.note('First-time profile storage upgrades require every connected agent to use this build. Existing general styles are kept separate.');if(await ui.ask('Save this profile?',confirmChoices('Yes, save this reviewed profile','No, cancel'))!=='yes')return;
+ const result=await scoped(directory,(s,m)=>{for(const p of projects)registerProject(s,p);return m.create({name,projects:[...new Set(projects.map(p=>p.id))],tasks,sources,preferences:rules.map(rule=>({rule,task:focus==='all'?null:focus}))},{userApproved:true});},{create:true,write:true});ui.success('Profile saved: '+result.name);ui.note('Approve this profile for agents from Sharing approvals.');
+}
+async function workflowsInteractive(ui,directory,mode){
+ const choice=await ui.ask('Shortcuts for '+mode.name,{choices:[{value:'list',label:'View saved shortcuts'},{value:'save',label:'Create a reviewed shortcut'},{value:'edit',label:'Edit a shortcut and save a new version'},{value:'resolve',label:'Preview a shortcut and its version'},{value:'delete',label:'Delete a shortcut'},{value:'back',label:'Back'}]});
+ if(choice==='back')return;
+ if(choice==='list'){const rows=await scoped(directory,(s,m)=>m.workflows(mode.id));for(const w of rows)ui.note(`${w.key}@${w.revision} · ${w.title}`);if(!rows.length)ui.note('No shortcuts saved yet.');return;}
+ if(choice==='save'){const key=(await ui.ask('Shortcut key, for example SR4 or #56:')).trim(),title=(await ui.ask('Short title:')).trim();const steps=await lines(ui,'Procedure step');const verification=await lines(ui,'Completion check');const requiredInputs=[];while(requiredInputs.length<12){const name=(await ui.ask('Required input name, for example route (Enter to finish):')).trim();if(!name)break;requiredInputs.push({name,description:(await ui.ask('What should the agent ask for?')).trim()});}ui.note('The shortcut retrieves instructions. It never grants command permissions or executes them.');if(await ui.ask('Save this reviewed procedure?',confirmChoices('Yes, save shortcut','No, cancel'))==='yes'){const result=await scoped(directory,(s,m)=>m.saveWorkflow(mode.id,{key,title,steps,verification,requiredInputs},{userApproved:true}),{write:true});ui.success('Saved '+result.key+'@'+result.revision);}return;}
+ if(choice==='edit'){
+ const rows=await scoped(directory,(s,m)=>m.workflows(mode.id));if(!rows.length){ui.note('No saved shortcuts.');return;}const id=await ui.ask('Choose the shortcut to version',{choices:rows.map(w=>({value:w.id,label:w.key+'@'+w.revision+' · '+w.title}))});const selected=rows.find(w=>w.id===id);const field=await ui.ask('What should change?',{choices:[{value:'title',label:'Title'},{value:'steps',label:'Procedure steps'},{value:'verification',label:'Completion checks'},{value:'projectVersions',label:'Supported project/release versions'},{value:'back',label:'Cancel'}]});if(field==='back')return;
+ const definition=Object.fromEntries(['key','aliases','title','steps','verification','requiredInputs','references','projectVersions'].map(k=>[k,selected[k]]));definition[field]=field==='title'?(await ui.ask('New title:')).trim():await lines(ui,field==='projectVersions'?'Supported version label':field==='steps'?'Procedure step':'Completion check');
+ ui.note('Previous versions stay pinned; this saves revision '+(selected.revision+1)+'.');if(await ui.ask('Save the reviewed new version?',confirmChoices('Yes, save new version','No, cancel'))==='yes'){const result=await scoped(directory,(s,m)=>m.saveWorkflow(mode.id,definition,{workflowId:id,expectedRevision:selected.revision,userApproved:true}),{write:true});ui.success('Saved '+result.key+'@'+result.revision);}return;
+ }
+ const rows=await scoped(directory,(s,m)=>m.workflows(mode.id));if(!rows.length){ui.note('No saved shortcuts.');return;}const id=await ui.ask('Choose a shortcut',{choices:rows.map(w=>({value:w.id,label:w.key+'@'+w.revision+' · '+w.title}))});const selected=rows.find(w=>w.id===id);
+ if(choice==='delete'){if(await ui.ask('Erase this shortcut and its version history?',confirmChoices('Yes, erase this shortcut','No, keep it'))==='yes'){await scoped(directory,(s,m)=>m.removeWorkflow(mode.id,id,{expectedRevision:selected.revision,userApproved:true}),{write:true});ui.success('Shortcut content erased. Its hashed key reservation remains until profile deletion.');}return;}
+ ui.note(JSON.stringify(selected,null,2));ui.note('In an agent: Use Articulate profile '+mode.name+' and workflow '+selected.key+'@'+selected.revision+' for this project.');
+}
+export async function runModesMenu({directory=resolveDataDirectory(),ui,output=console.log,welcomeShown=false}={}){
+ const terminal=ui??createTerminal();try{if(!ui&&!terminal.interactive){output(MODES_HELP);return {interactive:false};}if(!welcomeShown)terminal.welcome();
+ while(true){terminal.section('Profiles','Your context, your choice');const action=await terminal.ask('What would you like to do?',{choices:[{value:'create',label:'Create a profile'},{value:'show',label:'View a profile'},{value:'edit',label:'Rename or customize preferences'},{value:'analyze',label:'Analyze assigned profile activity'},{value:'review',label:'Review suggested preferences'},{value:'grant',label:'Sharing approvals for this profile'},{value:'default',label:'Choose a default for one agent/project'},{value:'workflow',label:'Saved shortcuts'},{value:'delete',label:'Delete one profile'},{value:'back',label:'Back / exit'}]});if(action==='back')return {status:'done'};if(action==='create'){await createInteractive(terminal,directory);continue;}const mode=await chooseMode(terminal,directory);if(!mode)continue;
+ if(action==='show'){terminal.note(`${mode.name} · revision ${mode.revision} · tasks: ${mode.tasks.join(', ')}`);for(const p of mode.preferences)terminal.note(p.rule);const summary=await scoped(directory,s=>modeAnalysis(s,mode));terminal.note(`${summary.totals.processed} records processed · ${summary.pendingReview} suggestions waiting`);continue;}
+ if(action==='edit'){const option=await terminal.ask('Customize '+mode.name,{choices:[{value:'name',label:'Rename profile'},{value:'preferences',label:'Replace manual preferences'},{value:'activity',label:'Assign currently imported activity for its projects'},{value:'back',label:'Cancel'}]});let patch;if(option==='name')patch={name:(await terminal.ask('New profile name:')).trim()};else if(option==='preferences')patch={preferences:(await lines(terminal,'Reviewed preference')).map(rule=>({rule,task:null}))};else if(option==='activity')patch=await scoped(directory,s=>({sources:s.sources().filter(src=>mode.projects.includes(src.projectId)&&!src.paused).map(src=>({id:src.id,task:mode.tasks.length===1?mode.tasks[0]:null}))}));else continue;if(await terminal.ask('Save these changes?',confirmChoices('Yes, save changes','No, cancel'))==='yes'){const next=await scoped(directory,(s,m)=>m.edit(mode.id,patch,{expectedRevision:mode.revision,userApproved:true}),{write:true});terminal.success('Saved revision '+next.revision);}continue;}
+ if(action==='analyze'){terminal.note('Quick extraction of explicit preferences; no model download, no approvals and no new source scan.');if(await terminal.ask('Analyze this assigned activity?',confirmChoices('Yes, analyze locally','No, cancel'))==='yes'){const result=await scoped(directory,s=>analyzeMode(s,mode.id));terminal.success(`${result.processedEvents} records checked · ${result.proposed} proposals returned`);terminal.note('Review suggestions before using them.');}continue;}
+ if(action==='review'){const notes=await scoped(directory,(s,m)=>m.proposals(mode.id).filter(p=>p.status==='proposed'));if(!notes.length){terminal.note('No suggestions waiting for review.');continue;}const ids=await terminal.ask('Which suggestions should this profile use?',{multiple:true,choices:notes.map(p=>({value:p.id,label:p.rule,hint:p.task??'Any task'}))});if(ids.length>80-mode.derivedRules.length)throw new Error('Select fewer suggestions; a profile supports at most 80 reviewed derived rules');let rev=mode.revision;for(const id of ids){const next=await scoped(directory,(s,m)=>m.review(mode.id,id,{decision:'approve',expectedRevision:rev,userApproved:true}),{write:true});rev=next.revision;}terminal.success('Reviewed preferences saved.');continue;}
+ if(action==='grant'||action==='default'){const clients=await scoped(directory,s=>s.clients());if(!clients.length){terminal.note('Run articulate connect first, then return here.');continue;}const client=await terminal.ask('Choose the agent connection',{choices:clients.map(c=>({value:c.id,label:c.name,hint:c.sharing?'Client sharing is enabled':'Client sharing still needs its local approval'}))});if(action==='grant'){const allow=await terminal.ask('Allow this agent to use '+mode.name+'?',{choices:[{value:'grant',label:'Allow this profile'},{value:'revoke',label:'Revoke this profile'},{value:'cancel',label:'Cancel'}]});if(allow!=='cancel'){await scoped(directory,(s,m)=>m.grant(client,mode.id,allow==='grant',{userApproved:true}),{write:true});terminal.success('Profile sharing updated.');}}else{const project=await projectIdentity(process.cwd());await scoped(directory,(s,m)=>m.setDefault(client,mode.id,{projectId:project.id,userApproved:true}),{write:true});terminal.success('Default saved for this agent and current project only.');}continue;}
+ if(action==='workflow'){await workflowsInteractive(terminal,directory,mode);continue;}
+ if(action==='delete'){terminal.note('This erases this profile’s preferences, analysis, cached results, shortcuts and version history. Other profiles and original agent histories remain.');if(await terminal.ask('Delete '+mode.name+'?',confirmChoices('Yes, erase this profile','No, keep it'))==='yes'){await scoped(directory,(s,m)=>m.remove(mode.id,{expectedRevision:mode.revision,userApproved:true}),{write:true});terminal.success('Profile data erased.');}}
+ }
+ }finally{if(!ui)terminal.close();}
+}
+export async function runModesCli(argv,{directory=resolveDataDirectory(),output=console.log,welcomeShown=false}={}){
+ const {args,o}=parse(argv);let [command,action]=args;const show=value=>{output(JSON.stringify(value,null,2));return value;};
+ if(command==='modes')return runModesMenu({directory,output,welcomeShown});
+ if(args.length>2)throw new Error('Unexpected profile command arguments');
+ if(command==='mode'){
+  if(action==='list')return show(await scoped(directory,(s,m)=>({modes:m.all().map(({derivedRules,preferences,sources,...meta})=>({...meta,preferences:preferences.length,sources:sources.length})),storage:directory})));
+  if(action==='show')return show(await scoped(directory,(s,m)=>m.snapshot(o.mode)));
+  if(action==='create'){approval(o);const input=await readBoundedJson(o.input,32000);const project=o.project?await projectIdentity(path.resolve(o.project)):null;if(project){if(input.projects&&JSON.stringify(input.projects)!==JSON.stringify([project.id]))throw new Error('Project argument and definition disagree');input.projects=[project.id];}return show(await scoped(directory,(s,m)=>{if(project)registerProject(s,project);if(o['use-activity'])input.sources=s.sources().filter(src=>input.projects?.includes(src.projectId)&&!src.paused).map(src=>({id:src.id,task:input.tasks?.length===1?input.tasks[0]:null}));return m.create(input,{userApproved:true});},{create:true,write:true}));}
+  if(action==='edit'){approval(o);const input=await readBoundedJson(o.input,32000);return show(await scoped(directory,(s,m)=>m.edit(o.mode,input,{expectedRevision:integer(o.revision),userApproved:true}),{write:true}));}
+  if(action==='delete'){approval(o);return show(await scoped(directory,(s,m)=>m.remove(o.mode,{expectedRevision:integer(o.revision),userApproved:true}),{write:true}));}
+  if(action==='grant'||action==='revoke'){approval(o);return show(await scoped(directory,(s,m)=>m.grant(o.client,o.mode,action==='grant',{userApproved:true}),{write:true}));}
+  if(action==='default'){approval(o);const project=await projectIdentity(path.resolve(o.project??'.'));return show(await scoped(directory,(s,m)=>m.setDefault(o.client,o.mode,{projectId:project.id,modeRevision:integer(o.pin,null),userApproved:true}),{write:true}));}
+  if(action==='analyze'){const providerConfig=o['provider-config']?await readBoundedJson(o['provider-config'],8192):undefined;return show(await scoped(directory,s=>analyzeMode(s,o.mode,{engine:o.engine??'explicit',model:o.model,endpoint:o.endpoint,task:o.task??null,limit:integer(o.limit,40),maxBatches:integer(o.batches,1000),providerConfig,allowRemoteAnalysis:o['allow-remote-analysis']===true})));}
+  if(action==='review'){approval(o);return show(await scoped(directory,(s,m)=>m.review(o.mode,o.id,{decision:o.decision,expectedRevision:integer(o.revision),userApproved:true}),{write:true}));}
+  if(action==='export'){approval(o);if(!o.path||!path.isAbsolute(o.path))throw new Error('Choose an absolute new export file');const rel=path.relative(directory,o.path);if(!rel||(!rel.startsWith('..'+path.sep)&&!path.isAbsolute(rel)))throw new Error('Independent exports must be outside the managed data folder');const exported=await scoped(directory,(s,m)=>{const mode=m.find(o.mode);if(!mode)throw new Error('Unknown mode');return {schemaVersion:1,mode:{name:mode.name,aliases:mode.aliases,projects:mode.projects,tasks:mode.tasks,preferences:mode.preferences},workflows:m.workflows(mode.id),note:'Independent local export. Does not include activity, grants, credentials or cached analysis.'};});await writeFile(o.path,JSON.stringify(exported,null,2)+'\n',{flag:'wx',mode:0o600});return show({saved:o.path,independentExport:true});}
+ }
+ if(command==='workflow'){
+  if(action==='list')return show(await scoped(directory,(s,m)=>m.workflows(o.mode)));
+  if(action==='save'){approval(o);const definition=await readBoundedJson(o.input,20000);return show(await scoped(directory,(s,m)=>m.saveWorkflow(o.mode,definition,{workflowId:o.id??null,expectedRevision:integer(o.revision,null),userApproved:true}),{write:true}));}
+  if(action==='delete'){approval(o);return show(await scoped(directory,(s,m)=>m.removeWorkflow(o.mode,o.id,{expectedRevision:integer(o.revision),userApproved:true}),{write:true}));}
+  if(action==='resolve'){const inputs=o.params?await readBoundedJson(o.params,16000):{};return show(await new LocalModes(directory,{credentials:null,trustedLocal:true}).resolveWorkflow({modeRef:o.mode,key:o.key,projectPath:path.resolve(o.project??'.'),projectVersion:o['project-version']??null,inputs}));}
+ }
+ throw new Error(MODES_HELP);
+}

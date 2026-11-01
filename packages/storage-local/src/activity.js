@@ -4,6 +4,7 @@ import path from 'node:path';
 import {randomBytes,timingSafeEqual,randomUUID} from 'node:crypto';
 import {identifier,bounded,digest,safeRule,scope,TASKS} from './activity-schema.js';
 import {evidenceSupport} from './evidence-support.js';
+import {forgetModeEvidence} from './work-modes.js';
 
 const stamp=()=>new Date().toISOString();
 const decode=row=>row?JSON.parse(row.body):null;
@@ -43,7 +44,7 @@ export class ActivityStore {
     try {
     this.db.exec('PRAGMA busy_timeout=5000; PRAGMA foreign_keys=ON; PRAGMA secure_delete=ON; PRAGMA journal_mode=DELETE;');
     const version=this.db.prepare('PRAGMA user_version').get().user_version;
-    if(version>1){this.close();throw new Error('Activity database requires a newer Articulate version');}
+    if(version>2){this.close();throw new Error('Activity database requires a newer Articulate version');}
     this.transaction(()=>this.db.exec(`
       CREATE TABLE IF NOT EXISTS settings(key TEXT PRIMARY KEY,value TEXT NOT NULL);
       CREATE TABLE IF NOT EXISTS clients(id TEXT PRIMARY KEY,name TEXT NOT NULL,token_hash TEXT NOT NULL,sharing INTEGER NOT NULL DEFAULT 0,projects TEXT NOT NULL,created_at TEXT NOT NULL);
@@ -56,8 +57,10 @@ export class ActivityStore {
       CREATE TABLE IF NOT EXISTS changes(revision INTEGER PRIMARY KEY,observation_id TEXT NOT NULL,before_body TEXT,after_body TEXT,at TEXT NOT NULL);
       CREATE TABLE IF NOT EXISTS analyses(cache_key TEXT PRIMARY KEY,body TEXT NOT NULL);
       INSERT OR IGNORE INTO settings(key,value) VALUES('memory_revision','0');
-      PRAGMA user_version=1;
+      INSERT OR IGNORE INTO settings(key,value) VALUES('store_generation','${randomUUID()}');
+      PRAGMA user_version=${Math.max(version,1)};
     `));
+    this.generation=this.setting('store_generation');
     this.transaction(()=>{
       if(!this.db.prepare('PRAGMA table_info(events)').all().some(c=>c.name==='content_expires_at'))this.db.exec('ALTER TABLE events ADD COLUMN content_expires_at TEXT');
       this.db.exec("UPDATE events SET content_expires_at=strftime('%Y-%m-%dT%H:%M:%fZ',json_extract(body,'$.importedAt'),'+'||COALESCE((SELECT json_extract(sources.body,'$.retentionDays') FROM sources WHERE sources.id=events.source_id),30)||' days') WHERE content IS NOT NULL AND content_expires_at IS NULL; CREATE INDEX IF NOT EXISTS events_expiry ON events(content_expires_at);");
@@ -69,7 +72,7 @@ export class ActivityStore {
   transaction(action) {
     if(!this.db)throw new Error('Initialize local activity with an explicit source or client command first');
     this.db.exec('BEGIN IMMEDIATE');
-    try {const result=action();if(result?.then)throw new Error('Activity transactions must be synchronous');this.db.exec('COMMIT');return result;}
+    try {if(this.generation!==undefined&&this.setting('store_generation')!==this.generation)throw new Error('Articulate data was erased or replaced; reopen the local store');const result=action();if(result?.then)throw new Error('Activity transactions must be synchronous');this.db.exec('COMMIT');return result;}
     catch(error){this.db.exec('ROLLBACK');throw error;}
   }
   setting(key){return this.db?.prepare('SELECT value FROM settings WHERE key=?').get(key)?.value??null;}
@@ -88,7 +91,7 @@ export class ActivityStore {
     });
     return {id,name,token,projects,sharing:false};
   }
-  authenticate(credentials,{sharing=true,projectId=null,analysis=false}={}) {
+  authenticate(credentials,{sharing=true,projectId=null,analysis=false,legacy=false}={}) {
     if(!this.clientMode)throw new Error('Enroll a local client before using activity memory');
     if(!credentials?.id||typeof credentials.token!=='string')throw new Error('This host is not registered. Use the trusted local client-enrollment command.');
     const row=this.db.prepare('SELECT * FROM clients WHERE id=?').get(credentials.id);
@@ -96,19 +99,20 @@ export class ActivityStore {
     if(!row||!timingSafeEqual(Buffer.from(row.token_hash),Buffer.from(actual)))throw new Error('Invalid local client credentials');
     if(sharing&&!row.sharing)throw new Error('Provider sharing is disabled for this client. Open its local permission window.');
     if(analysis&&this.setting('analysis-grant:'+row.id)!=='1')throw new Error('Analysis sharing requires updated local approval in this client’s permission window');
+    if(legacy&&this.setting('legacy-grant:'+row.id)==='0')throw new Error('General profile sharing is disabled for this client; choose an approved work mode');
     const projects=JSON.parse(row.projects);
     if(projectId&&!projects.includes('*')&&!projects.includes(projectId))throw new Error('Client is not permitted for this project');
-    return {id:row.id,name:row.name,sharing:!!row.sharing,analysisSharing:this.setting('analysis-grant:'+row.id)==='1',projects};
+    return {id:row.id,name:row.name,sharing:!!row.sharing,analysisSharing:this.setting('analysis-grant:'+row.id)==='1',legacySharing:this.setting('legacy-grant:'+row.id)!=='0',projects};
   }
   grant(credentials,enabled) {
     const client=this.authenticate(credentials,{sharing:false});
-    this.transaction(()=>{this.db.prepare('UPDATE clients SET sharing=? WHERE id=?').run(enabled?1:0,client.id);this.set('analysis-grant:'+client.id,enabled?'1':'0');});
+    this.transaction(()=>{this.db.prepare('UPDATE clients SET sharing=? WHERE id=?').run(enabled?1:0,client.id);this.set('analysis-grant:'+client.id,enabled?'1':'0');this.set('legacy-grant:'+client.id,enabled?'1':'0');});
     return {...client,sharing:!!enabled,analysisSharing:!!enabled};
   }
   clients(){return this.db?this.db.prepare('SELECT id,name,sharing,projects FROM clients ORDER BY id').all().map(c=>({...c,sharing:!!c.sharing,projects:JSON.parse(c.projects)})):[];}
   revoke(id) {
     identifier(id,'client');
-    this.transaction(()=>{if(!this.db.prepare('SELECT id FROM clients WHERE id=?').get(id))throw new Error('Unknown client');this.db.prepare('UPDATE clients SET sharing=0 WHERE id=?').run(id);this.set('analysis-grant:'+id,'0');});
+    this.transaction(()=>{if(!this.db.prepare('SELECT id FROM clients WHERE id=?').get(id))throw new Error('Unknown client');this.db.prepare('UPDATE clients SET sharing=0 WHERE id=?').run(id);this.set('analysis-grant:'+id,'0');if(this.db.prepare("SELECT name FROM sqlite_master WHERE name='mode_grants'").get()){this.db.prepare('UPDATE mode_grants SET enabled=0,epoch=epoch+1 WHERE client_id=?').run(id);this.db.prepare('DELETE FROM mode_context_cache WHERE client_id=?').run(id);this.db.prepare("UPDATE mode_selections SET mode_id='unavailable',revision=NULL WHERE client_id=? AND mode_id NOT IN ('legacy','none')").run(id);this.db.prepare("UPDATE mode_defaults SET mode_id='unavailable',revision=NULL WHERE client_id=? AND mode_id NOT IN ('legacy','none')").run(id);}});
   }
   addSource(source) {
     if(!['codex','claude-code','cursor'].includes(source.kind))throw new Error('Unsupported activity source');
@@ -281,6 +285,7 @@ export class ActivityStore {
       this.db.prepare('DELETE FROM analyses').run();
       this.db.prepare("DELETE FROM settings WHERE key LIKE 'analysis-cursor:%'").run();
       const removedProject=this.source(id).projectId;
+      forgetModeEvidence(this,affected,id);
       this.db.prepare('DELETE FROM sources WHERE id=?').run(id);
       if(!this.sources().some(source=>source.projectId===removedProject)){
         const catalog=JSON.parse(this.setting('project_catalog')??'[]');

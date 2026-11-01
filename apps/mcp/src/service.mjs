@@ -3,6 +3,7 @@ import { randomUUID } from "node:crypto";
 import {rm} from 'node:fs/promises';
 import path from 'node:path';
 import {LocalMemory} from '../../activity/src/memory.mjs';
+import {LocalModes} from '../../activity/src/work-modes.mjs';
 import {digest} from '@articulate/storage-local/activity-schema';
 import {
   DIMENSIONS, createProfile, beginAssessment, assessmentProfile, finishAssessment, currentQuestion, displayQuestion,
@@ -65,6 +66,7 @@ export class ArticulateLocalService {
     this.checkpoint = new LocalAssessmentCheckpoint(directory, this.profileStore, this.sessionStore);
     this.pending = Promise.resolve();
     this.memory = new LocalMemory(directory,options);
+    this.modes = new LocalModes(directory,options);
   }
 
   // Serialize here and across independent on-device MCP/CLI processes.
@@ -83,6 +85,8 @@ export class ArticulateLocalService {
 
   async status() {
     return this.exclusive(async () => {
+    const memory=await this.memory.status();
+    if(memory.clientMode&&memory.registered&&memory.legacySharingEnabled===false)return {bundleVersion:ARTICULATE_VERSION,policySharingEnabled:false,generalProfile:'Not shared with this client',memory,workModes:{supported:true,separateGrants:true,select:'articulate_list_modes'},storage:'Local filesystem; no Articulate server'};
     const { profile, session } = await this.inspect();
     const calibration = recalibrationStatus(profile, now());
     return {
@@ -91,7 +95,8 @@ export class ArticulateLocalService {
       awaitingProfileConfirmation: !!(profile && session && (session.draftProfile || !profile.confirmedAt) && progress(session).done),
       confirmed: !!profile?.confirmedAt,
       policySharingEnabled: await this.memory.sharingEnabled(profile?.consent.sharePolicyWithAiProvider),
-      memory: await this.memory.status(),
+      memory,
+      workModes:{supported:true,separateGrants:true,select:"articulate_list_modes"},
       assessmentBank: session?.bankId || "agent_v2",
       recalibration: calibration,
       storage: "local filesystem, no Articulate server",
@@ -293,31 +298,32 @@ export class ArticulateLocalService {
     const profile = await this.profileStore.load();
     if (!profile) throw new Error("No Articulate profile is saved.");
     const context=await this.memory.context({requireSharing:true});
+    if(context.mode==='registered'&&!context.legacySharing)throw new Error('General profile sharing is disabled; select a permitted work mode or review local sharing settings');
     if (context.mode==='legacy'&&!profile.consent.sharePolicyWithAiProvider)
       throw new Error("Provider sharing is disabled. Ask to open articulate_open_permission_window, review and approve in the local browser, or use 'npm run mcp:authorize' as a terminal fallback.");
     return profile;
   }
 
-  async requireLocalWriter() { await this.memory.context(); }
+  async requireLocalWriter({general=true}={}) {const context=await this.memory.context();if(general&&context.mode==='registered'&&!context.legacySharing)throw new Error('General profile editing is not permitted for this client');}
 
   async sharingContext() {
     const context=await this.memory.context();
     const profile=await this.profileStore.load();
-    return {...context,sharingEnabled:context.mode==='registered'?context.sharing:!!profile?.consent.sharePolicyWithAiProvider};
+    return {...context,...(context.mode==='registered'?{modeChoices:await this.modes.permissionChoices(context.id),modeStorageInitialized:await this.modes.withStore((s,m)=>m.initialized)}:{}),sharingEnabled:context.mode==='registered'?context.sharing:!!profile?.consent.sharePolicyWithAiProvider};
   }
 
-  async applyLocalSharingDecision({enabled,profileId,context}) {
+  async applyLocalSharingDecision({enabled,profileId,context,selectedModes=[],legacyEnabled=true}) {
     const profile=await this.profileStore.load();
     if(!profile||profile.profileId!==profileId)throw new Error('Local profile changed; open a new permission window');
     const current=await this.memory.context();
     if(current.mode!==context.mode)throw new Error('Client registration changed; open a new permission window');
-    if(current.mode==='registered')return this.memory.setSharing(enabled,{expectedMode:context.mode,expectedClientId:context.id});
+    if(current.mode==='registered')return this.modes.permissionDecision({enabled,expectedClientId:context.id,choices:context.modeChoices??[],selected:selectedModes,legacyEnabled});
     await this.profileStore.save({...profile,updatedAt:now(),consent:{...profile.consent,sharePolicyWithAiProvider:enabled}});
     return {sharing:enabled};
   }
 
-  async getAnalysis(input) {return this.memory.analysis(input);}
-  async updateAnalysis(input) {return this.memory.updateAnalysis(input);}
+  async getAnalysis(input={}) {if(input.modeRefs)return this.modes.overview(input);if(!input.modeRef){const selected=await this.modes.selected(input);if(selected)input={...input,modeRef:selected.mode_id,modeRevision:selected.revision};}if(input.modeRef==='none'){await this.modes.withStore(s=>s.authenticate(this.modes.credentials,{analysis:true}));return {personalizationApplied:false,modeSelection:'none',note:'No profile analysis selected for this chat.'};}if(input.modeRef&&input.modeRef!=='legacy')return this.modes.analysis(input);return this.memory.analysis(input);}
+  async updateAnalysis(input) {if(input.modeRef&&input.modeRef!=='legacy')return this.exclusive(()=>this.modes.updateAnalysis(input));return this.memory.updateAnalysis(input);}
   async memoryStatus() {return this.memory.status();}
   async listMemory(input) {return this.memory.list(input);}
   async reviewMemory(input) {return this.memory.review(input);}
@@ -433,17 +439,11 @@ export class ArticulateLocalService {
       if (confirmationPhrase !== "DELETE LOCAL ARTICULATE DATA")
         throw new Error('Pass confirmationPhrase exactly as DELETE LOCAL ARTICULATE DATA after the user asked to wipe local Articulate data.');
       if (alsoClearSession !== true) throw new Error("Deleting a profile must also clear its assessment session.");
-      await this.requireLocalWriter();
-      await this.checkpoint.discard();
-      await this.profileStore.remove();
-      if (alsoClearSession) await this.sessionStore.remove();
-      for(const name of ['activity.sqlite','activity.sqlite-journal','activity.sqlite-wal','activity.sqlite-shm','client-credentials','connections','analysis.json','analysis.md','config-backups'])await rm(path.join(this.profileStore.directory,name),{recursive:['client-credentials','connections','analysis.json','analysis.md','config-backups'].includes(name),force:true});
-      return {
-        deleted: true,
-        clearedSession: alsoClearSession === true,
-        message: "Local Articulate profile data removed from this device. Host chat history is controlled by the AI provider, not Articulate."
-      };
-    }, false);
+      await this.requireLocalWriter({general:false});
+      const {eraseManagedData}=await import('../../../packages/storage-local/src/erase.js');
+      const result=await eraseManagedData(this.profileStore.directory);
+      return {...result,clearedSession:true,message:result.note};
+    },false);
   }
 
   async preference({ dimension, value, userApproved }) {
@@ -663,10 +663,19 @@ export class ArticulateLocalService {
     });
   }
 
-  async policy({ task = "concept", styleName = null, projectId = null, projectPath = null, sessionId = null, personalization = true }) {
+  async policy({ task = "concept", styleName = null, projectId = null, projectPath = null, sessionId = null, personalization = true, modeRef=null, modeRevision=null, maxContextBytes=12000 }) {
     return this.exclusive(async () => {
     if (!TASKS.has(task)) throw new Error("Unknown task.");
     if(typeof personalization!=='boolean')throw new Error('personalization must be true or false');
+    const projectInput={projectId,projectPath,sessionId};
+    if(!modeRef){const selection=await this.modes.selected(projectInput);if(selection){modeRef=selection.mode_id;modeRevision=selection.revision;}}
+    if(modeRef==='legacy')modeRef=null;
+    if(modeRef==='none'){const project=await this.modes.project(projectInput);await this.modes.withStore(s=>s.authenticate(this.modes.credentials,{projectId:project}));return {source:'disabled',personalizationApplied:false,instructions:[],note:'No stored profile selected for this chat.'};}
+    if(modeRef){
+      if(styleName)throw new Error('Scoped modes use their own preferences; do not silently add a legacy global style');
+      if(!personalization){await this.modes.withStore((s,m)=>m.access(this.modes.credentials,modeRef));return {task,personalizationApplied:false,instructions:[],instructionText:'Follow the current task without stored personalization.',source:'disabled'};}
+      const context=await this.modes.policy({modeRef,modeRevision,projectId,projectPath,task,maxContextBytes});const result={...context,personalizationApplied:context.instructions.length>0};result.budget.bytes=Buffer.byteLength(JSON.stringify(result));result.budget.bytes=Buffer.byteLength(JSON.stringify(result));if(result.budget.bytes>maxContextBytes)throw new Error('Mode context exceeds its requested byte budget');return result;
+    }
     const profile = await this.requireSharing();
     if (!profile.confirmedAt)
       throw new Error("The profile is not yet confirmed. Review and confirm it before applying.");
