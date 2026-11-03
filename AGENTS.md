@@ -68,3 +68,10 @@ public access, beta tag, publisher ash-player3.1415 at registry.npmjs.org.
 Preserve existing alpha/latest tags, exact runtime/native-CI provenance and all
 source isolation/manifest controls. Authentication stays in the owner's terminal
 and browser. No unattended publisher or live-profile migration is authorized.
+
+On 2026-11-02 the owner completed login and explicitly approved npm publication
+in its browser. The frozen 2.3.0-beta.1 artifact was published under beta; its
+archive/SRI and seven installed file hashes passed anonymous registry checks.
+Alpha/latest remain 2.2.0-alpha.7. The earlier hold is historical. This completes
+the one-version manual scope; it does not authorize another version, retagging
+other channels, unattended publication or live-profile migration.

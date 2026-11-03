@@ -36,14 +36,15 @@ No workflow changes visibility or publishes npm/container/registry artifacts.
 
 ## npm status
 
-The published package remains `articulate-local@2.2.0-alpha.7`, installed explicitly
-with `npm install --global articulate-local@alpha`. Its historical scope remains in Git history; the current release-policy.json
-pins the verified next candidate and its explicit owner publication hold. Source 2.3.0-beta.1 is the next prepared candidate;
-it is not published merely because the repository is public. Do not republish
-alpha.7 or reuse its older runtime CI for changed code. Prepare a new exact
-artifact policy and obtain the owner's go-ahead before a later npm publication.
-Complete authentication/2FA in the owner's terminal/browser; never put credentials
-in chat, source or Actions secrets for an unattended publisher.
+Published on 2026-11-02: `articulate-local@2.3.0-beta.1`, installed explicitly
+with `npm install --global articulate-local@beta`. Alpha/latest stay on
+2.2.0-alpha.7. The [public receipt](releases/2.3.0-beta.1-verification.json) records
+the successful native run, canonical archive, registry integrity and anonymous
+install checks. The exact manual publication scope stays pinned in release-policy.json.
+Do not republish immutable versions or reuse their CI for a changed runtime.
+Prepare a new exact policy and owner authorization for another version.
+Authentication/2FA belongs in the owner's terminal/browser, never in chat or
+Actions secrets for an unattended publisher.
 
 Standard hosted runners are free for public repositories; concurrency and other
 GitHub usage limits still apply. Do not enable paid/larger runners, broaden token
@@ -60,3 +61,6 @@ passed. Do not retry publication or authentication until the owner resumes it.
 On 2026-11-02 the owner resumed manual publication of the same frozen beta
 artifact. Authentication and a fresh anonymous registry install remain required;
 no package bytes or successful native-CI provenance were changed.
+
+The owner resumed and approved publication on 2026-11-02. The frozen beta was
+published and anonymous registry verification passed; the earlier hold is historical.

@@ -52,9 +52,25 @@ Verification prompt:
 > version, client name/sharing, revisions, coverage and applied preference IDs.
 > Do not import history, save preferences or edit files during the test.
 
-Expected version for this candidate: 2.2.0-alpha.7. Revisions should agree. A
-missing tool usually means an old server/extension is loaded, not that its result
-can be invented. Revoke one client via its local permission window and confirm
+Expected beta version: **2.3.0-beta.1**. For General-profile calls, policy and
+analysis memory revisions should agree. A missing tool usually means an old
+server/extension is loaded, not that its result can be invented.
+
+For named profiles, first run `articulate modes`, then approve the intended profile
+for each client in its local permission window. Use this alternative prompt:
+
+> List my permitted Articulate profiles. Retrieve the Work profile's analysis and
+> debugging policy for this repository with modeRef Work and the actual absolute
+> projectPath. Report mode.id and mode.revision. Follow my current task; save nothing.
+
+Compare the named profile's ID/revision across its policy and analysis results.
+General's memory revision is a separate counter. `policySharingEnabled: false`
+can mean General is not shared while named-profile grants are available; inspect
+`articulate_list_modes` instead of assuming every grant is disabled. Use explicit
+modeRef when the host cannot provide a reliable session ID. Read
+[profiles and shortcuts](work-modes.md) before the first schema migration.
+
+Revoke one client via its local permission window and confirm
 its policy call is denied while another approved client still works.
 
 Official host references checked 2026-10-29:

@@ -1,8 +1,9 @@
 # Profiles and versioned shortcuts
 
-Testing candidate: 2.3.0-beta.1. These commands require this candidate; the published
-2.2.0-alpha.7 does not include them. Use the source installation instructions until
-the maintainer announces npm publication. Do not use this beta for production data.
+Testing beta: 2.3.0-beta.1, published on npm's `beta` tag. Install with
+`npm install --global articulate-local@beta` or pin `articulate-local@2.3.0-beta.1`.
+The older 2.2.0-alpha.7 does not include these commands. Do not use this beta for
+production data.
 
 ## Start with one profile
 

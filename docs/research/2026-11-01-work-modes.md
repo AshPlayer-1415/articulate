@@ -76,3 +76,14 @@ Server SHA-256:
 `01388f7d2d87910a44ea5a142683343abc3aab9fbe72fc9bbf566eadb88c2738`.
 The independently built macOS archive matched the Ubuntu canonical archive.
 Windows runner is Windows Server 2025 x64, not a Windows desktop GUI test.
+
+## Registry verification — 2026-11-02
+
+The owner resumed publication and completed npm's separate browser approval.
+Npm accepted the exact canonical archive, then processed it asynchronously. The
+first anonymous check saw no version and stopped; that result is preserved.
+After public metadata exposed the beta tag, the fresh-cache anonymous install
+passed all six registry checks: publisher/tag/SRI/archive identity, all seven
+installed file hashes, command/docs, mode and pinned-workflow MCP retrieval without
+a General profile, beta-tag npx, and managed-data cleanup. The Mac arm64 registry
+test does not independently certify a Windows GUI. No live profile was changed.

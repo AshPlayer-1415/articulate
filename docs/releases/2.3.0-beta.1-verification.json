@@ -1,0 +1,45 @@
+{
+  "name": "articulate-local",
+  "version": "2.3.0-beta.1",
+  "publishedAt": "2026-11-03T03:07:57.742Z",
+  "publisher": "ash-player3.1415",
+  "tags": {
+    "alpha": "2.2.0-alpha.7",
+    "latest": "2.2.0-alpha.7",
+    "beta": "2.3.0-beta.1"
+  },
+  "dist": {
+    "tarball": "https://registry.npmjs.org/articulate-local/-/articulate-local-2.3.0-beta.1.tgz",
+    "integrity": "sha512-TNWcVfSaCOBCJy2WPSqOeFeQQfSFvV14O5nAsuUX3wL8VqNEzMxBmu2/1TIkSv/wlCGSXh+mf3mAyWI0HdfHcw==",
+    "shasum": "1e3fea01a7cf22a024553255503604c1a18743a6"
+  },
+  "publishedLocalDate": "2026-11-02",
+  "localTimezone": "America/Los_Angeles",
+  "archiveSha256": "7c7a97037f2cb27e85c0496e7167140c22786a94d532e2ec50cd14c33496a2e1",
+  "runtimeSourceCommit": "ce58c84998394d3745f154836237cb8dac06488a",
+  "nativeCiRun": 41286674147,
+  "payloadFiles": {
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "NOTICE": "e016bd2442fc43c339c193246839d3e5ad1b54e0b102da4f9decc4b1b4115165",
+    "README.md": "f9559685e92fe73292e6d6898f67c20f96edb1b64d15d45edbce9919d4ed0bae",
+    "THIRD_PARTY_NOTICES.txt": "1b701eb5b7b9a2b29d63cdb6619b9e13b0d756e50231ecaf215b1aaf7eaf33ef",
+    "bin/articulate.mjs": "bdcdd18e18721896530bef3ccf2f44ceba362fd3f31158b9b1a39d391782a512",
+    "package.json": "f4a63b4d667564dfdbed2e7cacbc51ad38d8114900aed2dab74e0de4ae80d578",
+    "server/index.mjs": "01388f7d2d87910a44ea5a142683343abc3aab9fbe72fc9bbf566eadb88c2738"
+  },
+  "anonymousRegistryVerification": {
+    "passed": true,
+    "platform": "darwin",
+    "arch": "arm64",
+    "syntheticOnly": true,
+    "checks": [
+      "public beta tag, publisher and exact CI tarball/SRI match; alpha stays unchanged",
+      "anonymous fresh-cache global install reproduces all seven payload file hashes",
+      "installed command and self-contained beta/profile/migration guide work",
+      "registry-installed MCP retrieves an approved profile and pinned shortcut without a General profile",
+      "beta-tag npx works without an account or GitHub access",
+      "temporary managed data erasure leaves no profile or modes"
+    ]
+  },
+  "nativeGuiInstallationClaimed": false
+}

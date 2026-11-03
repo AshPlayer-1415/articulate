@@ -72,7 +72,7 @@ See [agent connections](docs/agents.md), [testing](docs/testing.md),
 [compatibility/scope](docs/compatibility-and-scope.md).
 A green connection proves neither compliance by every model nor factual quality.
 
-## Profiles and shortcuts (source candidate)
+## Profiles and shortcuts
 
 Run `articulate modes` for the interactive profile and shortcut menu. Create Work,
 Personal or project-specific profiles, approve them independently for each agent,
@@ -86,25 +86,27 @@ stays separate; new profiles are not automatically shared or merged into it.
 
 ## npm distribution
 
-**Published:** [articulate-local 2.2.0-alpha.7](https://www.npmjs.com/package/articulate-local).
-The source is public for beta testing. Installing the npm runtime does not need
-GitHub access or an npm account. The npm README is self-contained. Source candidate
-2.3.0-beta.1 adds named profiles and versioned shortcuts; it is not yet on npm.
-Installing @alpha currently installs alpha.7.
+**Published beta:** [articulate-local 2.3.0-beta.1](https://www.npmjs.com/package/articulate-local/v/2.3.0-beta.1).
+The source is public for testing. Installing the npm runtime does not need GitHub
+access or an npm account. The package README is self-contained.
 
 ```sh
-npm install --global articulate-local@alpha
+npm install --global articulate-local@beta
 articulate
 ```
+
+For an exact version, use `articulate-local@2.3.0-beta.1`. The older `alpha` and
+`latest` tags remain on 2.2.0-alpha.7; choose `@beta` for profiles and shortcuts.
 
 Then run `articulate connect` to install host settings and approve selected
 clients. Use a supported, patched Node LTS release. The package named `articulate`
 is unrelated; our package is `articulate-local` and its command is `articulate`.
 
-Use `@alpha` explicitly: no stable release is available, even if npm displays a
-`latest` tag for this prerelease. Read the CI results for the exact source commit
-before treating a candidate as verified. Testing a source checkout and installing
-the current npm package may exercise different versions.
+No stable release is available. [Native runtime CI passed](https://github.com/AshPlayer-1415/articulate/actions/runs/41286674147)
+for the exact beta artifact; a fresh anonymous registry installation also passed.
+See the [publication receipt](docs/releases/2.3.0-beta.1-verification.json) and
+[release notes](docs/releases/2.3.0-beta.1.md). A later source checkout may differ
+from the published package.
 
 See the [maintainer checklist](docs/PUBLIC-RELEASE-CHECKLIST.md) for exact scope and
 evidence. No workflow publishes packages or changes repository visibility.

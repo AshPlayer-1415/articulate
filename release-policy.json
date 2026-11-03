@@ -73,8 +73,8 @@
     },
     {
       "path": "README.md",
-      "size": 5970,
-      "sha256": "eb811060e0dde75fa17ae3872ca0c377bb2f11b1c82eab1f62dd88ded5c05a22",
+      "size": 6091,
+      "sha256": "6468e94d2d9e93ec589401d0a04a3008818abd6b2a685b14fcbeea81a7b5d718",
       "mode": "100644"
     },
     {
@@ -451,14 +451,14 @@
     },
     {
       "path": "docs/PUBLIC-RELEASE-CHECKLIST.md",
-      "size": 3806,
-      "sha256": "78e7197098036e5a5ee1661801496406f116bc8e35fe6146c3f6526abecbc76f",
+      "size": 3924,
+      "sha256": "2579df9353b018bfb2271bb551352f6f8ffdcb7e7bdc09b8389d03503fdb1127",
       "mode": "100644"
     },
     {
       "path": "docs/agents.md",
-      "size": 3399,
-      "sha256": "4bed875c929cca260c8f2a72ac5cfe0eb38e031b689c3f558324fa2f5c9a8f5d",
+      "size": 4319,
+      "sha256": "acd9ac4f1f66edd075f94404a3883a610c9f24864d7ff88b025a44ff6460cd20",
       "mode": "100644"
     },
     {
@@ -522,15 +522,21 @@
       "mode": "100644"
     },
     {
+      "path": "docs/releases/2.3.0-beta.1-verification.json",
+      "size": 2142,
+      "sha256": "9bd1536f3ee2bc80b2f29fc3342e116c74d852d6878978cac020ed8ded449b62",
+      "mode": "100644"
+    },
+    {
       "path": "docs/releases/2.3.0-beta.1.md",
-      "size": 2307,
-      "sha256": "635be5c3b9d562193f2986271a0b3a8f2a596929c03d43e1a6f2ac22a32ba367",
+      "size": 2601,
+      "sha256": "e21e260dbf51aafe0f186a5e07fe313f3027b02cb1aa397fa0707aadfd15545f",
       "mode": "100644"
     },
     {
       "path": "docs/research/2026-11-01-work-modes.md",
-      "size": 4909,
-      "sha256": "b9b3459bec722821c4d593aee1eabada82381c47dd3f042d73dc0fe0ff3add78",
+      "size": 5586,
+      "sha256": "176306b3ced13ed4354bc92d1dbc1e91916acdeb3d3510a3fb5abe000a5557db",
       "mode": "100644"
     },
     {
@@ -553,8 +559,8 @@
     },
     {
       "path": "docs/work-modes.md",
-      "size": 9418,
-      "sha256": "7aadf0838330fd6f42b67696de187526be2999405b278139eb64b471b00e7f03",
+      "size": 9420,
+      "sha256": "7eadd1392898412e3979b3a2732d0dbb4b47c2d6efda9a315b35316a9a3c5eea",
       "mode": "100644"
     },
     {
