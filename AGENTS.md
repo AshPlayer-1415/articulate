@@ -59,3 +59,12 @@ move npm tags or replace the live installation until the owner explicitly resume
 publication. This hold supersedes the earlier milestone/manual-publication scope.
 Keep the exact verified artifact and CI record. Source remains available for
 testing; npm alpha/latest remain 2.2.0-alpha.7.
+
+On 2026-11-02 the owner explicitly resumed the held npm release and offered to
+log in when prompted. This revokes the 2026-11-01 hold only for the frozen
+articulate-local@2.3.0-beta.1 artifact SHA256
+7c7a97037f2cb27e85c0496e7167140c22786a94d532e2ec50cd14c33496a2e1,
+public access, beta tag, publisher ash-player3.1415 at registry.npmjs.org.
+Preserve existing alpha/latest tags, exact runtime/native-CI provenance and all
+source isolation/manifest controls. Authentication stays in the owner's terminal
+and browser. No unattended publisher or live-profile migration is authorized.

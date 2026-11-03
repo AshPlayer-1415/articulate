@@ -24,7 +24,7 @@
     "runtimeServerSha256": "01388f7d2d87910a44ea5a142683343abc3aab9fbe72fc9bbf566eadb88c2738",
     "runtimeSourceCommit": "ce58c84998394d3745f154836237cb8dac06488a",
     "nonRuntimeDelta": [],
-    "ownerPublicationHold": true
+    "ownerPublicationHold": false
   },
   "privateHistoryImportAllowed": false,
   "userDataImportAllowed": false,
@@ -451,8 +451,8 @@
     },
     {
       "path": "docs/PUBLIC-RELEASE-CHECKLIST.md",
-      "size": 3583,
-      "sha256": "03d0066591a5f3c686e885887d43de037722f0ca7afce2045971d43ae07cb74e",
+      "size": 3806,
+      "sha256": "78e7197098036e5a5ee1661801496406f116bc8e35fe6146c3f6526abecbc76f",
       "mode": "100644"
     },
     {
@@ -523,8 +523,8 @@
     },
     {
       "path": "docs/releases/2.3.0-beta.1.md",
-      "size": 2262,
-      "sha256": "7204a7bdc63d0ae6adcc23eafcc9b4664cbab98641a1a5ac6adcfba277a71c1b",
+      "size": 2307,
+      "sha256": "635be5c3b9d562193f2986271a0b3a8f2a596929c03d43e1a6f2ac22a32ba367",
       "mode": "100644"
     },
     {

@@ -56,3 +56,7 @@ old alpha verification never substitutes for this changed runtime.
 
 On 2026-11-01 the owner explicitly kept 2.3.0-beta.1 staged after native checks
 passed. Do not retry publication or authentication until the owner resumes it.
+
+On 2026-11-02 the owner resumed manual publication of the same frozen beta
+artifact. Authentication and a fresh anonymous registry install remain required;
+no package bytes or successful native-CI provenance were changed.
