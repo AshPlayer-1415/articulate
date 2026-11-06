@@ -1,4 +1,7 @@
-# Test the alpha
+# Test Articulate
+
+To let your coding agent run the published npm pilot checks, use the copy-paste
+prompt and the report template. [Agent-led pilot guide](agent-pilot.md)
 
 Start with a non-sensitive project and one agent. Confirm version, grant, scope
 and matching analysis/policy revisions. Then try more agents with that project.

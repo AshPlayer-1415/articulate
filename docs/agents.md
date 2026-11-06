@@ -1,5 +1,8 @@
 # Connect your agents
 
+For a first test of the published npm pilot, start with the copy-paste prompt.
+[Agent-led pilot guide](agent-pilot.md)
+
 Run `articulate project /path/to/repository` or `articulate all`, review your
 preferences, then run `articulate connect`. Each host gets a separate client
 identity and grant, reading the same reviewed local profile within its scope.
@@ -43,7 +46,9 @@ integration; the CLI fails instead of rewriting unsupported syntax.
 For manual setup, use the generated connection files in your local `connections`
 folder. Keep the exact client ID, data directory and credential-file path together.
 Do not paste credential contents into config or chat. Use the absolute Node and
-server paths generated on your own machine, not somebody else's connection file.
+server paths generated on your own machine. To open the local permission page,
+run `articulate client permissions --id CLIENT_ID` with the ID from the generated
+settings for that host.
 
 Verification prompt:
 

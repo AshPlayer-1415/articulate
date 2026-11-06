@@ -73,8 +73,8 @@
     },
     {
       "path": "README.md",
-      "size": 5785,
-      "sha256": "4921c29be9152f62918bc93e2e3d5363c7a4bd9a9c9e13a5ede0e2a4dcf33078",
+      "size": 5902,
+      "sha256": "6530e8df6020d665391f039e4f3e07ccdd0c307ca32b9c67b51296b71c9617f7",
       "mode": "100644"
     },
     {
@@ -456,9 +456,15 @@
       "mode": "100644"
     },
     {
+      "path": "docs/agent-pilot.md",
+      "size": 6042,
+      "sha256": "ac552aa85dfbec2b5a4381de9420fa133ac0669445fc8bbcd5b9d77dceb477e3",
+      "mode": "100644"
+    },
+    {
       "path": "docs/agents.md",
-      "size": 4343,
-      "sha256": "be0f0ee66307db94eb300602fc90d15c42cc822232234f821db238128019102f",
+      "size": 4567,
+      "sha256": "88a31eaac1fc29c79df21d58459a4ba3fe28c37a26af1c3396eb6fb1879a9c8c",
       "mode": "100644"
     },
     {
@@ -505,8 +511,8 @@
     },
     {
       "path": "docs/releases/0.0.1.md",
-      "size": 1837,
-      "sha256": "9ba57e7bfd8b3eedb0f150c2fc9735e448eb4af1316b952c3c35c445e39ce126",
+      "size": 2073,
+      "sha256": "596d9cdd028781a657d9cb21ace352afcf11758d4bba10bafd98d5e79dc4d4e5",
       "mode": "100644"
     },
     {
@@ -553,14 +559,14 @@
     },
     {
       "path": "docs/setup.md",
-      "size": 2222,
-      "sha256": "eb2a39ee73dea196810de17e23738c0f968934a520a468cec157707daa0c6788",
+      "size": 2331,
+      "sha256": "b30b866d4a3cf7ab7ab436e7da655483150ca0e27a3e952b33bce2304aedb9c4",
       "mode": "100644"
     },
     {
       "path": "docs/testing.md",
-      "size": 1680,
-      "sha256": "b095310ad6ac176ddc7a346cdae740ef37e60ac14ebd948effb53ce9afc0cbdd",
+      "size": 1834,
+      "sha256": "6df57323676e648974ab621bebad22bdb5cc74f7b25caa9b684852652683d8ef",
       "mode": "100644"
     },
     {

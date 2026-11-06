@@ -5,7 +5,7 @@ import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 export const ORIGIN='https://github.com/AshPlayer-1415/articulate.git';
 export const BASE='cfb7da3cb1287acc243058ef93a4538622e225a8';
-export const SOURCE_LIST_SHA256='959477b1461b9413b9a3f99276b587dee038fb3ff31a1486c4dbead79352195b';
+export const SOURCE_LIST_SHA256='30385d7be30d96270510a61acc7ad2412231f81e9fbc3befb296c52b289b27f3';
 export const MANUAL_NPM_PUBLICATION={"name":"articulate-local","version":"0.0.1","publisher":"ash-player3.1415","registry":"https://registry.npmjs.org/","tag":"pilot","access":"public","artifactSha256":"46f6f18052ec673643577f3c077c23a9a67be902d6edb2269de101c9e78cc0fc","payloadFiles":7,"requiresSuccessfulCI":true,"successfulRuntimeCiRun":42185188318,"verifiedRuntimeArchiveSha256":"46f6f18052ec673643577f3c077c23a9a67be902d6edb2269de101c9e78cc0fc","runtimeServerSha256":"cd2ee8cc26c970eab8b962f44b88529ea3299d507cf2e706f23a0708059a5402","runtimeSourceCommit":"2a8958c1f5ac9b7dcbd394795e02d24926d67a96","nonRuntimeDelta":[],"ownerPublicationHold":false};
 export const CONTROLS=['AGENTS.md','release-policy.json','scripts/check-release-boundary.mjs','test/release-boundary.test.mjs'];
 export const sha256=bytes=>createHash('sha256').update(bytes).digest('hex');

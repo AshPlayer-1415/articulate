@@ -1,5 +1,8 @@
 # Setup and test a connection
 
+For the published npm pilot, start with the copy-paste test prompt.
+[Agent-led pilot guide](agent-pilot.md)
+
 1. Follow the README build instructions and keep `dist/local` in a stable folder.
 2. Run `node dist/local/bin/articulate.mjs project /absolute/path/to/repository`
    or `node dist/local/bin/articulate.mjs all`. Choose the scope and review the

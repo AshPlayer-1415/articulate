@@ -19,6 +19,9 @@ Current task instructions override stored presentation preferences.
 
 ## Install from npm
 
+**Testing with Claude, Cursor or Codex?** Give your agent the copy-paste prompt.
+[Agent-led pilot guide](docs/agent-pilot.md)
+
 Use a supported patched Node.js release. The minimum patches are 22.23.4,
 24.22.2 and 26.13.0 for their respective Node lines.
 
@@ -28,8 +31,8 @@ articulate
 ```
 
 Run `articulate` from your test project folder. Choose **One project** to review
-preferences, then use `articulate connect` to link an agent. An npm account is
-only needed to publish. On Windows, `npm.cmd` and `articulate.cmd` work when
+preferences and follow the prompts to connect an agent. Install from npm
+without an account. On Windows, `npm.cmd` and `articulate.cmd` work when
 PowerShell's script policy blocks the shims.
 
 For a one-time launch, run `npx articulate-local@pilot`. Use the global install
