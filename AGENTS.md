@@ -89,3 +89,9 @@ The manual scope is articulate-local@0.0.1, pilot, public, publisher
 ash-player3.1415, SHA-256
 46f6f18052ec673643577f3c077c23a9a67be902d6edb2269de101c9e78cc0fc.
 Publication awaits the owner's npm sign-in and browser approval.
+
+On 2026-11-06 npm accepted the owner-approved 0.0.1 pilot publication.
+Anonymous npm install and npx verification matched the canonical archive.
+The completed scope is recorded in docs/releases/0.0.1-verification.json.
+Short setup uses npm i -g articulate-local@pilot. Future versions require a new
+scope and approval. Keep registry authentication records private.

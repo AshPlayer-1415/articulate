@@ -1,14 +1,14 @@
 # Profiles and versioned shortcuts
 
-Testing beta: 2.3.0-beta.1, published on npm's `beta` tag. Install with
-`npm install --global articulate-local@beta` or pin `articulate-local@2.3.0-beta.1`.
-The older 2.2.0-alpha.7 does not include these commands. Do not use this beta for
-production data.
+The 0.0.1 pilot includes profiles and shortcuts. Install with
+`npm i -g articulate-local@pilot`. The earlier 2.3.0-beta.1 also supports these
+features and is available with `npm i -g articulate-local@beta`.
 
 ## Start with one profile
 
 1. Update Articulate in every connected app. Reload its MCP connection and check
-   `articulate_status` reports 2.3.0-beta.1. Close old servers before continuing.
+   `articulate_status` reports the installed version, 0.0.1 for the pilot or
+   2.3.0-beta.1 for the beta. Close old servers before continuing.
 2. Run `articulate modes` (or choose **Profiles & shortcuts** in `articulate`).
 3. Choose **Create a profile**. Give it a name, such as Work or Personal, select
    its projects and task focus, and enter preferences you have reviewed.

@@ -40,7 +40,7 @@ Published on 2026-11-02: `articulate-local@2.3.0-beta.1`, installed explicitly
 with `npm install --global articulate-local@beta`. Alpha/latest stay on
 2.2.0-alpha.7. The [public receipt](releases/2.3.0-beta.1-verification.json) records
 the successful native run, canonical archive, registry integrity and anonymous
-install checks. The exact manual publication scope stays pinned in release-policy.json.
+install checks. The historical beta publication scope remains in Git history.
 Do not republish immutable versions or reuse their CI for a changed runtime.
 Prepare a new exact policy and owner authorization for another version.
 Authentication/2FA belongs in the owner's terminal/browser, never in chat or
@@ -64,3 +64,9 @@ no package bytes or successful native-CI provenance were changed.
 
 The owner resumed and approved publication on 2026-11-02. The frozen beta was
 published and anonymous registry verification passed; the earlier hold is historical.
+
+On 2026-11-06 the owner published the verified 0.0.1 friend pilot under `pilot`.
+Use `npm i -g articulate-local@pilot` for persistent testing. The current release
+policy pins this exact artifact. All nine native jobs passed and anonymous npm
+installation and direct npx execution passed after tag propagation.
+[0.0.1 publication receipt](releases/0.0.1-verification.json)

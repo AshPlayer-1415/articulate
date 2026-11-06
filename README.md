@@ -17,6 +17,30 @@ Claude Desktop can consume the profile; its chat history is not an import source
 personality or learning rate, and does not establish improved factual accuracy.
 Current task instructions override stored presentation preferences.
 
+## Install from npm
+
+Use a supported patched Node.js release. The minimum patches are 22.23.4,
+24.22.2 and 26.13.0 for their respective Node lines.
+
+```sh
+npm i -g articulate-local@pilot
+articulate
+```
+
+Run `articulate` from your test project folder. Choose **One project** to review
+preferences, then use `articulate connect` to link an agent. An npm account is
+only needed to publish. On Windows, `npm.cmd` and `articulate.cmd` work when
+PowerShell's script policy blocks the shims.
+
+For a one-time launch, run `npx articulate-local@pilot`. Use the global install
+to keep agent connection paths stable. The npm name `articulate` belongs to a
+document preparation package. [npm listing for articulate](https://www.npmjs.com/package/articulate)
+
+The `pilot` tag selects 0.0.1. You can pin it with `npm i -g articulate-local@0.0.1`.
+[Package on npm](https://www.npmjs.com/package/articulate-local/v/0.0.1) ·
+[Tester steps](docs/releases/0.0.1.md) ·
+[Verification receipt](docs/releases/0.0.1-verification.json)
+
 ## Install from this repository
 
 Use a supported, patched Node.js 22, 24 or 26 release and Git. Run these commands in Terminal
@@ -83,33 +107,6 @@ Read [profiles and shortcuts](docs/work-modes.md) before creating the first prof
 Update every connected server first: profile creation explicitly upgrades local
 storage to schema 2, which older Articulate binaries refuse. Your General profile
 stays separate; new profiles are not automatically shared or merged into it.
-
-## npm distribution
-
-**Published beta:** [articulate-local 2.3.0-beta.1](https://www.npmjs.com/package/articulate-local/v/2.3.0-beta.1).
-The source is public for testing. Installing the npm runtime does not need GitHub
-access or an npm account. The package README is self-contained.
-
-```sh
-npm install --global articulate-local@beta
-articulate
-```
-
-For an exact version, use `articulate-local@2.3.0-beta.1`. The older `alpha` and
-`latest` tags remain on 2.2.0-alpha.7; choose `@beta` for profiles and shortcuts.
-
-Then run `articulate connect` to install host settings and approve selected
-clients. Use a supported, patched Node LTS release. The package named `articulate`
-is unrelated; our package is `articulate-local` and its command is `articulate`.
-
-No stable release is available. [Native runtime CI passed](https://github.com/AshPlayer-1415/articulate/actions/runs/41286674147)
-for the exact beta artifact; a fresh anonymous registry installation also passed.
-See the [publication receipt](docs/releases/2.3.0-beta.1-verification.json) and
-[release notes](docs/releases/2.3.0-beta.1.md). A later source checkout may differ
-from the published package.
-
-See the [maintainer checklist](docs/PUBLIC-RELEASE-CHECKLIST.md) for exact scope and
-evidence. No workflow publishes packages or changes repository visibility.
 
 ## Development and feedback
 

@@ -1,0 +1,46 @@
+{
+  "name": "articulate-local",
+  "version": "0.0.1",
+  "publishedAt": "2026-11-06T08:19:47.262Z",
+  "publisher": "ash-player3.1415",
+  "tags": {
+    "alpha": "2.2.0-alpha.7",
+    "latest": "2.2.0-alpha.7",
+    "beta": "2.3.0-beta.1",
+    "pilot": "0.0.1"
+  },
+  "dist": {
+    "tarball": "https://registry.npmjs.org/articulate-local/-/articulate-local-0.0.1.tgz",
+    "integrity": "sha512-sSJI5J06HfE9oBMrSKZoO5hGy69lu9dZB0y5M7wpzZBHJb9hfj5uxKykUNTeWd7tZZ16iiAnRVoq/eLIHd5EBg==",
+    "shasum": "7a355d5bc47eb6308e620ce5caa1542c84ffdb94"
+  },
+  "publishedLocalDate": "2026-11-06",
+  "localTimezone": "America/Los_Angeles",
+  "archiveSha256": "46f6f18052ec673643577f3c077c23a9a67be902d6edb2269de101c9e78cc0fc",
+  "runtimeSourceCommit": "2a8958c1f5ac9b7dcbd394795e02d24926d67a96",
+  "nativeCiRun": 42185188318,
+  "payloadFiles": {
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "NOTICE": "e016bd2442fc43c339c193246839d3e5ad1b54e0b102da4f9decc4b1b4115165",
+    "README.md": "35c0641e05ee298e4818bd8b97f8ca2098901c9332b03f3b17227b28a2f6c146",
+    "THIRD_PARTY_NOTICES.txt": "1b701eb5b7b9a2b29d63cdb6619b9e13b0d756e50231ecaf215b1aaf7eaf33ef",
+    "bin/articulate.mjs": "bdcdd18e18721896530bef3ccf2f44ceba362fd3f31158b9b1a39d391782a512",
+    "package.json": "1c59c87eea9859a9df96056707b9884ed5a851f3a13157bd2877e21793022b3d",
+    "server/index.mjs": "cd2ee8cc26c970eab8b962f44b88529ea3299d507cf2e706f23a0708059a5402"
+  },
+  "anonymousRegistryVerification": {
+    "passed": true,
+    "platform": "darwin",
+    "arch": "arm64",
+    "syntheticOnly": true,
+    "checks": [
+      "public pilot tag, publisher and exact CI tarball/SRI match; alpha stays unchanged",
+      "short npm i -g articulate-local@pilot installs all seven verified files without credentials",
+      "installed command and self-contained beta/profile/migration guide work",
+      "registry-installed MCP retrieves an approved profile and pinned shortcut without a General profile",
+      "npx articulate-local@pilot infers the CLI binary without an account or GitHub access",
+      "temporary managed data erasure leaves no profile or modes"
+    ]
+  },
+  "registryPropagation": "The first npm install returned ETARGET after publication metadata appeared. Fresh-cache installation passed once npm install metadata exposed pilot."
+}

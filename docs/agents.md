@@ -52,7 +52,8 @@ Verification prompt:
 > version, client name/sharing, revisions, coverage and applied preference IDs.
 > Do not import history, save preferences or edit files during the test.
 
-Expected beta version: **2.3.0-beta.1**. For General-profile calls, policy and
+Expect **0.0.1** for the pilot or **2.3.0-beta.1** for the beta. For General-profile
+calls, policy and
 analysis memory revisions should agree. A missing tool usually means an old
 server/extension is loaded, not that its result can be invented.
 
