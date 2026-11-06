@@ -82,3 +82,10 @@ articulate-local, public access and a dedicated pilot tag at registry.npmjs.org.
 The previous alpha, beta and latest tags remain pinned to their current versions.
 Fresh native CI and exact seven-file artifact verification gate this publication.
 Keep all source isolation, root privacy and manual browser authorization controls.
+
+The 2026-11-06 pilot passed native run 42185188318 for source
+2a8958c1f5ac9b7dcbd394795e02d24926d67a96. The local and CI archives match.
+The manual scope is articulate-local@0.0.1, pilot, public, publisher
+ash-player3.1415, SHA-256
+46f6f18052ec673643577f3c077c23a9a67be902d6edb2269de101c9e78cc0fc.
+Publication awaits the owner's npm sign-in and browser approval.
