@@ -85,8 +85,8 @@
     },
     {
       "path": "adapters/claude/mcpb/manifest.json",
-      "size": 2259,
-      "sha256": "e0cef9ce59b4437ed049bf736607a6761e79582b422057943ab512bd54a120f3",
+      "size": 2252,
+      "sha256": "51dc40128a766f9815e102d4eef26829fac089a0c71d390fb8d9fdd6864d8cca",
       "mode": "100644"
     },
     {
@@ -331,8 +331,8 @@
     },
     {
       "path": "apps/mcp/package.json",
-      "size": 620,
-      "sha256": "aa9c8227bdad5293b5a9bd8d05b516545209571db85b6e9cdfa908b60ac5106d",
+      "size": 613,
+      "sha256": "85d284aa78aa460e7452801a154cba35e9083bbe031669bd11073130719ff99f",
       "mode": "100644"
     },
     {
@@ -498,6 +498,12 @@
       "mode": "100644"
     },
     {
+      "path": "docs/releases/0.0.1.md",
+      "size": 1198,
+      "sha256": "a7d4c09d0c0e7569b8b8324c48684f52fa51cd2b994fb6d84abfd01cf4d776aa",
+      "mode": "100644"
+    },
+    {
       "path": "docs/releases/2.2.0-alpha.5.md",
       "size": 619,
       "sha256": "731190f68e3020edb69be7b7a999428c3f5b29c0bd51797850caba7a10fc4bfc",
@@ -565,14 +571,14 @@
     },
     {
       "path": "package-lock.json",
-      "size": 22929,
-      "sha256": "077bb1dc5a006dd069a31171210e47305c0150f30e947a80c742669d9bbc6d78",
+      "size": 22908,
+      "sha256": "5845fde3ed73bec9c2c0d832e629e72561ba8899e59acf975b15b2a92d2ce55c",
       "mode": "100644"
     },
     {
       "path": "package.json",
-      "size": 1537,
-      "sha256": "8640f3956ef10bf4d7aa6912ae0df54a62dc7802262004aeb3211dc904a04315",
+      "size": 1530,
+      "sha256": "1d6f6dbe24c985a88f01ecadeb7a54fd472ba4721dfc2ff2b9c6a4fd5567b304",
       "mode": "100644"
     },
     {
@@ -949,8 +955,8 @@
     },
     {
       "path": "release.json",
-      "size": 76,
-      "sha256": "7081727b7d80c3826e7b308e51f3e8fa0b47419f41ec87a51ec9ead5e577e9df",
+      "size": 62,
+      "sha256": "d1ecae408b829e96e2383c311e7965aa4225bc7d6b588ddfd91af0f47447047a",
       "mode": "100644"
     },
     {

@@ -75,3 +75,10 @@ archive/SRI and seven installed file hashes passed anonymous registry checks.
 Alpha/latest remain 2.2.0-alpha.7. The earlier hold is historical. This completes
 the one-version manual scope; it does not authorize another version, retagging
 other channels, unattended publication or live-profile migration.
+
+On 2026-11-06 the owner requested an npm-installable 0.0.1 release for a friend.
+Prepare the same features as 2.3.0-beta.1 with 0.0.1 release metadata. Use
+articulate-local, public access and a dedicated pilot tag at registry.npmjs.org.
+The previous alpha, beta and latest tags remain pinned to their current versions.
+Fresh native CI and exact seven-file artifact verification gate this publication.
+Keep all source isolation, root privacy and manual browser authorization controls.
