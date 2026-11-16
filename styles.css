@@ -185,3 +185,10 @@ code { font:14px "Anonymous Pro",ui-monospace,SFMono-Regular,Consolas,monospace;
   .visual-topline { font-size:9px; } .command-line code { font-size:14px; }
   .hero-actions { gap:20px; } .eyebrow { letter-spacing:1px; }
 }
+
+.cloud-preview { display:flex; align-items:center; gap:40px; padding-block:24px; border-bottom:1px solid var(--line); }
+.cloud-preview p { margin:0; color:var(--muted); font-size:15px; }
+.cloud-preview p:first-child { flex:1 0 48%; }
+.cloud-preview strong { display:block; color:var(--ink); font-size:18px; font-weight:500; }
+.cloud-preview span { display:block; color:var(--green); margin-top:5px; }
+@media(max-width:760px) { .cloud-preview { display:block; } .cloud-preview p+p { margin-top:16px; } }
