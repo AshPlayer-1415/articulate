@@ -192,3 +192,6 @@ code { font:14px "Anonymous Pro",ui-monospace,SFMono-Regular,Consolas,monospace;
 .cloud-preview strong { display:block; color:var(--ink); font-size:18px; font-weight:500; }
 .cloud-preview span { display:block; color:var(--green); margin-top:5px; }
 @media(max-width:760px) { .cloud-preview { display:block; } .cloud-preview p+p { margin-top:16px; } }
+
+.hero-actions .text-link,.section-action .text-link { display:inline-flex; align-items:center; min-height:44px; }
+.section-action { margin:24px 0 0; }
