@@ -32,3 +32,14 @@ with their original colors and proportions. Descriptive use only.
   — unmodified original SVG. Brand guidance: https://cursor.com/brand.
 
 Recheck vendor guidance before reusing these marks for a different purpose.
+
+## Walkthrough screenshots
+
+The six PNG files in `assets/guide/` are first-party documentation captures.
+Terminal views use Articulate's actual terminal renderers with isolated demo
+inputs. Browser views use the account interface with simulated API responses.
+John Smith, Sample Studio, the project path, link and code are fictional demo
+values. These captures show the account-connected development preview; they
+are not records of a real person's account or evidence of a public npm release.
+No source history, credentials, user screenshots or personal browser chrome
+were included. The code image explicitly reads DEMO-CODE-ONLY.

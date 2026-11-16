@@ -26,3 +26,7 @@ OAuth callbacks require the separately configured allowed URL; a local preview
 alone does not prove real provider sign-in or native account activation.
 
 Support: hello@i-ops.dev
+
+The static `/how-it-works/` visual guide and `/docs/` explain local setup and
+the account-connected preview separately. The six `assets/guide/` screenshots
+use synthetic demo inputs; they contain no owner screenshots or live codes.
