@@ -1,26 +1,28 @@
-# Articulate website
+# Articulate public website
 
-Public presentation-only website for Articulate, a local-first coding-agent pilot.
+Public browser frontend for Articulate. The marketing homepage and `/connect/`
+account connection page use the same text-only branding and self-hosted fonts.
+Canonical homepage: https://ashplayer-1415.github.io/articulate/.
 
-This repository contains only the website's HTML, CSS and presentation JavaScript.
-It does not contain the product runtime, MCP server, account application,
-authentication SDK, backend, database schema, credentials, user data or private
-development history. The profile examples are fictional presentation copy.
+The connection page supports managed Google/GitHub sign-in, first-use name/work/
+role questions, returning-user welcome, and a temporary encrypted CLI handoff.
+Its JavaScript and public Supabase configuration are necessarily visible in the
+browser. They contain no provider client secret, administrative key, MCP runtime,
+analysis engine, database migration, server-side implementation, user record or
+private development history. Server authorization is enforced in Supabase.
+Browser software notices are in `connect/THIRD-PARTY.txt`; font/mark credits are
+in `ASSETS.md`. The homepage has no analytics or account-service calls; the
+connection page makes the account requests described in `privacy.html`.
 
-The canonical homepage is https://ashplayer-1415.github.io/articulate/.
-This website-only repository is the source of truth. Its exact reviewed static
-files are also published on the isolated `gh-pages` branch of the existing public
-`AshPlayer-1415/articulate` repository, giving the shorter project-site path.
-That branch has independent website-only history; product branches are not merged
-into it. The `main` branch here also serves the original `/articulate-website/` URL. No build step, package install,
-framework or external asset service is required. Fonts and agent icons are
-self-hosted; provenance and font licenses are in `ASSETS.md` and `assets/fonts/`. Relative asset links let the
-website move to a custom domain or another static host later. Account sign-in is
-a separate application and is not implemented by this landing page.
+This website-only repository is the source of truth. The same reviewed static
+snapshot is mirrored to the independent `gh-pages` branch of the public release
+repository to serve `/articulate/`. Product branches are never merged into it.
+The original `/articulate-website/` homepage remains for old links; native login
+uses only the canonical `/articulate/connect/` OAuth callback.
 
-To preview locally, run `python3 -m http.server 4190 --bind 127.0.0.1` in this
-directory, then open `http://127.0.0.1:4190/`. The website does not collect analytics
-or contact form submissions. GitHub Pages has its own security request logging;
-see the public privacy notes.
+No build step or dependency installation is needed to serve these reviewed
+browser assets. Preview with `python3 -m http.server 4190 --bind 127.0.0.1`.
+OAuth callbacks require the separately configured allowed URL; a local preview
+alone does not prove real provider sign-in or native account activation.
 
 Support: hello@i-ops.dev
