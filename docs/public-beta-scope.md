@@ -1,17 +1,19 @@
-# Public testing beta scope
+# Public early-access scope
 
-This is a work-in-progress testing beta, not ready for general public/production
-use. Public source allows volunteers to inspect behavior, reproduce problems and
-exercise cross-platform CI. It does not establish security certification, broad
-agent compatibility, learning gains or the correctness of inferred preferences.
+Articulate is open for people to try, inspect and contribute to. The local pilot
+is an evolving early-access release: review proposed preferences, check results
+on real tasks and use [Discussions](https://github.com/AshPlayer-1415/articulate/discussions)
+for questions and feedback. Early access does not establish security certification,
+all-agent compatibility, learning gains or correctness of inferred preferences.
 
 ## Included
 
-Source required for the local CLI/MCP and optional local analysis, exact dependency
-metadata, build/package scripts, synthetic tests, pinned CI, licenses/notices,
-user setup/agent/privacy/testing docs, security guidance and maintainer guards.
-Source and npm versions can differ. The staged source is alpha.8; the published
-npm alpha remains alpha.7 until a separate reviewed publication succeeds.
+The public repository contains CLI/MCP source, optional local analysis, dependency
+metadata, build/package scripts, synthetic checks, CI configuration, license/notices
+and user/contributor guides. The public npm pilot is `articulate-local@0.0.1` under
+`pilot`; see [its verification receipt](releases/0.0.1-verification.json).
+Account-connected previews and newer profile work shown on the website may be
+newer than that package. See [the roadmap](roadmap.md).
 
 ## Excluded
 

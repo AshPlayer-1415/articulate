@@ -1,8 +1,9 @@
-# Public testing beta checklist
+# Public early-access maintenance checklist
 
 On 2026-10-31 the owner authorized this clean repository becoming public for
-volunteer testing and standard public GitHub Actions. It is not ready for general
-public/production use. The separate development repository remains private.
+early-access participation and standard public GitHub Actions. On 2026-11-16 the
+owner requested welcoming public project pages and community setup. The separate
+development repository remains private.
 No workflow changes visibility or publishes npm/container/registry artifacts.
 
 ## Public contents and privacy
@@ -24,7 +25,7 @@ No workflow changes visibility or publishes npm/container/registry artifacts.
 
 ## Verification gates
 
-- README and future package README prominently identify the testing beta.
+- README and future package README identify the current early-access status.
 - Read actual native CI results for the current commit; a workflow file or older
   build's pass does not verify changed bytes.
 - Test real agent UI install/reload on a Mac and Windows machine. Linux CLI and

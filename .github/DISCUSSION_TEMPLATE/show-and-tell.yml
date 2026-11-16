@@ -1,0 +1,24 @@
+title: "[Workflow] "
+body:
+  - type: markdown
+    attributes:
+      value: Share only material you have permission to publish. Use synthetic profile text and hide private paths, conversations and credentials.
+  - type: textarea
+    id: workflow
+    attributes:
+      label: What did you use Articulate for?
+    validations:
+      required: true
+  - type: textarea
+    id: useful
+    attributes:
+      label: What worked, and what still needed correction?
+    validations:
+      required: true
+  - type: textarea
+    id: reusable
+    attributes:
+      label: A small reusable example
+      description: Optional, anonymized preference or setup tip. Please do not attach a full profile export.
+    validations:
+      required: false

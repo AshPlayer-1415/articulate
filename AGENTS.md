@@ -95,3 +95,13 @@ Anonymous npm install and npx verification matched the canonical archive.
 The completed scope is recorded in docs/releases/0.0.1-verification.json.
 Short setup uses npm i -g articulate-local@pilot. Future versions require a new
 scope and approval. Keep registry authentication records private.
+
+On 2026-11-16 the owner requested public repository cleanup: welcoming early-access
+wording, website links and a configured community with Discussions, issue forms
+and contributor guidance. This supersedes the earlier requirement to say the
+project is not ready for the general public. Keep honest evolving-release limits.
+This authorizes public documentation/community changes, not a new npm package,
+private source/history transfer, visibility change or live-profile migration.
+The website has an independently maintained gh-pages branch; the main-only push
+guard may recognize that existing branch but must permit pushes only to main
+and reject unknown refs. Product and website histories stay separate.

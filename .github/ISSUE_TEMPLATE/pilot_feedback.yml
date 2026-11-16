@@ -1,0 +1,38 @@
+name: Pilot feedback
+description: Share what helped, what required correction, or where setup got confusing.
+title: "[Feedback]: "
+labels: [pilot-feedback, needs-triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the experience in your own words. Keep conversations, profiles,
+        private code and credentials out of this public report. An anonymized
+        task description is enough; do not upload your activity data.
+  - type: input
+    id: setup
+    attributes:
+      label: Version and setup
+      description: Articulate version, OS and agent you tried.
+    validations:
+      required: true
+  - type: textarea
+    id: task
+    attributes:
+      label: What were you trying to do?
+    validations:
+      required: true
+  - type: textarea
+    id: experience
+    attributes:
+      label: What helped or got in the way?
+      description: Include any repeated correction or confusing setup step.
+    validations:
+      required: true
+  - type: textarea
+    id: correctness
+    attributes:
+      label: Were any facts or task requirements lost?
+      description: Separate factual problems from a response format you did not prefer.
+    validations:
+      required: false

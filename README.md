@@ -1,21 +1,39 @@
-# Articulate
+# articulate.
 
-> **Testing beta — not ready for general public or production use.**
-> This repository is public so volunteers can inspect and test the work in progress.
-> Expect bugs and incomplete coverage. Historical inference is experimental;
-> review every proposed preference and keep backups. Public source availability
-> does not mean a stable release or verified support for every agent/platform.
+**Context for the way you understand and work.**
 
-One reviewed understanding of how you work, shared with your coding agents.
+[Website](https://ashplayer-1415.github.io/articulate/) ·
+[How it works](https://ashplayer-1415.github.io/articulate/how-it-works/) ·
+[Docs](https://ashplayer-1415.github.io/articulate/docs/) ·
+[Discussions](https://github.com/AshPlayer-1415/articulate/discussions) ·
+[npm](https://www.npmjs.com/package/articulate-local)
 
-Articulate is a local CLI and MCP server for reviewed collaboration preferences.
-It detects available Codex, Claude Code and Cursor activity for one repository or
-across projects. You review suggestions, then choose which clients may use them.
-Claude Desktop can consume the profile; its chat history is not an import source.
+Articulate helps you build reviewed working profiles and carry useful preferences
+between coding agents. Keep the way you want to collaborate alongside the context
+of your work, and choose which agents may receive it.
 
-**Testing beta:** historical inference is experimental. It does not measure intelligence,
-personality or learning rate, and does not establish improved factual accuracy.
-Current task instructions override stored presentation preferences.
+**Public early access.** You’re welcome to try the local pilot, ask questions,
+share feedback and contribute. The current npm pilot is **0.0.1**. Features are
+still evolving; review suggested preferences before using them. See the
+[release scope](docs/public-beta-scope.md) for current capabilities and limits.
+
+## Why Articulate?
+
+Two people can read the same explanation and need different ways into it: an
+example, clear steps or the reasoning behind a decision. That can change with
+the task and what they already know.
+
+Articulate makes those working preferences explicit and portable. A profile can
+help an agent know how to approach the work with you; project context supplies
+what the work is about. You stay in control of what is saved and shared.
+
+It runs as a local CLI and MCP server. It can use available Codex, Claude Code
+and Cursor activity for one repository or across projects. You review suggestions,
+then grant access separately to each client. Claude Desktop can consume reviewed
+context; its cloud chat history is not an import source.
+
+Preferences guide presentation and collaboration. They do not measure intelligence
+or establish improved factual accuracy. Your current request always takes priority.
 
 ## Install from npm
 
@@ -111,7 +129,26 @@ Update every connected server first: profile creation explicitly upgrades local
 storage to schema 2, which older Articulate binaries refuse. Your General profile
 stays separate; new profiles are not automatically shared or merged into it.
 
-## Development and feedback
+## Join the community
+
+- **Questions and setup:** [Q&A](https://github.com/AshPlayer-1415/articulate/discussions/categories/q-a).
+- **Product ideas:** [Ideas](https://github.com/AshPlayer-1415/articulate/discussions/categories/ideas).
+- **What worked for you:** [Show and tell](https://github.com/AshPlayer-1415/articulate/discussions/categories/show-and-tell).
+- **Reproducible bugs:** [open a bug report](https://github.com/AshPlayer-1415/articulate/issues/new/choose).
+- **Vulnerabilities:** [report privately](https://github.com/AshPlayer-1415/articulate/security/advisories/new).
+
+Share a small, anonymized example of the workflow. Keep chats, profile files,
+credentials and login links out of public reports. [Community guidelines](CODE_OF_CONDUCT.md).
+
+## What’s next
+
+We’re improving profile creation, named styles and portable context for agents.
+The public website includes previews of newer account and onboarding work; those
+screens do not mean every preview feature is included in npm pilot 0.0.1.
+Optional cloud services are planned. Follow [Announcements](https://github.com/AshPlayer-1415/articulate/discussions/categories/announcements)
+and [the roadmap](docs/roadmap.md) for the distinction between available and planned work.
+
+## Development
 
 ```sh
 npm run check
@@ -131,3 +168,5 @@ Never attach chats, credentials, profiles, activity databases or consent links.
 Read [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
 
 Apache-2.0: [LICENSE](LICENSE). Bundles include third-party license/notice texts.
+
+A product from [i-ops ↗](https://i-ops.dev/).

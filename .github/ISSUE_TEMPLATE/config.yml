@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Ask a question
+    url: https://github.com/AshPlayer-1415/articulate/discussions/categories/q-a
+    about: Setup and usage questions belong in Q&A.
+  - name: Suggest an idea
+    url: https://github.com/AshPlayer-1415/articulate/discussions/categories/ideas
+    about: Discuss the user problem and proposed experience.
+  - name: Report a vulnerability privately
+    url: https://github.com/AshPlayer-1415/articulate/security/advisories/new
+    about: Please keep security details out of public reports.

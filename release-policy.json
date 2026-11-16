@@ -36,9 +36,45 @@
       "mode": "100644"
     },
     {
-      "path": ".github/ISSUE_TEMPLATE/bug_report.md",
-      "size": 485,
-      "sha256": "6991d62b5cf68387f224581a017fe067b9c0c3caa5b21a8ac7c10a44b8639b64",
+      "path": ".github/DISCUSSION_TEMPLATE/ideas.yml",
+      "size": 616,
+      "sha256": "e9bb771343c7d5971f61c8b46273932ab9eddb34c4d15a0c49c3aa01e191458d",
+      "mode": "100644"
+    },
+    {
+      "path": ".github/DISCUSSION_TEMPLATE/q-a.yml",
+      "size": 619,
+      "sha256": "d5887bd35257178ebc9341c1ce2830d3342bf2de45d2b4a7fde0e39fc1a01281",
+      "mode": "100644"
+    },
+    {
+      "path": ".github/DISCUSSION_TEMPLATE/show-and-tell.yml",
+      "size": 731,
+      "sha256": "18f848cf3a4492cd0a8188e052f571fc9b856f3636eda1e6b33c734cea6c5e99",
+      "mode": "100644"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/bug_report.yml",
+      "size": 1568,
+      "sha256": "240b21adcb1a4b62d5c47d4102aad6e4a7e48e8127f11476d9281d9cae8cb956",
+      "mode": "100644"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/config.yml",
+      "size": 555,
+      "sha256": "18336722041197c98edcce5913606966ff7767cd824c975702c6d74928e53610",
+      "mode": "100644"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/pilot_feedback.yml",
+      "size": 1209,
+      "sha256": "cf86c153d1d37b652ac097d51b62c74510e9bb58140eb2b3dc1da3480734d152",
+      "mode": "100644"
+    },
+    {
+      "path": ".github/pull_request_template.md",
+      "size": 631,
+      "sha256": "06cec6f0dfd9480e9b51c14c31fac03faeaff9ece6125265886a4df7a35543df",
       "mode": "100644"
     },
     {
@@ -54,9 +90,15 @@
       "mode": "100644"
     },
     {
+      "path": "CODE_OF_CONDUCT.md",
+      "size": 1027,
+      "sha256": "433fca26bbc58d7aec8bf93810d5b5bb738c9502a94288ba80deb17b85b524c4",
+      "mode": "100644"
+    },
+    {
       "path": "CONTRIBUTING.md",
-      "size": 1110,
-      "sha256": "1a1f9f69132aad838ed0870f047b8b48b3a82136ef94e2d081d7c9a1693328db",
+      "size": 2253,
+      "sha256": "f5a3739e2c8510bcda7b7937c7bb4d24ece72a514910c0d2d75078099c9bcf7e",
       "mode": "100644"
     },
     {
@@ -73,14 +115,20 @@
     },
     {
       "path": "README.md",
-      "size": 5902,
-      "sha256": "6530e8df6020d665391f039e4f3e07ccdd0c307ca32b9c67b51296b71c9617f7",
+      "size": 7978,
+      "sha256": "c77cfb6c3e9b344a0d5d3c44bbb58e59e90aa3257606b16d4ed9957f37c306f9",
       "mode": "100644"
     },
     {
       "path": "SECURITY.md",
-      "size": 994,
-      "sha256": "bfecba81972c2f9e542b0ce35a839890de04901e1c915d6d809a3f4289a6dac0",
+      "size": 1317,
+      "sha256": "fce5f895b81112cc1251e56c2dba5be9cd0e904edbafbf13607433ba60675a29",
+      "mode": "100644"
+    },
+    {
+      "path": "SUPPORT.md",
+      "size": 1154,
+      "sha256": "3614b5563636a4c5f1888c44bad01cef50f3c6f43f2eccb946cef21684233c05",
       "mode": "100644"
     },
     {
@@ -451,8 +499,8 @@
     },
     {
       "path": "docs/PUBLIC-RELEASE-CHECKLIST.md",
-      "size": 4287,
-      "sha256": "b4f915becb4954ee3ae91ee44474245e39c5d05606ebe33f29daf3a93310ae9d",
+      "size": 4346,
+      "sha256": "f730a79dcf63d2dcb97c9d47f06540f135c6f450e862cf8011f204f17b1e3ebf",
       "mode": "100644"
     },
     {
@@ -469,8 +517,8 @@
     },
     {
       "path": "docs/compatibility-and-scope.md",
-      "size": 5528,
-      "sha256": "03a607092702abe6448536067e9e53e588edfbda683c187066253614d27d1d8b",
+      "size": 5520,
+      "sha256": "938adc6841db52aceb09c80dfcd20e6cc925793060528c1fac1becf4a10f57b3",
       "mode": "100644"
     },
     {
@@ -499,8 +547,8 @@
     },
     {
       "path": "docs/public-beta-scope.md",
-      "size": 2627,
-      "sha256": "5412e7d42390583c6db5fc5261bfcbda8cfa8c51f78c91af0575c777f2c641a6",
+      "size": 2788,
+      "sha256": "9c071dfc201b295017258de4075f475e577accc1a9b624a650abb72bd9b60ab5",
       "mode": "100644"
     },
     {
@@ -555,6 +603,12 @@
       "path": "docs/research/2026-11-01-work-modes.md",
       "size": 5586,
       "sha256": "176306b3ced13ed4354bc92d1dbc1e91916acdeb3d3510a3fb5abe000a5557db",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/roadmap.md",
+      "size": 1543,
+      "sha256": "b4345820e64b4ebcdb54c18f555cbb29dc08042f6062f4c722197c90a3e5a2b9",
       "mode": "100644"
     },
     {

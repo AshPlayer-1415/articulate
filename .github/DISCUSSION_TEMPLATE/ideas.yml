@@ -1,0 +1,22 @@
+title: "[Idea] "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What user problem should this solve?
+      description: Describe the task and friction before suggesting an implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: experience
+    attributes:
+      label: What would a useful experience look like?
+      description: A short example or user journey is welcome. Use fictional details.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives or tradeoffs
+    validations:
+      required: false

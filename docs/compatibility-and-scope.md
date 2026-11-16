@@ -1,6 +1,6 @@
 # Compatibility, failure cases and scope
 
-Articulate's alpha is a local CLI and stdio MCP server for preferences that a
+Articulate is a local CLI and stdio MCP server for preferences that a
 person reviews. A passing connection test establishes transport and permission
 behavior for the tested build. It does not establish that every model follows
 preferences, that answers become more accurate, or that every possible machine

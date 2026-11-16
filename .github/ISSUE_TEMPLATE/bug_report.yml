@@ -1,0 +1,52 @@
+name: Bug report
+description: Report a reproducible problem using a small, anonymized example.
+title: "[Bug]: "
+labels: [bug, needs-triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve Articulate. For usage questions, use Discussions Q&A.
+        Report vulnerabilities privately through SECURITY.md. Do not attach chats,
+        profile files, activity databases, credentials or full login links.
+  - type: input
+    id: versions
+    attributes:
+      label: Articulate and Node versions
+      placeholder: Articulate 0.0.1; Node 24.22.2
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Operating system and agent
+      placeholder: macOS / Windows / Linux; agent name and version
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Use synthetic names and content. Which command or screen triggers the problem?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+      description: A short redacted error is useful. Inspect it before sharing.
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check
+      options:
+        - label: I checked this report for private information, credentials and login links.
+          required: true

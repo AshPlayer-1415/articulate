@@ -1,0 +1,20 @@
+title: "[Question] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Welcome! Check the setup docs at https://ashplayer-1415.github.io/articulate/docs/.
+        Keep private conversations, profile files, credentials and full login links out of your post.
+  - type: textarea
+    id: question
+    attributes:
+      label: What would you like help with?
+    validations:
+      required: true
+  - type: textarea
+    id: tried
+    attributes:
+      label: What have you tried?
+      description: Include a small anonymized example and the relevant versions if helpful.
+    validations:
+      required: false
