@@ -7,8 +7,14 @@ It does not contain the product runtime, MCP server, account application,
 authentication SDK, backend, database schema, credentials, user data or private
 development history. The profile examples are fictional presentation copy.
 
-GitHub Pages serves the root of the `main` branch. No build step, package install,
-framework or external asset service is required. Relative asset links let the
+The canonical homepage is https://ashplayer-1415.github.io/articulate/.
+This website-only repository is the source of truth. Its exact reviewed static
+files are also published on the isolated `gh-pages` branch of the existing public
+`AshPlayer-1415/articulate` repository, giving the shorter project-site path.
+That branch has independent website-only history; product branches are not merged
+into it. The `main` branch here also serves the original `/articulate-website/` URL. No build step, package install,
+framework or external asset service is required. Fonts and agent icons are
+self-hosted; provenance and font licenses are in `ASSETS.md` and `assets/fonts/`. Relative asset links let the
 website move to a custom domain or another static host later. Account sign-in is
 a separate application and is not implemented by this landing page.
 
