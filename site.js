@@ -29,3 +29,19 @@ if (copyButton) copyButton.addEventListener('click', async () => {
     status.textContent = 'Select and copy the highlighted install command.';
   }
 });
+
+// Installation guidance only. A browser cannot inspect the user's Node runtime.
+const nodeCheck = document.getElementById('check-node-version');
+if (nodeCheck) nodeCheck.addEventListener('click', () => {
+  const input = document.getElementById('node-version').value.trim();
+  const result = document.getElementById('node-version-result');
+  const match = /^v?(\d+)\.(\d+)\.(\d+)$/.exec(input);
+  if (!match) { result.textContent = 'Paste a complete version, such as v24.22.3. If node is not found, install Node.js first using the link above.'; return; }
+  const [major, minor, patch] = match.slice(1).map(Number);
+  const minimums = {22: [23, 4], 24: [22, 2], 26: [13, 0]};
+  const minimum = minimums[major];
+  const ready = minimum && (minor > minimum[0] || minor === minimum[0] && patch >= minimum[1]);
+  result.textContent = ready
+    ? 'This Node version meets the current pilot requirement. Check npm --version next, then install Articulate below.'
+    : 'This version does not meet the current pilot requirement. Install the latest Node.js 24 LTS patch, reopen your terminal, then check again. Repeating npm install under the same Node will not fix it.';
+});

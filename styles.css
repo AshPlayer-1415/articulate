@@ -195,3 +195,5 @@ code { font:14px "Anonymous Pro",ui-monospace,SFMono-Regular,Consolas,monospace;
 
 .hero-actions .text-link,.section-action .text-link { display:inline-flex; align-items:center; min-height:44px; }
 .section-action { margin:24px 0 0; }
+
+.setup-steps{padding-left:1.25rem;margin:1.5rem 0;max-width:38rem}.setup-steps li{padding-left:.35rem;margin-bottom:1rem;line-height:1.6}.setup-steps strong{display:block}.setup-steps a{text-decoration:underline;text-underline-offset:3px}.setup-steps code{font-size:.9em}
